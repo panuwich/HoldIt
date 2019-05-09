@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Hold It</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="facebook_app_id">405777550159760</string>
+    <string name="fb_login_protocol_scheme">fb405777550159760</string>
+    <string name="sign_up"><u>SIGN UP</u></string>
+    <string name="sign_up_condition"><u>อ่านเงื่อนไข</u></string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="verification_passport">ขั้นตอนการยืนยันตัวตนด้วยบัตรประชาชน\n
+1.เปิดโหมด NFC ในโทรศัพท์\n
+2.กดปุ่มถ่ายรูป\n
+3.นำกล้องไปสแกนกับแถบ MRZ Number บนหน้าแรกของ Passport\n
+4.หลังจากนั้นนำโทรศัพท์แนบบน Passport\n
+5.รอระบบดึงข้อมูล\n
+6.เมื่อดึงข้อมูลสำเร็จกดยืนยันตัวตน\n
+7.เมื่อยืนยันข้อมูลเสร็จ สามารถใช้งานเป็นผู้รับหิ้วสินค้าได้ทันที</string>
+    <string name="verification_idcard">ขั้นตอนการยืนยันตัวตนด้วยบัตรประชาชน\n
+1.กดปุ่มถ่ายรูปด้านล่าง\n
+2.ถ่ายรูปตนเองคู่กับบัตรประชาชน โดยในภาพถ่ายต้องประกอบไปด้วยหน้าของเจ้าของบัตรประชน และบัตรประชาชนต้องเห็นเลขประจำตัวประชาชน ชื่อ-นามสกุล และ รูปในบัตรประชาชนอย่างชัดเจน\n
+3.เมื่อถ่ายเสร็จ กดปุ่มยืนยันเพื่อส่งข้อมูลไปยังระบบ\n
+4.รอการยืนยันจากทีมงาน</string>
+
+</resources>

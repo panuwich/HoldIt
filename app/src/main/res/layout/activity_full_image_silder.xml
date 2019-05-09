@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ooo.oxo.library.widget.PullBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/puller"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FullImageSilder">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_full_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/dot_full"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+</ooo.oxo.library.widget.PullBackLayout>

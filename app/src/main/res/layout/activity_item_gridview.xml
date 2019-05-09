@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gre"
+    android:orientation="vertical"
+    tools:context=".ItemGridview">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_grid"
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/textView_griditem_event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EVENT NAME"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorWhite"
+            android:textSize="20dp" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_gre"
+        android:gravity="center_horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_itemgrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:horizontalSpacing="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth">
+
+        </android.support.v7.widget.RecyclerView>
+    </ScrollView>
+
+
+</LinearLayout>

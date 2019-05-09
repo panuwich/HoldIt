@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="scuba.scuba">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../scuba/scuba.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

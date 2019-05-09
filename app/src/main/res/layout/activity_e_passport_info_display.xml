@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".ePassportInfoDisplay">
+
+
+    <LinearLayout
+        android:id="@+id/LinerLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/PhotoLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="286dp"
+            android:gravity="center"
+            android:orientation="vertical"
+           >
+
+            <ProgressBar
+                android:id="@+id/loadingPanel"
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:layout_alignEnd="@+id/LinerLayout"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:indeterminate="true" />
+            <TextView
+                android:id="@+id/personalInfoHeader"
+                style="@style/sectionHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/passport_personal_info" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
