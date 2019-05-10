@@ -328,7 +328,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
             CropIntent.putExtra("outputX",300);
             CropIntent.putExtra("outputY",250);
             CropIntent.putExtra("aspectX",4);
-            CropIntent.putExtra("aspectY",3);
+            CropIntent.putExtra("aspectY",3.5);
             CropIntent.putExtra("scaleUpIfNeeded",true);
             CropIntent.putExtra("return-data",true);
 

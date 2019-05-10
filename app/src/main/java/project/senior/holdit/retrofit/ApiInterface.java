@@ -39,7 +39,8 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("addaddress.php")
-    Call<ResponseModel> addaddress(@Field("name") String name,
+    Call<ResponseModel> addaddress(@Field("id") int id,
+                                   @Field("name") String name,
                                    @Field("user_id") int user_id,
                                    @Field("postcode") int postcode,
                                    @Field("province") String province,
@@ -51,6 +52,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("getdeafultaddress.php")
     Call<Address> readdefaultaddress(@Field("user_id") int userId) ;
+
+    @FormUrlEncoded
+    @POST("deladdress.php")
+    Call<ResponseModel> deladdress(@Field("id") int id) ;
 
     @FormUrlEncoded
     @POST("event/readitem.php")

@@ -1,13 +1,16 @@
 package project.senior.holdit.event;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import project.senior.holdit.R;
@@ -35,6 +38,7 @@ public class AddressSelect extends AppCompatActivity {
                 startActivity(new Intent(AddressSelect.this,AddAddress.class));
             }
         });
+
     }
 
     @Override
@@ -50,10 +54,31 @@ public class AddressSelect extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<Address>>() {
                          @Override
                          public void onResponse(Call<ArrayList<Address>> call, Response<ArrayList<Address>> response) {
-                             ArrayList<Address> res = response.body();
+                             final ArrayList<Address> res = response.body();
                              AddrListAdapter addrListAdapter = new AddrListAdapter(AddressSelect.this
-                                     ,R.layout.detail_item_addr,res,100);
+                                     ,R.layout.detail_item_addr,res);
                              listView.setAdapter(addrListAdapter);
+
+                             final Intent getIntent = getIntent();
+                             final Integer req = getIntent.getIntExtra("requestCode",-1);
+                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                 @Override
+                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                     Address addr = (Address)res.get(i);
+                                     if(req == 100){
+                                         Intent returnIntent = new Intent();
+                                         returnIntent.putExtra("addr",(Serializable) addr);
+                                         setResult(Activity.RESULT_OK,returnIntent);
+                                         finish();
+                                     }else{
+                                         Intent intent = new Intent(AddressSelect.this,AddAddress.class);
+                                         intent.putExtra("addr",(Serializable) addr);
+                                         intent.putExtra("requestCode",1);
+                                         startActivity(intent);
+                                     }
+                                 }
+                             });
+
                          }
 
                          @Override

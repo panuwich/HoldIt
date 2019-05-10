@@ -48,9 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:background="@color/colorWhite"
-                android:textCursorDrawable="@drawable/color_cursor"
                 android:gravity="right"
                 android:hint="Set ชื่อนามสกุล"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>
@@ -58,7 +58,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,11 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:background="@color/colorWhite"
                 android:gravity="right"
+                android:hint="Set หมายเลขโทรศัพท์"
                 android:inputType="number"
                 android:textCursorDrawable="@drawable/color_cursor"
-                android:background="@color/colorWhite"
-                android:hint="Set หมายเลขโทรศัพท์"
                 android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>
@@ -96,7 +96,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,7 +140,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -184,7 +184,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -228,7 +228,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -258,16 +258,16 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_marginLeft="8dp"
-            android:textCursorDrawable="@drawable/color_cursor"
             android:background="@color/colorWhite"
             android:hint="ใส่รายละเอียดที่อยู่"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="14dp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -291,15 +291,53 @@
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch_add_addr"
                 android:layout_width="wrap_content"
-                android:theme="@style/ThemeOverlay.SwitchCompat"
+                android:layout_height="match_parent"
                 android:layout_marginRight="8dp"
-                android:layout_height="match_parent" />
+                android:theme="@style/ThemeOverlay.SwitchCompat" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/background_gre" />
+        android:background="@color/colorGrey" />
+
+    <View
+        android:id="@+id/view_add_addr_del"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorGrey" />
+
+    <LinearLayout
+        android:id="@+id/layout_add_addr_del"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="ลบที่อยู่จัดส่ง"
+                android:textColor="@color/colorRed"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

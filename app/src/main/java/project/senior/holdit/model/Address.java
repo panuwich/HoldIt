@@ -3,10 +3,12 @@ package project.senior.holdit.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
     @SerializedName("id")
     @Expose
-    String id;
+    int id;
     @SerializedName("name")
     @Expose
     String name;
@@ -29,7 +31,7 @@ public class Address {
     @Expose
     int addrDefault;
 
-    public Address(String id, String name, String tel, String address, String province, String district, String postcode, int addrDefault) {
+    public Address(int id, String name, String tel, String address, String province, String district, String postcode, int addrDefault) {
         this.id = id;
         this.name = name;
         this.tel = tel;
@@ -40,7 +42,7 @@ public class Address {
         this.addrDefault = addrDefault;
     }
 
-    public Address(String id, String name, String tel, String address, String province, String district, String postcode) {
+    public Address(int id, String name, String tel, String address, String province, String district, String postcode) {
         this.id = id;
         this.name = name;
         this.tel = tel;
@@ -50,7 +52,7 @@ public class Address {
         this.postcode = postcode;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

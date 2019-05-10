@@ -16,12 +16,10 @@ public class AddrListAdapter extends BaseAdapter {
     Context mContext;
     private int mLayoutResId;
     private ArrayList<Address> resultList;
-    private int requstCode;
-    public AddrListAdapter(Context context, int mLayoutResId, ArrayList<Address> resultList,int requstCode) {
+    public AddrListAdapter(Context context, int mLayoutResId, ArrayList<Address> resultList) {
         this.mContext = context;
         this.mLayoutResId = mLayoutResId;
         this.resultList = resultList;
-        this.requstCode =requstCode;
     }
 
     @Override

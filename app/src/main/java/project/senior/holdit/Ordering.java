@@ -1,5 +1,6 @@
 package project.senior.holdit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -68,13 +69,14 @@ public class Ordering extends AppCompatActivity {
         layoutAddr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Ordering.this, AddressSelect.class));
+                Intent intent =new Intent(Ordering.this, AddressSelect.class);
+                intent.putExtra("requestCode", 100);
+                startActivityForResult(intent,100);
             }
         });
     }
 
     public void setAddr() {
-
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         int user_id = SharedPrefManager.getInstance(Ordering.this).getUser().getUserId();
         Call<Address> call = apiService.readdefaultaddress(user_id);
@@ -93,9 +95,25 @@ public class Ordering extends AppCompatActivity {
                          public void onFailure(Call<Address> call, Throwable t) {
                          }
                      }
-
         );
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            if(resultCode == Activity.RESULT_OK){
+                Address addr = (Address) data.getSerializableExtra("addr");
+                textViewAddrName.setText(addr.getName());
+                textViewAddrTel.setText(addr.getTel());
+                textViewAddrAddr.setText(addr.getAddress());
+                textViewAddrDistPro.setText(addr.getDistrict() + " " + addr.getProvince());
+                textViewAddrPostcode.setText(addr.getPostcode());
+            }
+        }else if (requestCode == 2) {
+            if(resultCode == Activity.RESULT_OK){
+
+            }
+        }
     }
 
     public void setToolbar(){

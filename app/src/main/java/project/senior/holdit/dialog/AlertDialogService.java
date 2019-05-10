@@ -1,5 +1,6 @@
 package project.senior.holdit.dialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,7 @@ public class AlertDialogService {
         this.context = context;
         this.inflater = inflat;
     }
+
 
     public AlertDialogService(Context context) {
         this.context = context;
@@ -186,6 +188,25 @@ public class AlertDialogService {
                 SharedPrefManager.getInstance(context).clear();
                 context.startActivity(new Intent(context, Login.class));
                 activity.finish();
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    public void showDialogSimple(String title){
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ((Activity)context).finish();
 
             }
         });
