@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,7 +22,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +62,9 @@ public class Signup extends AppCompatActivity {
     TextInputLayout editTextId;
     TextInputLayout editTextTel;
 
+    FirebaseAuth auth;
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +90,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(Intent.createChooser(intent,"Select Image from Gallery"),SELECT_IMAGE);
+                startActivityForResult(Intent.createChooser(intent, "Select Image from Gallery"), SELECT_IMAGE);
             }
         });
         editTextEmail.getEditText().addTextChangedListener(new TextWatcher() {
@@ -144,9 +156,9 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.toString().isEmpty()){
+                if (editable.toString().isEmpty()) {
                     editTextFirstname.setError("กรุณากรอกชื่อ");
-                }else{
+                } else {
                     editTextFirstname.setError(null);
                 }
                 setSignUpButton();
@@ -165,9 +177,9 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.toString().isEmpty()){
+                if (editable.toString().isEmpty()) {
                     editTextLastname.setError("กรุณากรอกนามสกุล");
-                }else{
+                } else {
                     editTextLastname.setError(null);
                 }
                 setSignUpButton();
@@ -213,7 +225,7 @@ public class Signup extends AppCompatActivity {
                 setSignUpButton();
             }
         });
-
+        auth = FirebaseAuth.getInstance();
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,7 +239,7 @@ public class Signup extends AppCompatActivity {
                 String lastname = editTextLastname.getEditText().getText().toString().toUpperCase();
                 String tel = editTextTel.getEditText().getText().toString();
                 String citizen = editTextId.getEditText().getText().toString();
-                signUp(email, password, firstname, lastname, image_profile, citizen, tel);
+                saveToFirebase(email, password, firstname, lastname, image_profile, citizen, tel);
                /* } else {
                     Toast.makeText(Signup.this, "Fail", Toast.LENGTH_SHORT).show();
                 }*/
@@ -237,7 +249,7 @@ public class Signup extends AppCompatActivity {
 
     boolean checkCompleteInput() {
         return validateEmail() && isCheckPassword() && isCheckConfirmPassword() && editTextFirstname.getEditText().getText().toString().length() != 0
-                && editTextLastname.getEditText().getText().toString().length() != 0&& isCitizenIDValid() && isTelValid() && checkBox.isChecked();
+                && editTextLastname.getEditText().getText().toString().length() != 0 && isCitizenIDValid() && isTelValid() && checkBox.isChecked();
     }
 
     void setSignUpButton() {
@@ -247,24 +259,27 @@ public class Signup extends AppCompatActivity {
             buttonSignup.setEnabled(false);
         }
     }
-    public boolean isCheckPassword(){
-        if(editTextPassword.getEditText().getText().toString().length() < 6 && !editTextPassword.getEditText().getText().toString().isEmpty()){
+
+    public boolean isCheckPassword() {
+        if (editTextPassword.getEditText().getText().toString().length() < 6 && !editTextPassword.getEditText().getText().toString().isEmpty()) {
             editTextPassword.setError("รหัสผ่านต้องมีอย่างน้อย 6 ตัว");
-            return  false;
-        }else{
+            return false;
+        } else {
             editTextPassword.setError(null);
             return true;
         }
     }
-    public boolean isCheckConfirmPassword(){
-        if(!editTextConfirmPassword.getEditText().getText().toString().equals(editTextPassword.getEditText().getText().toString())){
+
+    public boolean isCheckConfirmPassword() {
+        if (!editTextConfirmPassword.getEditText().getText().toString().equals(editTextPassword.getEditText().getText().toString())) {
             editTextConfirmPassword.setError("รหัสผ่านไม่ถูกต้อง");
-            return  false;
-        }else{
+            return false;
+        } else {
             editTextConfirmPassword.setError(null);
             return true;
         }
     }
+
     public boolean isTelValid() {
         String tel = editTextTel.getEditText().getText().toString().trim();
         String expression = "\\d+";
@@ -302,20 +317,20 @@ public class Signup extends AppCompatActivity {
             }
             sum = sum % 11;
             int ans = 11 - sum;
-            check =  String.valueOf(ans).equals(String.valueOf(id.charAt(12)));
+            check = String.valueOf(ans).equals(String.valueOf(id.charAt(12)));
         }
-        if(check){
+        if (check) {
             editTextId.setError(null);
-        }else{
+        } else {
             editTextId.setError("กรุณาใส่รหัสบัตรประชาชนให้ถูกต้อง");
         }
         return check;
     }
 
-    public void signUp(final String email, String password, String firstname, String lastname, String image, String citizen, String tel) {
+    public void signUp(String uid , final String email, final String password, String firstname, String lastname, String image, String citizen, String tel) {
 
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        Call<ResponseModel> call = apiService.signup(email, password, firstname, lastname, image, citizen, tel);
+        Call<ResponseModel> call = apiService.signup(uid, email, password, firstname, lastname, image, citizen, tel);
         call.enqueue(new Callback<ResponseModel>() {
                          @Override
                          public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -329,11 +344,11 @@ public class Signup extends AppCompatActivity {
                                              GMailSender sender = new GMailSender();
                                              String enEmail = new ForgetPassword().encryptEmail(email);
                                              String url = " Follow the link below to verified email: \n" +
-                                                     "http://pilot.cp.su.ac.th/usr/u07580319/holdit/verify/verifiedlogin.php?email="+enEmail+
+                                                     "http://pilot.cp.su.ac.th/usr/u07580319/holdit/verify/verifiedlogin.php?email=" + enEmail +
                                                      "\n" +
                                                      "\n" +
                                                      "HOLDIT Team";
-                                             sender.sendMail(email,url,"Verified HOLDIT Email");
+                                             sender.sendMail(email, url, "Verified HOLDIT Email");
 
                                          } catch (Exception e) {
                                              Log.e("mylog", "Error: " + e.getMessage());
@@ -341,11 +356,8 @@ public class Signup extends AppCompatActivity {
                                      }
                                  });
                                  sender.start();
-                                 AlertDialog.Builder builder =
-                                         new AlertDialog.Builder(Signup.this);
-                                 builder.setMessage("กรุณาตรวจอีเมลเพื่อใช้งานแอปพลิเคชัน");
-                                 builder.show();
-                                 startActivity(new Intent(Signup.this,Login.class));
+                                 startActivity(new Intent(Signup.this, Login.class));
+
                                  finishAffinity();
                              }
                              dialog.dismiss();
@@ -360,6 +372,37 @@ public class Signup extends AppCompatActivity {
                      }
 
         );
+    }
+
+    public void saveToFirebase(final String email, final String password
+            ,final String firstname,final String lastname, String image,final String citizen,final String tel) {
+        System.out.println(email + " " + password);
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            final String uid = firebaseUser.getUid();
+                            reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("userId", uid);
+                            hashMap.put("userFirstname", firstname);
+                            hashMap.put("userImage", "default");
+                            signUp(uid, email, password, firstname, lastname, image_profile, citizen, tel);
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                }
+                            });
+
+
+                        }
+                    }
+                });
     }
 
     public String imageToString(Bitmap bitmap) {
@@ -389,7 +432,8 @@ public class Signup extends AppCompatActivity {
         }
 
     }
-    public void clearInput(){
+
+    public void clearInput() {
         image_profile = "";
         editTextEmail.getEditText().setText("");
         editTextPassword.getEditText().setText("");
@@ -401,6 +445,7 @@ public class Signup extends AppCompatActivity {
         checkBox.setChecked(false);
         imgProfile.setImageResource(R.drawable.user);
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {

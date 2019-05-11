@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "667666605296",
+    "firebase_url": "https://holdit-60790.firebaseio.com",
+    "project_id": "holdit-60790",
+    "storage_bucket": "holdit-60790.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667666605296:android:29bb461130385211",
+        "android_client_info": {
+          "package_name": "project.senior.holdit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667666605296-5pce0n7bug4i7k51588s0119rb362m89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.senior.holdit",
+            "certificate_hash": "344e08bb29b24646cc34a3fe13162cca2fc39f02"
+          }
+        },
+        {
+          "client_id": "667666605296-89qv1mkgemfubdi821ff2jd18c8vge4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1I-m8wpV3Tp6OscFMy5T5xsFD2Pzhpr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667666605296-89qv1mkgemfubdi821ff2jd18c8vge4q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

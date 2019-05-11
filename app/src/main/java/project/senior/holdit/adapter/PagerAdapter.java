@@ -4,15 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import project.senior.holdit.fragment.SubTabBuyer;
-import project.senior.holdit.fragment.SubTabUser;
+import project.senior.holdit.fragment.order.SubTabBuyer;
+import project.senior.holdit.fragment.order.SubTabSeller;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     int mNoOfTabs;
 
-    public PagerAdapter(FragmentManager fm, int NumberOfTabs)
-    {
+    public PagerAdapter(FragmentManager fm, int NumberOfTabs) {
         super(fm);
         this.mNoOfTabs = NumberOfTabs;
     }
@@ -20,15 +19,15 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch(position)
-        {
+        switch (position) {
 
             case 0:
-                SubTabUser tab1 = new SubTabUser();
-                return tab1;
-            case 1:
                 SubTabBuyer tab2 = new SubTabBuyer();
-                return  tab2;
+                return tab2;
+            case 1:
+
+                SubTabSeller tab1 = new SubTabSeller();
+                return tab1;
 
             default:
                 return null;

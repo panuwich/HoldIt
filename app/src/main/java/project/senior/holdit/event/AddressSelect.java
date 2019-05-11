@@ -49,7 +49,7 @@ public class AddressSelect extends AppCompatActivity {
     public void setAddrList() {
 
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        int user_id = SharedPrefManager.getInstance(AddressSelect.this).getUser().getUserId();
+        String user_id = SharedPrefManager.getInstance(AddressSelect.this).getUser().getUserId();
         Call<ArrayList<Address>> call = apiService.readaddress(user_id);
         call.enqueue(new Callback<ArrayList<Address>>() {
                          @Override

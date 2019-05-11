@@ -87,7 +87,8 @@
         <activity android:name=".event.AddressSelect" />
         <activity android:name=".event.AddAddress" />
         <activity android:name=".event.ShowAddrList" />
-        <activity android:name=".Ordering"></activity>
+        <activity android:name=".Ordering" />
+        <activity android:name=".fragment.order.MessageActivity"></activity>
     </application>
 
 </manifest>

@@ -177,7 +177,7 @@ public class DescriptionEvent extends AppCompatActivity {
                              if (res.size() != 0) {
                                  imgViewNoItem.setVisibility(View.GONE);
                                  for (Item r : res) {
-                                     itemList.add(new Item(r.getItemId(),r.getEventId(),r.getUserEmail(),r.getItemName()
+                                     itemList.add(new Item(r.getItemId(),r.getEventId(),r.getUserId(),r.getItemName()
                                              ,r.getItemPrice(),r.getItemPreRate(),r.getItemTranRate(),r.getItemDesc()
                                              ,r.getItemImg1(),r.getItemImg2(),r.getItemImg3()));
                                  }

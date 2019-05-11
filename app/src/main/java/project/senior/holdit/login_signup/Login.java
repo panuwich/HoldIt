@@ -1,13 +1,12 @@
 package project.senior.holdit.login_signup;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -23,9 +22,17 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 import project.senior.holdit.MainActivity;
 import project.senior.holdit.R;
@@ -45,7 +52,10 @@ public class Login extends AppCompatActivity {
     Button loginButtonNormal;
     TextView textViewSignup,textViewLogin;
     EditText editTextEmail, editTextPassword;
-    private static final String MY_PREFS = "prefs";
+
+    FirebaseAuth auth;
+    FirebaseUser firebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +68,7 @@ public class Login extends AppCompatActivity {
         loginButtonNormal = (Button)findViewById(R.id.button_login_normal);
         loginButtonFace = (LoginButton) findViewById(R.id.button_login_face);
         loginButtonFace.setReadPermissions("editTextEmail");
-
+        auth = FirebaseAuth.getInstance();
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,12 +143,6 @@ public class Login extends AppCompatActivity {
                 request.setParameters(paramrters);
                 request.executeAsync();
 */
-                SharedPreferences shared = getSharedPreferences(MY_PREFS,
-                        Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = shared.edit();
-                editor.putString("editTextEmail", "test");
-                editor.putBoolean("booleanKey", true);
-                editor.commit();
                 startActivity(new Intent(Login.this, MainActivity.class));
                 finish();
             }
@@ -156,7 +160,7 @@ public class Login extends AppCompatActivity {
 
 
     }
-    public void login(String email, String password) {
+    public void login(final String email, final String password) {
 
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         Call<User> call = apiService.login(email , password);
@@ -170,9 +174,27 @@ public class Login extends AppCompatActivity {
                                  }else {
                                      SharedPrefManager.getInstance(Login.this).saveUser(user);
 
-                                     Toast.makeText(Login.this, "เข้าสู่ระบบเสร็จสิ้น", Toast.LENGTH_SHORT).show();
-                                     startActivity(new Intent(Login.this, MainActivity.class));
-                                     finish();
+                                     auth.signInWithEmailAndPassword(email,password)
+                                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                 @Override
+                                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                                     Toast.makeText(Login.this, "เข้าสู่ระบบเสร็จสิ้น", Toast.LENGTH_SHORT).show();
+                                                     startActivity(new Intent(Login.this, MainActivity.class));
+                                                     finish();
+                                                 }
+                                             });
+                                     DatabaseReference reference = FirebaseDatabase.getInstance()
+                                             .getReference("Users").child(user.getUserId());
+                                     HashMap<String, String> hashMap = new HashMap<>();
+                                     hashMap.put("userId", user.getUserId());
+                                     hashMap.put("userFirstname", user.getUserFirstname());
+                                     hashMap.put("userImage", user.getUserImage());
+                                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                         @Override
+                                         public void onComplete(@NonNull Task<Void> task) {
+
+                                         }
+                                     });
                                  }
                              }else{
                                  Toast.makeText(Login.this, "ตรวจ email และ password อีกครั้ง", Toast.LENGTH_SHORT).show();

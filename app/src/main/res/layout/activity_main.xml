@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_message"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/background_gre">
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/navi_main"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/toolbar_message"
         android:orientation="vertical">
 
     </LinearLayout>

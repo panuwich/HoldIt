@@ -14,9 +14,9 @@ public class Item implements Serializable {
     @Expose
     private int eventId;
 
-    @SerializedName("user_email")
+    @SerializedName("user_id")
     @Expose
-    private String userEmail;
+    private String userId;
 
     @SerializedName("item_name")
     @Expose
@@ -50,10 +50,10 @@ public class Item implements Serializable {
     @Expose
     private String itemImg3;
 
-    public Item(int itemId, int eventId, String userEmail, String itemName, String itemPrice, String itemPreRate, String itemTranRate, String itemDesc, String itemImg1, String itemImg2, String itemImg3) {
+    public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate, String itemDesc, String itemImg1, String itemImg2, String itemImg3) {
         this.itemId = itemId;
         this.eventId = eventId;
-        this.userEmail = userEmail;
+        this.userId = userId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemPreRate = itemPreRate;
@@ -88,8 +88,8 @@ public class Item implements Serializable {
         return eventId;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUserId() {
+        return userId;
     }
 
     public String getItemPrice() {

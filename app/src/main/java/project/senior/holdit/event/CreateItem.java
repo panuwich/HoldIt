@@ -50,7 +50,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
     int CROP_IMAGE2 = 2002;
     int CROP_IMAGE3 = 2003;
     int eventID;
-    int userId;
+    String userId;
     ArrayList<String> imgAr = new ArrayList<>();
 
     @Override
@@ -362,7 +362,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
     }
 
     void saveItem(){
-        int id = userId;
+        String id = userId;
         int eventId = eventID;
         String itemName = editTextName.getText().toString().trim();
         String price = textViewPrice.getText().toString().replace(",","");
@@ -385,7 +385,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                     , str[0] , str[1],  str[2]);
         }
     }
-    public void createItem(int id,int eventId, String itemName, int itemPrice, int itemPreRate, int itemTranRate, String itemDesc
+    public void createItem(String id,int eventId, String itemName, int itemPrice, int itemPreRate, int itemTranRate, String itemDesc
             ,String img1 ,String img2, String img3){
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
 

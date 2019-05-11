@@ -187,7 +187,7 @@ public class AddAddress extends AppCompatActivity implements View.OnClickListene
 
     public void addAddress(String name,int postcode,String province,String district,String address,String tel,int addr_default) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        int user_id = SharedPrefManager.getInstance(AddAddress.this).getUser().getUserId();
+        String user_id = SharedPrefManager.getInstance(AddAddress.this).getUser().getUserId();
 
         Call<ResponseModel> call = apiService.addaddress(id, name, user_id, postcode, province, district, address, tel, addr_default);
         call.enqueue(new Callback<ResponseModel>() {

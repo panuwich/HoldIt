@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_message);
 
         int permissionCheck1 = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);

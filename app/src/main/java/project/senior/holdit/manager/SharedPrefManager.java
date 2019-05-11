@@ -26,7 +26,7 @@ public class SharedPrefManager {
     public void saveUser(User user){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("user_id", user.getUserId());
+        editor.putString("user_id", user.getUserId());
         editor.putString("user_email", user.getUserEmail());
         editor.putString("user_firstname", user.getUserFirstname());
         editor.putString("user_lastname", user.getUserLastname());
@@ -41,13 +41,13 @@ public class SharedPrefManager {
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getInt("user_id",-1) != -1;
+        return sharedPreferences.getString("user_id",null) != null;
     }
 
     public User getUser(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
-                sharedPreferences.getInt("user_id",-1),
+                sharedPreferences.getString("user_id",null),
                 sharedPreferences.getString("user_email",null),
                 sharedPreferences.getString("user_firstname",null),
                 sharedPreferences.getString("user_lastname",null),

@@ -43,6 +43,7 @@ public class AlertDialogService {
 
     public void showDialog(ArrayList<Item> itemList, int position){
         item = itemList.get(position);
+        System.out.println("ITEM : " + item.getUserId());
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
 

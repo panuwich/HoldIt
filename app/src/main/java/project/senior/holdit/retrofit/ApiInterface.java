@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import project.senior.holdit.model.Address;
 import project.senior.holdit.model.Event;
 import project.senior.holdit.model.Item;
+import project.senior.holdit.model.Order;
 import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.model.User;
 import retrofit2.Call;
@@ -17,7 +18,8 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("signup.php")
-    Call<ResponseModel> signup(@Field("user_email") String userEmail,
+    Call<ResponseModel> signup(@Field("user_id") String userId,
+                               @Field("user_email") String userEmail,
                                @Field("user_password") String userPassword,
                                @Field("user_firstname") String userFirstname,
                                @Field("user_lastname") String userLastname,
@@ -28,20 +30,20 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("login.php")
     Call<User> login(@Field("user_email") String userEmail,
-                     @Field("user_password") String userPassword );
+                     @Field("user_password") String userPassword);
 
     @GET("event/readevent.php")
     Call<ArrayList<Event>> readevent();
 
     @FormUrlEncoded
     @POST("readaddress.php")
-    Call<ArrayList<Address>> readaddress(@Field("user_id") int userId) ;
+    Call<ArrayList<Address>> readaddress(@Field("user_id") String userId);
 
     @FormUrlEncoded
     @POST("addaddress.php")
     Call<ResponseModel> addaddress(@Field("id") int id,
                                    @Field("name") String name,
-                                   @Field("user_id") int user_id,
+                                   @Field("user_id") String user_id,
                                    @Field("postcode") int postcode,
                                    @Field("province") String province,
                                    @Field("district") String district,
@@ -51,11 +53,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("getdeafultaddress.php")
-    Call<Address> readdefaultaddress(@Field("user_id") int userId) ;
+    Call<Address> readdefaultaddress(@Field("user_id") String userId);
 
     @FormUrlEncoded
     @POST("deladdress.php")
-    Call<ResponseModel> deladdress(@Field("id") int id) ;
+    Call<ResponseModel> deladdress(@Field("id") int id);
 
     @FormUrlEncoded
     @POST("event/readitem.php")
@@ -63,7 +65,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("event/createitem.php")
-    Call<ResponseModel> createitem(@Field("user_id") int userId,
+    Call<ResponseModel> createitem(@Field("user_id") String userId,
                                    @Field("event_id") int eventId,
                                    @Field("item_name") String itemName,
                                    @Field("item_price") int itemPrice,
@@ -78,4 +80,17 @@ public interface ApiInterface {
     @POST("forgetpassword/checkemail.php")
     Call<ResponseModel> checkemail(@Field("email") String userEmail);
 
+    @FormUrlEncoded
+    @POST("createorder.php")
+    Call<ResponseModel> createorder(@Field("seller_id") String sellerId,
+                                    @Field("buyer_id") String buyerId,
+                                    @Field("item_id") int itemId,
+                                    @Field("addr_id") int addrId,
+                                    @Field("amount") int amount,
+                                    @Field("total") int total,
+                                    @Field("date") String date);
+
+    @FormUrlEncoded
+    @POST("readorder.php")
+    Call<ArrayList<Order>>  readorder(@Field("user_id") String userId);
 }

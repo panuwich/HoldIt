@@ -3,19 +3,35 @@ package project.senior.holdit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 import project.senior.holdit.event.AddressSelect;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Address;
 import project.senior.holdit.model.Item;
+import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
 import retrofit2.Call;
@@ -28,7 +44,11 @@ public class Ordering extends AppCompatActivity {
     TextView textViewAddrAddr;
     TextView textViewAddrDistPro;
     TextView textViewAddrPostcode;
-
+    TextView textViewItemName;
+    TextView textViewTotal;
+    int addrId;
+    FirebaseUser fuser;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,21 +59,23 @@ public class Ordering extends AppCompatActivity {
         textViewAddrAddr = (TextView) findViewById(R.id.textView_ordering_addr);
         textViewAddrDistPro = (TextView) findViewById(R.id.textView_ordering_dist_pro);
         textViewAddrPostcode = (TextView) findViewById(R.id.textView_ordering_postcode);
+        Button buttonContract = (Button)findViewById(R.id.button_contract);
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
         setAddr();
         setToolbar();
 
-        TextView textViewItemName = (TextView)findViewById(R.id.textView_ordering_item_name);
+        textViewItemName = (TextView)findViewById(R.id.textView_ordering_item_name);
         TextView textViewItemPrice = (TextView)findViewById(R.id.textView_ordering_item_price);
         TextView textViewItemNum = (TextView)findViewById(R.id.textView_ordering_item_num);
         TextView textViewItemPre = (TextView)findViewById(R.id.textView_ordering_item_pre_rate);
         TextView textViewItemTran = (TextView)findViewById(R.id.textView_ordering_item_tran_rate);
-        TextView textViewTotal = (TextView)findViewById(R.id.textView_ordering_total);
+        textViewTotal = (TextView)findViewById(R.id.textView_ordering_total);
         ImageView imageViewItem = (ImageView)findViewById(R.id.imageView_ordering_item);
 
         Intent i = getIntent();
-        Item item = (Item) i.getSerializableExtra("item");
-        int num = Integer.parseInt(i.getStringExtra("num"));
-        String total = i.getStringExtra("total");
+        final Item item = (Item) i.getSerializableExtra("item");
+        final int num = Integer.parseInt(i.getStringExtra("num"));
+        final int total = Integer.parseInt(i.getStringExtra("total"));
 
         textViewItemName.setText(item.getItemName());
         textViewItemPrice.setText("฿" + item.getItemPrice());
@@ -74,16 +96,86 @@ public class Ordering extends AppCompatActivity {
                 startActivityForResult(intent,100);
             }
         });
-    }
 
+        buttonContract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String seller = item.getUserId();
+                System.out.println("SELLER : " + seller);
+                String buyer = SharedPrefManager.getInstance(Ordering.this).getUser().getUserId();
+                int addr = addrId;
+                Date d = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date = dateFormat.format(d);
+                createOrder(seller, buyer, item, addr, num, total , date);
+            }
+
+
+        });
+    }
+    private void createOrder(final String seller,String buyer
+            ,final Item item,int addr, final int num, final int total ,String date) {
+        final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
+        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total , date);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                Toast.makeText(Ordering.this, response.body().getResponse(), Toast.LENGTH_SHORT).show();
+                if(response.body().isStatus()){
+                    sendMessage(seller,item,total,num);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+            }
+        });
+    }
+    public void sendMessage(String seller, Item item,int total,int num){
+
+        String sender = fuser.getUid();
+        final String receiver = seller;
+        String message = "สั่งซื้อ " + item.getItemName() + "\nจำนวน " + num + " ชิ้น\n" + "ราคารวม " + total + " บาท";
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("sender", sender);
+            hashMap.put("receiver", receiver);
+            hashMap.put("message", message);
+
+            reference.child("Chats").push().setValue(hashMap);
+
+            final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
+                    .child(fuser.getUid())
+                    .child(receiver);
+
+            chatRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(!dataSnapshot.exists()){
+                        chatRef.child("id").setValue(receiver);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+    }
     public void setAddr() {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        int user_id = SharedPrefManager.getInstance(Ordering.this).getUser().getUserId();
+        String user_id = SharedPrefManager.getInstance(Ordering.this).getUser().getUserId();
         Call<Address> call = apiService.readdefaultaddress(user_id);
         call.enqueue(new Callback<Address>() {
                          @Override
                          public void onResponse(Call<Address> call, Response<Address> response) {
                              Address res = response.body();
+                             addrId = res.getId();
                              textViewAddrName.setText(res.getName());
                              textViewAddrTel.setText(res.getTel());
                              textViewAddrAddr.setText(res.getAddress());
@@ -103,6 +195,7 @@ public class Ordering extends AppCompatActivity {
         if (requestCode == 100) {
             if(resultCode == Activity.RESULT_OK){
                 Address addr = (Address) data.getSerializableExtra("addr");
+                addrId = addr.getId();
                 textViewAddrName.setText(addr.getName());
                 textViewAddrTel.setText(addr.getTel());
                 textViewAddrAddr.setText(addr.getAddress());
