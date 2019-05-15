@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
         , TabAccount.OnFragmentInteractionListener {
     final int RequestPermissionCode = 1;
     Toolbar toolbar;
+    BottomNavigationView bottomNavigationView;
     final TabHome tabHome = new TabHome();
     final TabPreOrder tabPreOrder = new TabPreOrder();
     final TabAccount tabAccount = new TabAccount();
@@ -45,10 +46,15 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
             RequestRuntimePermission();
 
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navi_main);
+        bottomNavigationView = findViewById(R.id.navi_main);
         bottomNavigationView.setSelectedItemId(R.id.icon_home);
         disableShiftMode(bottomNavigationView);
-        loadFragment(tabHome);
+        if(getIntent().getBooleanExtra("order",false)){
+            bottomNavigationView.setSelectedItemId(R.id.icon_my_order);
+            loadFragment(new TabMyOrder());
+        }else {
+            loadFragment(tabHome);
+        }
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -88,6 +94,16 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        int seletedItemId = bottomNavigationView.getSelectedItemId();
+        if (R.id.icon_home != seletedItemId) {
+            loadFragment(tabHome);
+            bottomNavigationView.setSelectedItemId(R.id.icon_home);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @SuppressLint("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView view) {

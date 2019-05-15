@@ -12,6 +12,10 @@ public class ResponseModel {
     @Expose
     String response ;
 
+    @SerializedName("userid")
+    @Expose
+    String userId;
+
     public String getResponse() {
         return response;
     }
@@ -23,6 +27,16 @@ public class ResponseModel {
     public ResponseModel(boolean status, String response) {
         this.status = status;
         this.response = response;
+    }
+
+    public ResponseModel(boolean status, String response, String userId) {
+        this.status = status;
+        this.response = response;
+        this.userId = userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public boolean isStatus() {

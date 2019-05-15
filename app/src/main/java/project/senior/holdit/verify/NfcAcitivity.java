@@ -66,7 +66,6 @@ public class NfcAcitivity extends AppCompatActivity {
     public void disableForegroundDispatch() {
         try {
             NFCadapter.disableForegroundDispatch(this);
-            System.out.println("DIS");
         } catch (Exception e) {
             e.printStackTrace();
         }

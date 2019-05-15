@@ -56,12 +56,33 @@ public interface ApiInterface {
     Call<Address> readdefaultaddress(@Field("user_id") String userId);
 
     @FormUrlEncoded
+    @POST("getitem.php")
+    Call<Item> getitem(@Field("id") int id);
+
+    @FormUrlEncoded
     @POST("deladdress.php")
     Call<ResponseModel> deladdress(@Field("id") int id);
 
     @FormUrlEncoded
+    @POST("pay.php")
+    Call<ResponseModel> pay(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("acceptorder.php")
+    Call<ResponseModel> acceptorder(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("delorder.php")
+    Call<ResponseModel> cancelorder(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("updateverify.php")
+    Call<ResponseModel> updateverify(@Field("user_id") String userId);
+
+    @FormUrlEncoded
     @POST("event/readitem.php")
-    Call<ArrayList<Item>> readitem(@Field("event_id") int eventId);
+    Call<ArrayList<Item>> readitem(@Field("event_id") int eventId,
+                                   @Field("user_id") String userId);
 
     @FormUrlEncoded
     @POST("event/createitem.php")

@@ -49,8 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="@color/colorBlue"
             android:hint="Email"
+            android:backgroundTint="@color/colorBlue"
             android:textCursorDrawable="@drawable/color_cursor" />
     </LinearLayout>
 

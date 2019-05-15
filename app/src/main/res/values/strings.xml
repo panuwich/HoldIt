@@ -3,6 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
     <string name="facebook_app_id">405777550159760</string>
     <string name="fb_login_protocol_scheme">fb405777550159760</string>
     <string name="sign_up"><u>SIGN UP</u></string>

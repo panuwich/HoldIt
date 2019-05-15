@@ -106,22 +106,22 @@ public class TabHome extends Fragment {
             public void onClick(View view) {
                 if (layoutFilter.getVisibility() == View.GONE) {
                     lv.setEnabled(false);
-                    final Animation toptodown = AnimationUtils.loadAnimation(getContext(), R.anim.anim_silde_toptodown);
-                    final Animation rotateltr = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_ltr);
+                   // final Animation toptodown = AnimationUtils.loadAnimation(getContext(), R.anim.anim_silde_toptodown);
+                    //final Animation rotateltr = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_ltr);
 
-                    buttonFilter.startAnimation(rotateltr);
+                   // buttonFilter.startAnimation(rotateltr);
                     buttonFilter.setBackgroundResource(R.drawable.ic_tune_purple);
                     layoutFilter.setVisibility(View.VISIBLE);
-                    layoutFilter.startAnimation(toptodown);
+                    //layoutFilter.startAnimation(toptodown);
                 } else {
                     lv.setEnabled(true);
 
-                    final Animation downtotop = AnimationUtils.loadAnimation(getContext(), R.anim.anim_silde_downtotop);
-                    final Animation rotateltr = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_ltr);
+                    //final Animation downtotop = AnimationUtils.loadAnimation(getContext(), R.anim.anim_silde_downtotop);
+                    //final Animation rotateltr = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_ltr);
 
-                    buttonFilter.startAnimation(rotateltr);
+                    //buttonFilter.startAnimation(rotateltr);
                     buttonFilter.setBackgroundResource(R.drawable.ic_tune_white);
-                    layoutFilter.startAnimation(downtotop);
+                    //layoutFilter.startAnimation(downtotop);
                     layoutFilter.setVisibility(View.GONE);
 
                     filterCon = (ArrayList<String>) preFilterCon.clone();

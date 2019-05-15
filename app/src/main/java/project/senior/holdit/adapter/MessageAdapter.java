@@ -28,7 +28,6 @@ import project.senior.holdit.model.Chat;
     private String imageUrl;
 
     FirebaseUser firebaseUser;
-
     public MessageAdapter(Context mCtx, List<Chat> chatList, String imageUrl) {
         this.mCtx = mCtx;
         this.chatList = chatList;
@@ -53,14 +52,20 @@ import project.senior.holdit.model.Chat;
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int i) {
         Chat chat = chatList.get(i);
         holder.textViewShowTextMessage.setText(chat.getMessage());
-        System.out.println(chat.getMessage());
         if(imageUrl.isEmpty()){
             holder.circleImageViewUser.setImageResource(R.mipmap.ic_launcher);
         }else{
             String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/"+imageUrl;
             Picasso.get().load(url).into(holder.circleImageViewUser);
         }
+        if(chat.isIsseen() && holder.getItemViewType() == MSG_TYPE_RIGHT){
+            holder.textViewSeen.setVisibility(View.VISIBLE);
+        }else{
+            holder.textViewSeen.setVisibility(View.GONE);
+        }
+        holder.textViewTime.setText(chat.getTime());
     }
+
 
     @Override
     public int getItemCount() {
@@ -71,11 +76,14 @@ import project.senior.holdit.model.Chat;
 
         CircleImageView circleImageViewUser;
         TextView textViewShowTextMessage;
-
+        TextView textViewSeen;
+        TextView textViewTime;
         public ViewHolder(View itemView) {
             super(itemView);
             circleImageViewUser = itemView.findViewById(R.id.circleImageViewUser);
             textViewShowTextMessage = itemView.findViewById(R.id.textViewShowTextMessage);
+            textViewSeen = itemView.findViewById(R.id.textViewSeen);
+            textViewTime = itemView.findViewById(R.id.textViewTime);
         }
     }
 

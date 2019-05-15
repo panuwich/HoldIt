@@ -49,7 +49,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@color/colorWhite"
                 android:gravity="right"
-                android:hint="Set ชื่อนามสกุล"
+                android:hint="ชื่อนามสกุล"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -86,7 +86,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@color/colorWhite"
                 android:gravity="right"
-                android:hint="Set หมายเลขโทรศัพท์"
+                android:hint="หมายเลขโทรศัพท์"
                 android:inputType="number"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />
@@ -124,7 +124,7 @@
                 android:layout_marginRight="4dp"
                 android:background="@color/colorWhite"
                 android:gravity="right"
-                android:hint="Set จังหวัด"
+                android:hint="จังหวัด"
                 android:textSize="16dp" />
 
             <ImageView
@@ -168,7 +168,7 @@
                 android:layout_marginRight="4dp"
                 android:background="@color/colorWhite"
                 android:gravity="right"
-                android:hint="Set เขต/อำเภอ"
+                android:hint="เขต/อำเภอ"
                 android:textSize="16dp" />
 
             <ImageView
@@ -212,7 +212,7 @@
                 android:layout_marginRight="4dp"
                 android:background="@color/colorWhite"
                 android:gravity="right"
-                android:hint="Set รหัสไปรษณีย์"
+                android:hint="รหัสไปรษณีย์"
                 android:textSize="16dp" />
 
             <ImageView

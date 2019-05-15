@@ -59,7 +59,8 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     int deviceHeight, deviceWidth;
     Timer timer = new Timer();
     String result = "";
-    String checkAll="",nID = "", nFirstname = "", nSurname = "", nSex = "", nDOB = "", nPassType = "", nExpDate = "", nNation = "", nCitizenNo = "";
+    String checkAll="",nID = "", nFirstname = "", nSurname = "", nSex = ""
+            , nDOB = "", nPassType = "", nExpDate = "", nNation = "", nCitizenNo = "";
 
 
     @Override

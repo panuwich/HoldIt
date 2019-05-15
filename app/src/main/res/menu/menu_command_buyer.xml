@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/icon_info"
+        android:icon="@drawable/ic_info"
+        app:showAsAction="always"
+        android:title="Order Info" />
+    <item
+        android:id="@+id/icon_money"
+        android:icon="@drawable/ic_money"
+        app:showAsAction="always"
+        android:title="Payment" />
+    <item
+        android:id="@+id/icon_received"
+        android:icon="@drawable/ic_get_product"
+        app:showAsAction="always"
+        android:title="Received Item" />
+    <item
+        android:id="@+id/icon_cancel"
+        android:icon="@drawable/ic_cancel"
+        app:showAsAction="always"
+        android:title="Cancel Order" />
+
+
+</menu>

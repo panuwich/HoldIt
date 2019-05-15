@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import project.senior.holdit.R;
@@ -27,8 +28,8 @@ public class SubTabSeller extends Fragment {
     OrderAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         readOrder();
     }
 
@@ -36,16 +37,20 @@ public class SubTabSeller extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.activity_sub_tab_seller, container, false);
-        listView = (ListView)view.findViewById(R.id.recycler_order_seller);
+        View view = inflater.inflate(R.layout.activity_sub_tab_seller, container, false);
+        listView = (ListView) view.findViewById(R.id.recycler_order_seller);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(),MessageActivity.class);
-                intent.putExtra("userId",((Order)listView.getItemAtPosition(i)).getBuyerId());
-                intent.putExtra("status",((Order)listView.getItemAtPosition(i)).getStatus());
-                intent.putExtra("orderId",((Order)listView.getItemAtPosition(i)).getId());
-                startActivity(intent);
+                if (((Order) listView.getItemAtPosition(i)).getStatus() != -1) {
+                    Intent intent = new Intent(getContext(), MessageActivity.class);
+                    Order order = (Order) listView.getItemAtPosition(i);
+                    intent.putExtra("order", ((Serializable) order));
+                    intent.putExtra("userId", (order.getBuyerId()));
+                    intent.putExtra("status", ( order.getStatus()));
+                    intent.putExtra("orderId", (order.getId()));
+                    startActivity(intent);
+                }
             }
         });
         return view;
@@ -57,27 +62,26 @@ public class SubTabSeller extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void readOrder(){
+    public void readOrder() {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         final String user_id = SharedPrefManager.getInstance(getContext()).getUser().getUserId();
         Call<ArrayList<Order>> call = apiService.readorder(user_id);
-        call.enqueue(new Callback<ArrayList<Order>> () {
+        call.enqueue(new Callback<ArrayList<Order>>() {
             @Override
-            public void onResponse(Call<ArrayList<Order>>  call, Response<ArrayList<Order>>  response) {
+            public void onResponse(Call<ArrayList<Order>> call, Response<ArrayList<Order>> response) {
                 ArrayList<Order> res = response.body();
                 ArrayList<Order> orders = new ArrayList<>();
-                for(Order order : res){
-                    if(order.getSellerId().equals(user_id)){
+                for (Order order : res) {
+                    if (order.getSellerId().equals(user_id)) {
                         orders.add(order);
                     }
                 }
-                    adapter = new OrderAdapter(getContext(),R.layout.detail_chat_list, orders,false);
-                    listView.setAdapter(adapter);
-
+                adapter = new OrderAdapter(getContext(), R.layout.detail_chat_list, orders, false);
+                listView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Order>>  call, Throwable t) {
+            public void onFailure(Call<ArrayList<Order>> call, Throwable t) {
 
             }
         });

@@ -115,4 +115,8 @@ public class User {
     public void setUserTel(String userTel) {
         this.userTel = userTel;
     }
+
+    public void setUserStatusVerified(int userStatusVerified) {
+        this.userStatusVerified = userStatusVerified;
+    }
 }

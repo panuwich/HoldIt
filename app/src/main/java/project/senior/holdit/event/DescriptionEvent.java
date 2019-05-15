@@ -167,7 +167,8 @@ public class DescriptionEvent extends AppCompatActivity {
     public void setItemList(int eventID) {
 
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        Call<ArrayList<Item>> call = apiService.readitem(eventID);
+        String uid  = SharedPrefManager.getInstance(DescriptionEvent.this).getUser().getUserId();
+        Call<ArrayList<Item>> call = apiService.readitem(eventID,uid);
         call.enqueue(new Callback<ArrayList<Item>>() {
                          @Override
                          public void onResponse(Call<ArrayList<Item>> call, Response<ArrayList<Item>> response) {

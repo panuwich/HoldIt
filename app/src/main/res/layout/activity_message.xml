@@ -1,106 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/drawer"
     tools:context=".fragment.order.MessageActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_message"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@drawable/background_gre"
-        android:baselineAligned="false"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageViewUser_message"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/user" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_message"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/background_gre"
+            android:baselineAligned="false"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <TextView
-            android:id="@+id/textView_message_name"
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageViewUser_message"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/user" />
+
+            <TextView
+                android:id="@+id/textView_message_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="25dp"
+                android:text="username"
+                android:textColor="@color/colorWhite" />
+
+            <ImageButton
+                android:id="@+id/imageBtn_message_menu"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/ic_menu_white" />
+        </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            android:id="@+id/statusbar"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/toolbar_message">
+
+            <TextView
+                android:id="@+id/textnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:text="หมายเลขคำสั่งซื้อ : "
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/textView_message_orderid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textnum"
+                android:text="xxx"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/textView_message_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:text="status"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/relativeLaoutSend_message"
+            android:layout_below="@+id/statusbar"
+            android:background="@color/colorGrey">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLaoutSend_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="25dp"
-            android:text="username"
-            android:textColor="@color/colorWhite" />
-    </android.support.v7.widget.Toolbar>
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:padding="5dp">
 
-    <RelativeLayout
-        android:id="@+id/statusbar"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@+id/toolbar_message">
-        <TextView
-            android:id="@+id/textnum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_centerVertical="true"
-            android:textSize="12dp"
-            android:text="หมายเลขคำสั่งซื้อ : "/>
-        <TextView
-            android:id="@+id/textView_message_orderid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/textnum"
-            android:textSize="12dp"
-            android:text="xxx"/>
-        <TextView
-            android:id="@+id/textView_message_status"
-            android:layout_width="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:textSize="12dp"
-            android:text="status"/>
+            <EditText
+                android:id="@+id/editTextSend_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/imageButtonSend_message"
+                android:background="@color/colorWhite"
+                android:hint="พิมพ์ข้อความ....." />
+
+            <ImageButton
+                android:id="@+id/imageButtonSend_message"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_send" />
+        </RelativeLayout>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_message"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/relativeLaoutSend_message"
-        android:layout_below="@+id/statusbar"
-        android:background="@color/colorGrey">
-
-    </android.support.v7.widget.RecyclerView>
-
-
-    <RelativeLayout
-        android:id="@+id/relativeLaoutSend_message"
-        android:layout_width="match_parent"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navi_message"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#fff"
-        android:padding="5dp">
+        android:layout_gravity="end"
+        android:layout_marginTop ="?android:attr/actionBarSize">
 
-        <EditText
-            android:id="@+id/editTextSend_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toLeftOf="@+id/imageButtonSend_message"
-            android:background="@color/colorWhite"
-            android:hint="พิมพ์ข้อความ....." />
+    </android.support.design.widget.NavigationView>
 
-        <ImageButton
-            android:id="@+id/imageButtonSend_message"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/ic_send" />
-    </RelativeLayout>
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

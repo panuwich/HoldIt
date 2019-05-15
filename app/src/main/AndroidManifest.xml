@@ -88,7 +88,30 @@
         <activity android:name=".event.AddAddress" />
         <activity android:name=".event.ShowAddrList" />
         <activity android:name=".Ordering" />
-        <activity android:name=".fragment.order.MessageActivity"></activity>
+        <activity android:name=".fragment.order.MessageActivity" />
+
+        <service
+            android:name=".fragment.order.FirebaseIdService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".fragment.order.FirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".fragment.order.OrderInfo" />
+        <activity android:name=".payment.SelectPaymentActivity" />
+        <activity android:name=".payment.PaymentLogin" />
+        <activity android:name=".payment.PaymentConfirm" />
+        <activity android:name=".payment.PaymentComplete"></activity>
     </application>
 
 </manifest>

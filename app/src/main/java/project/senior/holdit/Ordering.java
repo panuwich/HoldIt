@@ -101,7 +101,6 @@ public class Ordering extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String seller = item.getUserId();
-                System.out.println("SELLER : " + seller);
                 String buyer = SharedPrefManager.getInstance(Ordering.this).getUser().getUserId();
                 int addr = addrId;
                 Date d = new Date();
@@ -122,8 +121,13 @@ public class Ordering extends AppCompatActivity {
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 Toast.makeText(Ordering.this, response.body().getResponse(), Toast.LENGTH_SHORT).show();
                 if(response.body().isStatus()){
-                    sendMessage(seller,item,total,num);
-                    finish();
+                    String [] res = response.body().getResponse().split(" ");
+                    String orderId = res[1];
+                    sendMessage(seller,item,total,num,orderId);
+                    Intent intent = new Intent(Ordering.this,MainActivity.class);
+                    intent.putExtra("order",true);
+                    startActivity(intent);
+                    finishAffinity();
                 }
             }
 
@@ -133,7 +137,7 @@ public class Ordering extends AppCompatActivity {
             }
         });
     }
-    public void sendMessage(String seller, Item item,int total,int num){
+    public void sendMessage(String seller, Item item,int total,int num,String orderId){
 
         String sender = fuser.getUid();
         final String receiver = seller;
@@ -145,8 +149,12 @@ public class Ordering extends AppCompatActivity {
             hashMap.put("sender", sender);
             hashMap.put("receiver", receiver);
             hashMap.put("message", message);
+            hashMap.put("isseen",false);
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            Date date = new Date();
+            hashMap.put("time",formatter.format(date));
 
-            reference.child("Chats").push().setValue(hashMap);
+            reference.child("Chats").child(orderId).push().setValue(hashMap);
 
             final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
                     .child(fuser.getUid())
