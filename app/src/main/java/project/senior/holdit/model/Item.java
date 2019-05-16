@@ -50,6 +50,15 @@ public class Item implements Serializable {
     @Expose
     private String itemImg3;
 
+    @SerializedName("user_rating_score")
+    @Expose
+    private int userRateScore;
+
+    @SerializedName("user_rating_vote")
+    @Expose
+    private int userRateVote;
+
+
     public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate, String itemDesc, String itemImg1, String itemImg2, String itemImg3) {
         this.itemId = itemId;
         this.eventId = eventId;
@@ -62,6 +71,31 @@ public class Item implements Serializable {
         this.itemImg1 = itemImg1;
         this.itemImg2 = itemImg2;
         this.itemImg3 = itemImg3;
+    }
+
+    public Item(int itemId, int eventId, String userId, String itemName, String itemPrice
+            , String itemPreRate, String itemTranRate, String itemDesc, String itemImg1, String itemImg2, String itemImg3, int userRateScore, int userRateVote) {
+        this.itemId = itemId;
+        this.eventId = eventId;
+        this.userId = userId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemPreRate = itemPreRate;
+        this.itemTranRate = itemTranRate;
+        this.itemDesc = itemDesc;
+        this.itemImg1 = itemImg1;
+        this.itemImg2 = itemImg2;
+        this.itemImg3 = itemImg3;
+        this.userRateScore = userRateScore;
+        this.userRateVote = userRateVote;
+    }
+
+    public int getUserRateScore() {
+        return userRateScore;
+    }
+
+    public int getUserRateVote() {
+        return userRateVote;
     }
 
     public String getItemImg1() {

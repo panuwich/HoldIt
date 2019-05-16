@@ -44,6 +44,7 @@ public class TabHome extends Fragment {
     EventListAdapter mAdapter;
     OnFragmentInteractionListener mListener;
     ArrayList<Event> eventList = new ArrayList<>();
+    ArrayList<Event> eventListFilter = new ArrayList<>();
     ListView lv;
     Button buttonGO ;
     ArrayList<String> filterCon = new ArrayList<>();
@@ -130,7 +131,6 @@ public class TabHome extends Fragment {
             }
         });
         if (eventList.size() == 0 ) {
-
             dialog = new ProgressDialog(getContext(),R.style.MyAlertDialogStyle);
             dialog.setMessage("Loading");
             dialog.show();
@@ -152,20 +152,20 @@ public class TabHome extends Fragment {
                 handle.postDelayed(runable, 500);
 
                 Intent intent = new Intent(getContext(), DescriptionEvent.class);
-                intent.putExtra("eventTitle", eventList.get(i).getTitle());
-                intent.putExtra("eventLocation", eventList.get(i).getLocation());
-                intent.putExtra("eventDesc", eventList.get(i).getDesc());
-                String urlLogo = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/event/"+eventList.get(i).getEventImgLogo();
+                intent.putExtra("eventTitle", eventListFilter.get(i).getTitle());
+                intent.putExtra("eventLocation", eventListFilter.get(i).getLocation());
+                intent.putExtra("eventDesc", eventListFilter.get(i).getDesc());
+                String urlLogo = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/event/"+eventListFilter.get(i).getEventImgLogo();
                 intent.putExtra("eventLogo", urlLogo);
-                String urlCover = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/event/"+eventList.get(i).getEventImgCover();
+                String urlCover = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/event/"+eventListFilter.get(i).getEventImgCover();
                 intent.putExtra("eventCover", urlCover);
-                String dateEnd = eventList.get(i).getDateEnd();
+                String dateEnd = eventListFilter.get(i).getDateEnd();
                 String getOnlyDateEnd = dateEnd.substring(8);
                 String getOnlyMonth = getMonth(dateEnd.substring(5,7));
                 String getOnlyYear = ""+(Integer.parseInt(dateEnd.substring(0,4))+543);
                 String date = "วันนี้ - " + getOnlyDateEnd + " " + getOnlyMonth + " " +getOnlyYear;
                 intent.putExtra("eventDate", date);
-                intent.putExtra("eventID",eventList.get(i).getEventId());
+                intent.putExtra("eventID",eventListFilter.get(i).getEventId());
                 startActivity(intent);
 
             }
@@ -259,6 +259,7 @@ public class TabHome extends Fragment {
                                  Snackbar.make(getView(), "No event now", Snackbar.LENGTH_LONG)
                                          .setAction("Action", null).show();
                              }
+                             eventListFilter = (ArrayList<Event>) eventList.clone();
                              resultFromFilter();
                              dialog.dismiss();
                          }
@@ -286,6 +287,7 @@ public class TabHome extends Fragment {
                 }
             }
         }
+        eventListFilter = event;
         if(event.size() == 0){
             imgViewResult.setVisibility(View.VISIBLE);
         }else{

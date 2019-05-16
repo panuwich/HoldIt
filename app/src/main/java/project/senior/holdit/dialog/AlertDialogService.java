@@ -13,24 +13,35 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import project.senior.holdit.MainActivity;
 import project.senior.holdit.Ordering;
 import project.senior.holdit.R;
 import project.senior.holdit.adapter.SliderAdapter;
 import project.senior.holdit.login_signup.Login;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Item;
+import project.senior.holdit.model.ResponseModel;
+import project.senior.holdit.retrofit.ApiInterface;
+import project.senior.holdit.retrofit.ConnectServer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AlertDialogService {
     LinearLayout dotLayout;
     Context context;
     LayoutInflater inflater;
     Item item;
+    int rate = 1;
+    public String track = null;
     public AlertDialogService(Context context, LayoutInflater inflat) {
         this.context = context;
         this.inflater = inflat;
@@ -41,7 +52,7 @@ public class AlertDialogService {
         this.context = context;
     }
 
-    public void showDialog(ArrayList<Item> itemList, int position){
+    public void showDialog(ArrayList<Item> itemList, int position) {
         item = itemList.get(position);
         System.out.println("ITEM : " + item.getUserId());
         AlertDialog.Builder builder =
@@ -49,19 +60,19 @@ public class AlertDialogService {
 
         View v = inflater.inflate(R.layout.detail_dialog_select_item, null);
         builder.setView(v);
-        ViewPager viewPager = (ViewPager)v.findViewById(R.id.viewpager_dialog_item_image);
-        dotLayout = (LinearLayout)v.findViewById(R.id.dot) ;
+        ViewPager viewPager = (ViewPager) v.findViewById(R.id.viewpager_dialog_item_image);
+        dotLayout = (LinearLayout) v.findViewById(R.id.dot);
 
         final ArrayList<String> url = new ArrayList<>();
         url.add(itemList.get(position).getItemImg1());
         url.add(itemList.get(position).getItemImg2());
         url.add(itemList.get(position).getItemImg3());
-        for ( int i = 0 ; i < 3 ; i++ ){
+        for (int i = 0; i < 3; i++) {
             url.remove("");
         }
-        SliderAdapter sliderAdapter = new SliderAdapter(context,url,true);
+        SliderAdapter sliderAdapter = new SliderAdapter(context, url, true);
         viewPager.setAdapter(sliderAdapter);
-        addDotsIndicator(0,url.size(),context);
+        addDotsIndicator(0, url.size(), context);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -71,7 +82,7 @@ public class AlertDialogService {
 
             @Override
             public void onPageSelected(int position) {
-                addDotsIndicator(position,url.size(),context);
+                addDotsIndicator(position, url.size(), context);
             }
 
             @Override
@@ -84,10 +95,10 @@ public class AlertDialogService {
         alertDialog.getWindow().setBackgroundDrawable(new
                 ColorDrawable(Color.TRANSPARENT));
 
-        final Button button_decrease = (Button)v.findViewById(R.id.button_dialog_decrease);
-        final Button button_increase = (Button)v.findViewById(R.id.button_dialog_increase);
-        final Button button_cancel = (Button)v.findViewById(R.id.button_dialog_cancel);
-        final Button button_contract = (Button)v.findViewById(R.id.button_dialog_contact);
+        final Button button_decrease = (Button) v.findViewById(R.id.button_dialog_decrease);
+        final Button button_increase = (Button) v.findViewById(R.id.button_dialog_increase);
+        final Button button_cancel = (Button) v.findViewById(R.id.button_dialog_cancel);
+        final Button button_contract = (Button) v.findViewById(R.id.button_dialog_contact);
 
         final TextView textView_name = (TextView) v.findViewById(R.id.textView_dialog_item_name);
         final TextView textView_desc = (TextView) v.findViewById(R.id.textView_dialog_item_desc);
@@ -111,33 +122,33 @@ public class AlertDialogService {
         final int price = Integer.parseInt(textView_price.getText().toString());
         final int tran_rate = Integer.parseInt(textView_tran_rate.getText().toString());
         final int pre_rate = Integer.parseInt(textView_pre_rate.getText().toString());
-        textView_total.setText(""+(price+tran_rate+pre_rate));
+        textView_total.setText("" + (price + tran_rate + pre_rate));
 
         button_increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int numOfitem = Integer.parseInt(textView_num.getText().toString())+1;
+                int numOfitem = Integer.parseInt(textView_num.getText().toString()) + 1;
                 button_decrease.setEnabled(true);
                 button_decrease.setBackgroundResource(R.drawable.ic_decrease);
-                textView_num.setText(""+numOfitem);
-                textView_price_num.setText(""+numOfitem);
-                textView_pre_rate_num.setText(""+numOfitem);
-                textView_tran_rate_num.setText(""+numOfitem);
+                textView_num.setText("" + numOfitem);
+                textView_price_num.setText("" + numOfitem);
+                textView_pre_rate_num.setText("" + numOfitem);
+                textView_tran_rate_num.setText("" + numOfitem);
 
-                textView_total.setText(""+((price*numOfitem) + (tran_rate * numOfitem) + (pre_rate*numOfitem)));
+                textView_total.setText("" + ((price * numOfitem) + (tran_rate * numOfitem) + (pre_rate * numOfitem)));
             }
         });
         button_decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!textView_num.getText().toString().equals("1")){
-                    int numOfitem = Integer.parseInt(textView_num.getText().toString())-1;
-                    textView_num.setText(""+numOfitem);
-                    textView_price_num.setText(""+numOfitem);
-                    textView_pre_rate_num.setText(""+numOfitem);
-                    textView_tran_rate_num.setText(""+numOfitem);
-                    textView_total.setText(""+((price*numOfitem) + (tran_rate * numOfitem) + (pre_rate*numOfitem)));
-                    if(textView_num.getText().toString().equals("1")){
+                if (!textView_num.getText().toString().equals("1")) {
+                    int numOfitem = Integer.parseInt(textView_num.getText().toString()) - 1;
+                    textView_num.setText("" + numOfitem);
+                    textView_price_num.setText("" + numOfitem);
+                    textView_pre_rate_num.setText("" + numOfitem);
+                    textView_tran_rate_num.setText("" + numOfitem);
+                    textView_total.setText("" + ((price * numOfitem) + (tran_rate * numOfitem) + (pre_rate * numOfitem)));
+                    if (textView_num.getText().toString().equals("1")) {
                         button_decrease.setEnabled(false);
                         button_decrease.setBackgroundResource(R.drawable.ic_decrease_disable);
                     }
@@ -156,9 +167,9 @@ public class AlertDialogService {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Ordering.class);
-                intent.putExtra("item",(Serializable) item);
-                intent.putExtra("num",textView_num.getText().toString());
-                intent.putExtra("total",textView_total.getText().toString());
+                intent.putExtra("item", (Serializable) item);
+                intent.putExtra("num", textView_num.getText().toString());
+                intent.putExtra("total", textView_total.getText().toString());
                 context.startActivity(intent);
                 alertDialog.dismiss();
             }
@@ -166,10 +177,10 @@ public class AlertDialogService {
         alertDialog.show();
     }
 
-    public void addDotsIndicator(int position,int size,Context context){
-        TextView[]mDots = new TextView[size];
+    public void addDotsIndicator(int position, int size, Context context) {
+        TextView[] mDots = new TextView[size];
         dotLayout.removeAllViews();
-        for(int i = 0 ; i < mDots.length ; i++) {
+        for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(context);
             mDots[i].setText(Html.fromHtml("&#8226"));
             mDots[i].setTextSize(35);
@@ -180,7 +191,7 @@ public class AlertDialogService {
 
     }
 
-    public void showDialogLogOut(final FragmentActivity activity){
+    public void showDialogLogOut(final FragmentActivity activity) {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
         builder.setTitle("Log out?");
@@ -201,13 +212,13 @@ public class AlertDialogService {
         builder.show();
     }
 
-    public void showDialogSimple(String title){
+    public void showDialogSimple(String title) {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                ((Activity)context).finish();
+                ((Activity) context).finish();
 
             }
         });
@@ -219,4 +230,80 @@ public class AlertDialogService {
         });
         builder.show();
     }
+
+    public void dialogRating(final int orderId, final String seller) {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(context);
+
+        View view = inflater.inflate(R.layout.detail_dialog_rating, null);
+        builder.setView(view);
+        builder.show();
+
+        final TextView textViewRating = view.findViewById(R.id.textRating);
+        final ImageView img[] = new ImageView[5];
+        Button button = view.findViewById(R.id.btn_accept_rating);
+        for (int i = 0; i < 5; i++) {
+            img[i] = (ImageView) view.findViewById(context.getResources()
+                    .getIdentifier("imageView_star" + (i + 1), "id", context.getPackageName()));
+            final int finalI = i;
+            img[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (finalI == 0) {
+                        rate = setStar(1, img);
+                        textViewRating.setText("Too Bad");
+                    } else if (finalI == 1) {
+                        rate = setStar(2, img);
+                        textViewRating.setText("Bad");
+                    } else if (finalI == 2) {
+                        rate = setStar(3, img);
+                        textViewRating.setText("Fair");
+                    } else if (finalI == 3) {
+                        rate = setStar(4, img);
+                        textViewRating.setText("Good");
+                    } else {
+                        rate = setStar(5, img);
+                        textViewRating.setText("Excellent");
+                    }
+                }
+            });
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
+                Call<ResponseModel> call = apiService.receiveorder(orderId, rate, seller);
+                call.enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        Toast.makeText(context, response.body().getResponse(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.putExtra("order", true);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+    }
+
+
+
+
+    private int setStar(int ratestar, ImageView imageView[]) {
+        for (int i = 0; i < 5; i++) {
+            imageView[i].setImageResource(R.drawable.ic_star_grey);
+        }
+        for (int i = 0; i < ratestar; i++) {
+            imageView[i].setImageResource(R.drawable.ic_star_yellow);
+        }
+        return ratestar;
+    }
+
 }

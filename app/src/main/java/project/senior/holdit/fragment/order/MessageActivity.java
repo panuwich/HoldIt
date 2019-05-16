@@ -1,19 +1,24 @@
 package project.senior.holdit.fragment.order;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -38,8 +43,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.senior.holdit.R;
-import project.senior.holdit.payment.SelectPaymentActivity;
 import project.senior.holdit.adapter.MessageAdapter;
+import project.senior.holdit.dialog.AlertDialogService;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Chat;
 import project.senior.holdit.model.Data;
@@ -49,6 +54,7 @@ import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.model.Sender;
 import project.senior.holdit.model.Token;
 import project.senior.holdit.model.User;
+import project.senior.holdit.payment.SelectPaymentActivity;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
 import project.senior.holdit.retrofit.ConnectServerNoti;
@@ -74,6 +80,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     boolean  notify = false;
     NotiApi apiService;
     Order order;
+    String track = null;
     int status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -336,7 +343,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void setStatus(int status) {
+    private void setStatus(int status) {
         if (status == 0) {
             textViewStatus.setText("รอผู้ซื้อตอบรับ"); //orange
             textViewStatus.setTextColor(getResources().getColor(R.color.colorOrange));
@@ -403,8 +410,41 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.icon_money:
                 startToSelectPayment();
                 break;
+            case R.id.icon_received:
+                dialogReceived();
+                break;
+            case R.id.icon_delivery:
+                dialogTrack(order.getId(),MessageActivity.this,getLayoutInflater());
+                break;
         }
         return true;
+    }
+
+
+
+    private void dialogReceived() {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(MessageActivity.this);
+        builder.setTitle("ยืนยันว่าได้รับสินค้าเรียบร้อยเเล้ว");
+        builder.setMessage("ทำการโอนเงิน ฿" + order.getTotal() + " ไปยังผู้รับซื้อ");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialogRating();
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+    private void dialogRating() {
+        AlertDialogService alertDialogService = new AlertDialogService(MessageActivity.this,getLayoutInflater());
+        alertDialogService.dialogRating(Integer.parseInt(textViewOrderId.getText().toString()) , order.getSellerId());
+
     }
 
     private void startToSelectPayment(){
@@ -418,10 +458,13 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             if(isBuyer()){
                 menuNav.findItem(R.id.icon_money).setEnabled(false);
                 menuNav.findItem(R.id.icon_received).setEnabled(false);
+            }else{
+                menuNav.findItem(R.id.icon_delivery).setEnabled(false);
             }
         }else if(status == 1){
             if(isSeller()){
                 menuNav.findItem(R.id.icon_accept).setEnabled(false);
+                menuNav.findItem(R.id.icon_delivery).setEnabled(false);
             }else{
                 menuNav.findItem(R.id.icon_received).setEnabled(false);
             }
@@ -430,6 +473,8 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             if(isBuyer()) {
                 menuNav.findItem(R.id.icon_money).setEnabled(false);
                 menuNav.findItem(R.id.icon_cancel).setEnabled(false);
+            }else{
+                menuNav.findItem(R.id.icon_accept).setEnabled(false);
             }
         }
     }
@@ -450,6 +495,46 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onFailure(Call<ResponseModel> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void dialogTrack(final int orderId,final  Context context ,LayoutInflater inflater) {
+
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(context);
+
+        View view = inflater.inflate(R.layout.detail_dialog_input_track, null);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        final EditText editText = view.findViewById(R.id.editText_accept_track);
+        Button button = view.findViewById(R.id.button_accept_track);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editText.getText().toString().isEmpty() || editText.getText().toString().length() < 10) {
+                    Toast.makeText(context, "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
+                } else {
+                    final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
+                    Call<ResponseModel> call = apiService.updatetrack(orderId, editText.getText().toString());
+                    call.enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            Toast.makeText(context, response.body().getResponse(), Toast.LENGTH_SHORT).show();
+                            if (response.body().isStatus()){
+                                track = editText.getText().toString();
+                                order.setTrack(track);
+                                alertDialog.dismiss();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                        }
+                    });
+                }
             }
         });
     }

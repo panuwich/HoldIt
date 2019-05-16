@@ -42,9 +42,9 @@ public class SubTabSeller extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (((Order) listView.getItemAtPosition(i)).getStatus() != -1) {
+                Order order = (Order) listView.getItemAtPosition(i);
+                if (order.getStatus() != -1 && order.getStatus()!= 3) {
                     Intent intent = new Intent(getContext(), MessageActivity.class);
-                    Order order = (Order) listView.getItemAtPosition(i);
                     intent.putExtra("order", ((Serializable) order));
                     intent.putExtra("userId", (order.getBuyerId()));
                     intent.putExtra("status", ( order.getStatus()));

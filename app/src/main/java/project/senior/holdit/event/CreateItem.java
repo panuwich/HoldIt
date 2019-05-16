@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -416,18 +417,56 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_IMAGE1) {
                 if (data != null) {
-                    CropImage(data.getData(),CROP_IMAGE1);
+                    //CropImage(data.getData(),CROP_IMAGE1);
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                    Cursor cursor = getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    buttonPic1.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    cardView2.setVisibility(View.VISIBLE);
+                    imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
             } else if (requestCode == SELECT_IMAGE2) {
 
                 if (data != null) {
-                    CropImage(data.getData(),CROP_IMAGE2);
+                    //CropImage(data.getData(),CROP_IMAGE2);
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                    Cursor cursor = getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    buttonPic2.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    cardView3.setVisibility(View.VISIBLE);
+                    imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
             }else if (requestCode == SELECT_IMAGE3) {
                 if (data != null) {
-                    CropImage(data.getData(),CROP_IMAGE3);
+                    //CropImage(data.getData(),CROP_IMAGE3);
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                    Cursor cursor = getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    buttonPic3.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
-            }else if(requestCode == CROP_IMAGE1){
+            }/*else if(requestCode == CROP_IMAGE1){
                 Bundle bundle = data.getExtras();
                 Bitmap bitmap = bundle.getParcelable("data");
                 buttonPic1.setImageBitmap(bitmap);
@@ -444,7 +483,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                 Bitmap bitmap = bundle.getParcelable("data");
                 buttonPic3.setImageBitmap(bitmap);
                 imgAr.add(bitmapToString(bitmap));
-            }
+            }*/
         } else {
             Toast.makeText(CreateItem.this, "Canceled", Toast.LENGTH_SHORT).show();
         }

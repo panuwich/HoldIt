@@ -68,8 +68,23 @@ public interface ApiInterface {
     Call<ResponseModel> pay(@Field("id") int id);
 
     @FormUrlEncoded
+    @POST("receiveorder.php")
+    Call<ResponseModel> receiveorder(@Field("id") int id,
+                                     @Field("rate")int rate,
+                                     @Field("seller_id") String seller);
+
+    @FormUrlEncoded
     @POST("acceptorder.php")
     Call<ResponseModel> acceptorder(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("getorder.php")
+    Call<Order> getorder(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("updatetrack.php")
+    Call<ResponseModel> updatetrack(@Field("id") int id,
+                                    @Field("track") String track);
 
     @FormUrlEncoded
     @POST("delorder.php")

@@ -12,5 +12,9 @@
         app:showAsAction="always"
         android:title="Accept Order" />
 
-
+    <item
+        android:id="@+id/icon_delivery"
+        android:icon="@drawable/delivery"
+        app:showAsAction="always"
+        android:title="Enter Track" />
 </menu>

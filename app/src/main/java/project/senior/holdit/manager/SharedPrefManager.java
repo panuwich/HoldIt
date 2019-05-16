@@ -62,7 +62,14 @@ public class SharedPrefManager {
     public void clear(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
+        editor.remove("user_id");
+        editor.remove("user_email");
+        editor.remove("user_firstname");
+        editor.remove("user_lastname");
+        editor.remove("user_image");
+        editor.remove("user_status_verified");
+        editor.remove("user_tel");
+        editor.remove("user_citizen");
         editor.apply();
     }
 }

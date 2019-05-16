@@ -180,7 +180,7 @@ public class DescriptionEvent extends AppCompatActivity {
                                  for (Item r : res) {
                                      itemList.add(new Item(r.getItemId(),r.getEventId(),r.getUserId(),r.getItemName()
                                              ,r.getItemPrice(),r.getItemPreRate(),r.getItemTranRate(),r.getItemDesc()
-                                             ,r.getItemImg1(),r.getItemImg2(),r.getItemImg3()));
+                                             ,r.getItemImg1(),r.getItemImg2(),r.getItemImg3(),r.getUserRateScore(),r.getUserRateVote()));
                                  }
                                  itemListDescAdapter adapter = new itemListDescAdapter(DescriptionEvent.this, itemList);
                                  recyclerView.setAdapter(adapter);

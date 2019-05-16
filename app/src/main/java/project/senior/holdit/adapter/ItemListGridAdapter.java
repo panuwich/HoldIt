@@ -2,6 +2,7 @@ package project.senior.holdit.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,17 @@ public class ItemListGridAdapter extends RecyclerView.Adapter<ItemListGridAdapte
 
         String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/item/"+resultList.get(position).getItemImg1();
         Picasso.get().load(url).into(holder.imageView);
+
+        if(resultList.get(position).getUserRateVote() == 0){
+            holder.cardView.setVisibility(View.GONE);
+        }else{
+            holder.cardView.setVisibility(View.VISIBLE);
+
+            holder.rateVote.setText(""+resultList.get(position).getUserRateVote());
+            double score = (double) resultList.get(position).getUserRateScore() / (double)resultList.get(position).getUserRateVote();
+            String scoreformat = String.format("%.1f",score);
+            holder.rateScore.setText(scoreformat);
+        }
     }
 
     // total number of cells
@@ -59,11 +71,17 @@ public class ItemListGridAdapter extends RecyclerView.Adapter<ItemListGridAdapte
         TextView price;
         TextView preRate;
         ImageView imageView;
+        CardView cardView;
+        TextView rateScore;
+        TextView rateVote;
         ViewHolder(View itemView) {
             super(itemView);
             price = itemView.findViewById(R.id.textView_griditem_price);
             preRate = itemView.findViewById(R.id.textView_griditem_pre_rate);
             imageView = itemView.findViewById(R.id.imgView_griditem);
+            cardView = itemView.findViewById(R.id.cardView_rate);
+            rateScore = itemView.findViewById(R.id.rate_score);
+            rateVote = itemView.findViewById(R.id.rate_vote);
             itemView.setOnClickListener(this);
         }
 
