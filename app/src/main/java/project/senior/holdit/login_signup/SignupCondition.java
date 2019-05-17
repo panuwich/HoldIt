@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import project.senior.holdit.R;
 
-public class signup_condition extends AppCompatActivity {
+public class SignupCondition extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

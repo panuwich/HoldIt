@@ -1,7 +1,6 @@
 package project.senior.holdit.event;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -47,9 +46,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
     int SELECT_IMAGE1 = 1001;
     int SELECT_IMAGE2 = 1002;
     int SELECT_IMAGE3 = 1003;
-    int CROP_IMAGE1 = 2001;
-    int CROP_IMAGE2 = 2002;
-    int CROP_IMAGE3 = 2003;
     int eventID;
     String userId;
     ArrayList<String> imgAr = new ArrayList<>();
@@ -219,8 +215,13 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String stringFormat = getStringFormat(editable.toString());
-                setTextFormat(textViewPrice, editTextItemPrice, stringFormat);
+
+                if (editable.toString().length() ==1){
+                    textViewPrice.setText(editable.toString());
+                }else {
+                    String stringFormat = getStringFormat(editable.toString());
+                    setTextFormat(textViewPrice, editTextItemPrice, stringFormat);
+                }
             }
         });
         editTextItemPreRate.addTextChangedListener(new TextWatcher() {
@@ -236,8 +237,13 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String stringFormat = getStringFormat(editable.toString());
-                setTextFormat(textViewPreRate, editTextItemPreRate, stringFormat);
+
+                if (editable.toString().length() ==1){
+                    textViewPreRate.setText(editable.toString());
+                }else {
+                    String stringFormat = getStringFormat(editable.toString());
+                    setTextFormat(textViewPreRate, editTextItemPreRate, stringFormat);
+                }
             }
         });
         editTextItemTranRate.addTextChangedListener(new TextWatcher() {
@@ -253,8 +259,12 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String stringFormat = getStringFormat(editable.toString());
-                setTextFormat(textViewTranRate, editTextItemTranRate, stringFormat);
+                if (editable.toString().length() ==1){
+                    textViewTranRate.setText(editable.toString());
+                }else {
+                    String stringFormat = getStringFormat(editable.toString());
+                    setTextFormat(textViewTranRate, editTextItemTranRate, stringFormat);
+                }
             }
         });
         button.setOnClickListener(this);
@@ -319,28 +329,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    private void CropImage(Uri uri,int req) {
-
-        try{
-            Intent CropIntent = new Intent("com.android.camera.action.CROP");
-            CropIntent.setDataAndType(uri,"image/*");
-
-            CropIntent.putExtra("crop","true");
-            CropIntent.putExtra("outputX",300);
-            CropIntent.putExtra("outputY",250);
-            CropIntent.putExtra("aspectX",4);
-            CropIntent.putExtra("aspectY",3.5);
-            CropIntent.putExtra("scaleUpIfNeeded",true);
-            CropIntent.putExtra("return-data",true);
-
-            startActivityForResult(CropIntent,req);
-        }
-        catch (ActivityNotFoundException ex)
-        {
-
-        }
-
-    }
 
     public String bitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -466,24 +454,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                     buttonPic3.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                     imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
-            }/*else if(requestCode == CROP_IMAGE1){
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = bundle.getParcelable("data");
-                buttonPic1.setImageBitmap(bitmap);
-                cardView2.setVisibility(View.VISIBLE);
-                imgAr.add(bitmapToString(bitmap));
-            }else if(requestCode == CROP_IMAGE2){
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = bundle.getParcelable("data");
-                buttonPic2.setImageBitmap(bitmap);
-                cardView3.setVisibility(View.VISIBLE);
-                imgAr.add(bitmapToString(bitmap));
-            }else if(requestCode == CROP_IMAGE3){
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = bundle.getParcelable("data");
-                buttonPic3.setImageBitmap(bitmap);
-                imgAr.add(bitmapToString(bitmap));
-            }*/
+            }
         } else {
             Toast.makeText(CreateItem.this, "Canceled", Toast.LENGTH_SHORT).show();
         }

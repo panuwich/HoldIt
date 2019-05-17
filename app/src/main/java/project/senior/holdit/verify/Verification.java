@@ -1,8 +1,6 @@
 package project.senior.holdit.verify;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +9,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import project.senior.holdit.R;
+import project.senior.holdit.manager.SharedPrefManager;
+import project.senior.holdit.model.User;
+import project.senior.holdit.retrofit.ApiInterface;
+import project.senior.holdit.retrofit.ConnectServer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Verification extends AppCompatActivity {
-    private static final String MY_PREFS = "prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,20 +25,31 @@ public class Verification extends AppCompatActivity {
         setContentView(R.layout.activity_verification);
         CardView cardViewPassport = (CardView)findViewById(R.id.cardView_verification_passport);
         CardView cardViewIDCard = (CardView)findViewById(R.id.cardView_verification_id_card);
-        TextView textViewStatus = (TextView)findViewById(R.id.textView_verification_status);
+        final TextView textViewStatus = (TextView)findViewById(R.id.textView_verification_status);
 
-        SharedPreferences shared = getSharedPreferences(MY_PREFS,
-                Context.MODE_PRIVATE);
-        final int status = shared.getInt("user_status_verified", 0);
-        System.out.println("stauts : " + status);
-        if(status == 1){
-            textViewStatus.setText("ยืนยันตัวตนแล้ว");
-            textViewStatus.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
+        final User user  = SharedPrefManager.getInstance(Verification.this).getUser();
+        ApiInterface api = ConnectServer.getClient().create(ApiInterface.class);
+        Call<User> call = api.getverified(user.getUserId());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.body().getUserStatusVerified() == 1){
+                    textViewStatus.setText("ยืนยันตัวตนแล้ว");
+                    textViewStatus.setTextColor(ContextCompat.getColor(Verification.this, R.color.colorGreen));
+                }else{
+                    textViewStatus.setText("ยังไม่ยืนยันตัวตน");
+                    textViewStatus.setTextColor(ContextCompat.getColor(Verification.this, R.color.colorRedOp));
+                }
+                user.setUserStatusVerified(response.body().getUserStatusVerified());
+                SharedPrefManager.getInstance(Verification.this).saveUser(user);
+            }
 
-        }else{
-            textViewStatus.setText("ยังไม่ยืนยันตัวตน");
-            textViewStatus.setTextColor(ContextCompat.getColor(this, R.color.colorRedOp));
-        }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+
 
         cardViewPassport.setOnClickListener(new View.OnClickListener() {
             @Override

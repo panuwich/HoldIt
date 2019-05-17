@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import project.senior.holdit.event.AddressSelect;
+import project.senior.holdit.info.AddressSelect;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Address;
 import project.senior.holdit.model.Item;

@@ -127,7 +127,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 User user = dataSnapshot.getValue(User.class);
                 textViewUserId.setText(user.getUserFirstname());
                 if (user.getUserImage().isEmpty()) {
-                    circleImageView.setImageResource(R.mipmap.ic_launcher);
+                    circleImageView.setImageResource(R.drawable.user);
                 } else {
                     String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/" + user.getUserImage();
                     Picasso.get().load(url).into(circleImageView);
@@ -504,13 +504,14 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         final AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
 
-        View view = inflater.inflate(R.layout.detail_dialog_input_track, null);
+        View view = inflater.inflate(R.layout.detail_dialog_input, null);
         builder.setView(view);
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        final EditText editText = view.findViewById(R.id.editText_accept_track);
-        Button button = view.findViewById(R.id.button_accept_track);
-
+        final EditText editText = view.findViewById(R.id.editText_accept);
+        Button button = view.findViewById(R.id.button_accept);
+        TextView textView = view.findViewById(R.id.textView_title_input);
+        textView.setText("กรุณาใส่รหัสไปรษณีย์");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -14,8 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBlue"
-            android:padding="8dp"
-            android:text="confirm?"
+            android:padding="16dp"
+            android:text="Confirm?"
             android:textColor="@color/colorWhite"
             android:textSize="24dp" />
 
@@ -26,7 +26,6 @@
             android:layout_below="@+id/confirm"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="4dp"
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <LinearLayout

@@ -8,12 +8,12 @@
         android:title="Home" />
     <item
         android:id="@+id/icon_finding"
-        android:icon="@drawable/shoppingbag1"
+        android:icon="@drawable/announce"
         app:showAsAction="always"
         android:title="Finding" />
     <item
         android:id="@+id/icon_my_order"
-        android:icon="@drawable/shoppingbag1"
+        android:icon="@drawable/ic_chat_black"
         app:showAsAction="always"
         android:title="My Order" />
     <item

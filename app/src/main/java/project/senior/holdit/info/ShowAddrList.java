@@ -1,4 +1,4 @@
-package project.senior.holdit.event;
+package project.senior.holdit.info;
 
 import android.app.Activity;
 import android.content.Intent;

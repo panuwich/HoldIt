@@ -10,17 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
 import project.senior.holdit.R;
-import project.senior.holdit.adapter.OrderAdapter;
 import project.senior.holdit.adapter.PagerAdapter;
-import project.senior.holdit.model.Order;
 
 
 public class TabMyOrder extends Fragment{
-    OrderAdapter adapter;
-    ArrayList<Order> orders;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

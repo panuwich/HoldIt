@@ -50,9 +50,9 @@
                     android:id="@+id/button_create_picture1"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@color/colorBlue"
+                    android:background="@color/colorGrey"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_add_grey" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -71,9 +71,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:background="@color/colorBlue"
+                    android:background="@color/colorGrey"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_add_grey" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -90,9 +90,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:background="@color/colorBlue"
+                    android:background="@color/colorGrey"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_add_grey" />
             </android.support.v7.widget.CardView>
 
 

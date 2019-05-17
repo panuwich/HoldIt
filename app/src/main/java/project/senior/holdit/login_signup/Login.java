@@ -180,6 +180,7 @@ public class Login extends AppCompatActivity {
                                                  public void onComplete(@NonNull Task<AuthResult> task) {
                                                      Toast.makeText(Login.this, "เข้าสู่ระบบเสร็จสิ้น", Toast.LENGTH_SHORT).show();
                                                      startActivity(new Intent(Login.this, MainActivity.class));
+                                                     dialog.dismiss();
                                                      finish();
                                                  }
                                              });
@@ -199,7 +200,7 @@ public class Login extends AppCompatActivity {
                              }else{
                                  Toast.makeText(Login.this, "ตรวจ email และ password อีกครั้ง", Toast.LENGTH_SHORT).show();
                              }
-                             dialog.dismiss();
+
 
                          }
 

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -13,13 +14,23 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import project.senior.holdit.MainActivity;
 import project.senior.holdit.Ordering;
@@ -29,6 +40,7 @@ import project.senior.holdit.login_signup.Login;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Item;
 import project.senior.holdit.model.ResponseModel;
+import project.senior.holdit.model.User;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
 import retrofit2.Call;
@@ -294,8 +306,89 @@ public class AlertDialogService {
     }
 
 
+    public void dialogInput(final int edit, final TextView textView) {
 
+        final User user = SharedPrefManager.getInstance(context).getUser();
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(context);
 
+        View view = inflater.inflate(R.layout.detail_dialog_input, null);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        final EditText editText = view.findViewById(R.id.editText_accept);
+        Button button = view.findViewById(R.id.button_accept);
+        final TextView textViewTitle = view.findViewById(R.id.textView_title_input);
+        if (edit == 3){
+            textViewTitle.setText("กรุณากรอกชื่อ");
+        }else if(edit == 4){
+            textViewTitle.setText("กรุณากรอกนามสกุล");
+        }else{
+            textViewTitle.setText("กรุณากรอกเบอร์โทร");
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
+                boolean valid = false;
+                if(edit == 3){
+                    if (!editText.getText().toString().isEmpty()){
+                        valid = true;
+                        user.setUserFirstname(editText.getText().toString());
+                        setFirebase(user,editText.getText().toString());
+                    }
+                }else if(edit == 4){
+                    if (!editText.getText().toString().isEmpty()){
+                        valid = true;
+                        user.setUserLastname(editText.getText().toString());
+                    }
+                }else if(edit == 5){
+                    valid = isTelValid(editText.getText().toString());
+                    if(valid){
+                        user.setUserTel(editText.getText().toString());
+                    }
+                }
+                SharedPrefManager.getInstance(context).saveUser(user);
+                if (valid){
+                    textView.setText(editText.getText().toString());
+                    Call<ResponseModel> call = apiService.updateuser(edit, user.getUserId(), editText.getText().toString() , "");
+                    call.enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            Toast.makeText(context, response.body().getResponse(), Toast.LENGTH_SHORT).show();
+                            if (response.body().isStatus()){
+                                alertDialog.dismiss();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                        }
+                    });
+                }else{
+                    Toast.makeText(context, "กรุณากรอกข้อมูลให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setFirebase(User user,final String text){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("userFirstname", text);
+                dataSnapshot.getRef().updateChildren(map);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     private int setStar(int ratestar, ImageView imageView[]) {
         for (int i = 0; i < 5; i++) {
             imageView[i].setImageResource(R.drawable.ic_star_grey);
@@ -305,5 +398,11 @@ public class AlertDialogService {
         }
         return ratestar;
     }
-
+    private boolean isTelValid(String editTextTel) {
+        String tel = editTextTel.trim();
+        String expression = "\\d+";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(tel);
+        return matcher.matches() && tel.length() == 10;
+    }
 }

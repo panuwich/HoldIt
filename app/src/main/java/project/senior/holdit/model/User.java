@@ -10,6 +10,9 @@ public class User {
     @SerializedName("user_email")
     @Expose
     private String userEmail;
+    @SerializedName("user_password")
+    @Expose
+    private String userPassword;
     @SerializedName("user_firstname")
     @Expose
     private String userFirstname;
@@ -46,10 +49,11 @@ public class User {
         this.userCitizen = userCitizen;
     }
 
-    public User(String userId, String userEmail, String userFirstname, String userLastname
-            , String userImage, int userStatusVerified, String userTel, String userCitizen) {
+    public User(String userId, String userEmail, String userPassword, String userFirstname, String userLastname
+            , String userImage,  int userStatusVerified, String userTel, String userCitizen) {
         this.userId = userId;
         this.userEmail = userEmail;
+        this.userPassword = userPassword;
         this.userFirstname = userFirstname;
         this.userLastname = userLastname;
         this.userImage = userImage;
@@ -58,7 +62,19 @@ public class User {
         this.userCitizen = userCitizen;
     }
 
+    public User(int userStatusVerified) {
+        this.userStatusVerified = userStatusVerified;
+    }
+
     public User() {
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
     }
 
     public String getUserId() {

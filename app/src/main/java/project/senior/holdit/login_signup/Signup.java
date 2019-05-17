@@ -83,7 +83,7 @@ public class Signup extends AppCompatActivity {
         textViewCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Signup.this, signup_condition.class));
+                startActivity(new Intent(Signup.this, SignupCondition.class));
             }
         });
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -235,8 +235,8 @@ public class Signup extends AppCompatActivity {
                 //  if (checkCompleteInput()) {
                 String email = editTextEmail.getEditText().getText().toString().toLowerCase();
                 String password = editTextPassword.getEditText().getText().toString();
-                String firstname = editTextFirstname.getEditText().getText().toString().toUpperCase();
-                String lastname = editTextLastname.getEditText().getText().toString().toUpperCase();
+                String firstname = editTextFirstname.getEditText().getText().toString();
+                String lastname = editTextLastname.getEditText().getText().toString();
                 String tel = editTextTel.getEditText().getText().toString();
                 String citizen = editTextId.getEditText().getText().toString();
                 saveToFirebase(email, password, firstname, lastname, image_profile, citizen, tel);
@@ -356,9 +356,9 @@ public class Signup extends AppCompatActivity {
                                      }
                                  });
                                  sender.start();
-                                 startActivity(new Intent(Signup.this, Login.class));
-
-                                 finishAffinity();
+                                 Intent intent = new Intent(Signup.this, Login.class);
+                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                 startActivity(intent);
                              }
                              dialog.dismiss();
 
@@ -376,7 +376,6 @@ public class Signup extends AppCompatActivity {
 
     public void saveToFirebase(final String email, final String password
             ,final String firstname,final String lastname, String image,final String citizen,final String tel) {
-        System.out.println(email + " " + password);
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

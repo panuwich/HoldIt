@@ -28,6 +28,7 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("user_id", user.getUserId());
         editor.putString("user_email", user.getUserEmail());
+        editor.putString("user_password", user.getUserPassword());
         editor.putString("user_firstname", user.getUserFirstname());
         editor.putString("user_lastname", user.getUserLastname());
         editor.putString("user_image", user.getUserImage());
@@ -49,6 +50,7 @@ public class SharedPrefManager {
         return new User(
                 sharedPreferences.getString("user_id",null),
                 sharedPreferences.getString("user_email",null),
+                sharedPreferences.getString("user_password",null),
                 sharedPreferences.getString("user_firstname",null),
                 sharedPreferences.getString("user_lastname",null),
                 sharedPreferences.getString("user_image",null),
@@ -66,6 +68,7 @@ public class SharedPrefManager {
         editor.remove("user_email");
         editor.remove("user_firstname");
         editor.remove("user_lastname");
+        editor.remove("user_password");
         editor.remove("user_image");
         editor.remove("user_status_verified");
         editor.remove("user_tel");

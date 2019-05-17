@@ -68,10 +68,22 @@ public interface ApiInterface {
     Call<ResponseModel> pay(@Field("id") int id);
 
     @FormUrlEncoded
+    @POST("getverified.php")
+    Call<User> getverified(@Field("user_id") String id);
+
+    @FormUrlEncoded
     @POST("receiveorder.php")
     Call<ResponseModel> receiveorder(@Field("id") int id,
-                                     @Field("rate")int rate,
+                                     @Field("rate") int rate,
                                      @Field("seller_id") String seller);
+
+    @FormUrlEncoded
+    @POST("updateuser.php")
+    Call<ResponseModel> updateuser(@Field("id") int id,
+                                   @Field("user_id") String userId,
+                                   @Field("text") String text,
+                                   @Field("user_image") String img);
+
 
     @FormUrlEncoded
     @POST("acceptorder.php")
@@ -128,5 +140,5 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("readorder.php")
-    Call<ArrayList<Order>>  readorder(@Field("user_id") String userId);
+    Call<ArrayList<Order>> readorder(@Field("user_id") String userId);
 }

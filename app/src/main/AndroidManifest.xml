@@ -64,7 +64,7 @@
         <activity android:name=".verify.VerificationIDCard" />
         <activity android:name=".verify.VerificationPassport" />
         <activity android:name=".login_signup.Signup" />
-        <activity android:name=".login_signup.signup_condition" />
+        <activity android:name=".login_signup.SignupCondition" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -84,9 +84,9 @@
             android:name=".verify.CameraActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".verify.NfcAcitivity" />
-        <activity android:name=".event.AddressSelect" />
-        <activity android:name=".event.AddAddress" />
-        <activity android:name=".event.ShowAddrList" />
+        <activity android:name=".info.AddressSelect" />
+        <activity android:name=".info.AddAddress" />
+        <activity android:name=".info.ShowAddrList" />
         <activity android:name=".Ordering" />
         <activity android:name=".fragment.order.MessageActivity" />
 
@@ -111,7 +111,9 @@
         <activity android:name=".payment.SelectPaymentActivity" />
         <activity android:name=".payment.PaymentLogin" />
         <activity android:name=".payment.PaymentConfirm" />
-        <activity android:name=".payment.PaymentComplete"></activity>
+        <activity android:name=".payment.PaymentComplete" />
+        <activity android:name=".info.PrivateInfo" />
+        <activity android:name=".info.NewPassword"></activity>
     </application>
 
 </manifest>
