@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import project.senior.holdit.model.Address;
 import project.senior.holdit.model.Event;
+import project.senior.holdit.model.Finding;
 import project.senior.holdit.model.Item;
 import project.senior.holdit.model.Order;
 import project.senior.holdit.model.ResponseModel;
@@ -59,6 +60,19 @@ public interface ApiInterface {
     @POST("getitem.php")
     Call<Item> getitem(@Field("id") int id);
 
+    @FormUrlEncoded
+    @POST("readfinding.php")
+    Call<ArrayList<Finding>> readfinding(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("createfinding.php")
+    Call<ResponseModel> createfinding(@Field("user_id") String userId,
+                                      @Field("name") String name,
+                                      @Field("descript") String descript,
+                                      @Field("location") String location,
+                                      @Field("amount") int amount,
+                                      @Field("image") String image,
+                                      @Field("addr_id") int addr_id);
     @FormUrlEncoded
     @POST("deladdress.php")
     Call<ResponseModel> deladdress(@Field("id") int id);

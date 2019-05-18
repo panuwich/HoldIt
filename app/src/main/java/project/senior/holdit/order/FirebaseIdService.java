@@ -1,4 +1,4 @@
-package project.senior.holdit.fragment.order;
+package project.senior.holdit.order;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

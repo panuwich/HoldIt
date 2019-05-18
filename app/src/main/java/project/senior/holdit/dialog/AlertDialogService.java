@@ -389,6 +389,7 @@ public class AlertDialogService {
             }
         });
     }
+
     private int setStar(int ratestar, ImageView imageView[]) {
         for (int i = 0; i < 5; i++) {
             imageView[i].setImageResource(R.drawable.ic_star_grey);
@@ -398,6 +399,7 @@ public class AlertDialogService {
         }
         return ratestar;
     }
+
     private boolean isTelValid(String editTextTel) {
         String tel = editTextTel.trim();
         String expression = "\\d+";

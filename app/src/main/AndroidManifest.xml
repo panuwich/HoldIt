@@ -88,10 +88,10 @@
         <activity android:name=".info.AddAddress" />
         <activity android:name=".info.ShowAddrList" />
         <activity android:name=".Ordering" />
-        <activity android:name=".fragment.order.MessageActivity" />
+        <activity android:name=".order.MessageActivity" />
 
         <service
-            android:name=".fragment.order.FirebaseIdService"
+            android:name=".order.FirebaseIdService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -99,7 +99,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".fragment.order.FirebaseMessaging"
+            android:name=".order.FirebaseMessaging"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -107,13 +107,14 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".fragment.order.OrderInfo" />
+        <activity android:name=".order.OrderInfo" />
         <activity android:name=".payment.SelectPaymentActivity" />
         <activity android:name=".payment.PaymentLogin" />
         <activity android:name=".payment.PaymentConfirm" />
         <activity android:name=".payment.PaymentComplete" />
         <activity android:name=".info.PrivateInfo" />
-        <activity android:name=".info.NewPassword"></activity>
+        <activity android:name=".info.NewPassword" />
+        <activity android:name=".finding.AddFindingActivity"></activity>
     </application>
 
 </manifest>

@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import project.senior.holdit.fragment.order.SubTabBuyer;
-import project.senior.holdit.fragment.order.SubTabSeller;
+import project.senior.holdit.order.SubTabBuyer;
+import project.senior.holdit.order.SubTabSeller;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 

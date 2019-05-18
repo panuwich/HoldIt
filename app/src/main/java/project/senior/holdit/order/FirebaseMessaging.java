@@ -1,4 +1,4 @@
-package project.senior.holdit.fragment.order;
+package project.senior.holdit.order;
 
 import android.app.Notification;
 import android.app.NotificationManager;

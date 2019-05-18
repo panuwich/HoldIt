@@ -1,4 +1,4 @@
-package project.senior.holdit.fragment.order;
+package project.senior.holdit.order;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -384,6 +384,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     protected void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
+        reference.setValue(null);
     }
 
     void startToInfo(){

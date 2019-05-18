@@ -1,4 +1,4 @@
-package project.senior.holdit.fragment.order;
+package project.senior.holdit.order;
 
 import android.content.Intent;
 import android.net.Uri;
