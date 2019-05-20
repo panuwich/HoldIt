@@ -114,7 +114,10 @@
         <activity android:name=".payment.PaymentComplete" />
         <activity android:name=".info.PrivateInfo" />
         <activity android:name=".info.NewPassword" />
-        <activity android:name=".finding.AddFindingActivity"></activity>
+        <activity android:name=".finding.AddFindingActivity" />
+        <activity android:name=".finding.PreOrder" />
+        <activity android:name=".settingitem.SettingItem" />
+        <activity android:name=".settingitem.SettingList"></activity>
     </application>
 
 </manifest>

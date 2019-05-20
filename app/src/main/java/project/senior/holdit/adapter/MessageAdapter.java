@@ -53,7 +53,7 @@ import project.senior.holdit.model.Chat;
         Chat chat = chatList.get(i);
         holder.textViewShowTextMessage.setText(chat.getMessage());
         if(imageUrl.isEmpty()){
-            holder.circleImageViewUser.setImageResource(R.mipmap.ic_launcher);
+            holder.circleImageViewUser.setImageResource(R.drawable.user);
         }else{
             String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/"+imageUrl;
             Picasso.get().load(url).into(holder.circleImageViewUser);

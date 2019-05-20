@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".event.CreateItem">
+    tools:context=".settingitem.SettingItem">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_create"
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ADD PRODUCT"
+            android:text="SETTING"
             android:textColor="@color/colorWhite"
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
@@ -37,7 +37,7 @@
             android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="4dp"
+            android:padding="6dp"
             android:weightSum="3">
 
             <android.support.v7.widget.CardView
@@ -338,6 +338,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGrey" />
+
+            <View
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_centerVertical="true"
+                    android:text="สถานะรับซื้อ"
+                    android:textSize="16dp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:theme="@style/ThemeOverlay.SwitchCompat" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
         </LinearLayout>
 
         <android.support.v7.widget.CardView
@@ -352,7 +389,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/select_rec_without_stoke"
-                android:text="ADD"
+                android:text="UPDATE"
                 android:textColor="@color/colorWhite" />
         </android.support.v7.widget.CardView>
     </RelativeLayout>

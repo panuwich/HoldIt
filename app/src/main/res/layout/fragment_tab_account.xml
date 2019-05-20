@@ -71,17 +71,16 @@
 
                 <ImageView
                     android:id="@+id/logo1"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/manuser" />
+                    android:src="@drawable/ic_account" />
 
                 <TextView
-                    android:id="@+id/textPrivateInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -121,7 +120,6 @@
                     android:src="@drawable/ic_location_grey" />
 
                 <TextView
-                    android:id="@+id/textAddr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -161,7 +159,6 @@
                     android:src="@drawable/ic_report_grey" />
 
                 <TextView
-                    android:id="@+id/textNoti"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -184,6 +181,45 @@
                 android:background="@color/colorGrey" />
 
             <RelativeLayout
+                android:id="@+id/layout_account_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/logo7"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_settings_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_toEndOf="@+id/logo7"
+                    android:text="ตั้งค่าการรับซื้อ"
+                    android:layout_centerVertical="true" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/rightarrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+
+            <RelativeLayout
                 android:id="@+id/layout_account_verification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -200,7 +236,6 @@
                     android:src="@drawable/ic_verified_grey" />
 
                 <TextView
-                    android:id="@+id/textVeri"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -241,7 +276,6 @@
                     android:src="@drawable/logout" />
 
                 <TextView
-                    android:id="@+id/textLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"

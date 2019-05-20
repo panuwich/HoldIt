@@ -88,7 +88,6 @@ public class OrderAdapter extends BaseAdapter {
                     Picasso.get().load(url).into(circleImageView);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -20,6 +20,7 @@ import project.senior.holdit.info.AddressSelect;
 import project.senior.holdit.info.PrivateInfo;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.User;
+import project.senior.holdit.settingitem.SettingList;
 import project.senior.holdit.verify.Verification;
 
 
@@ -51,6 +52,7 @@ public class TabAccount extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.layout_account_addr).setOnClickListener(this);
         view.findViewById(R.id.layout_account_privateinfo).setOnClickListener(this);
         view.findViewById(R.id.layout_account_report).setOnClickListener(this);
+        view.findViewById(R.id.layout_account_setting).setOnClickListener(this);
 
         return view;
     }
@@ -103,6 +105,9 @@ public class TabAccount extends Fragment implements View.OnClickListener {
                 break;
             case R.id.layout_account_report:
                 Toast.makeText(getContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.layout_account_setting:
+                startActivity(new Intent(getContext(), SettingList.class));
                 break;
         }
     }

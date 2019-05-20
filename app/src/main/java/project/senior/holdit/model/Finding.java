@@ -34,6 +34,10 @@ public class Finding implements Serializable {
     @Expose
     private int addrId;
 
+    @SerializedName("user_id")
+    @Expose
+    private String userId;
+
     public Finding() {
     }
 
@@ -45,6 +49,21 @@ public class Finding implements Serializable {
         this.image = image;
         this.amount = amount;
         this.addrId = addrId;
+    }
+
+    public Finding(int id, String name, String descript, String location, String image, int amount, int addrId, String userId) {
+        this.id = id;
+        this.name = name;
+        this.descript = descript;
+        this.location = location;
+        this.image = image;
+        this.amount = amount;
+        this.addrId = addrId;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public int getAddrId() {

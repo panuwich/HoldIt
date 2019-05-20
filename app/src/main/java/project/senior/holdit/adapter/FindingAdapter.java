@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import project.senior.holdit.R;
+import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Finding;
 
 public class FindingAdapter extends RecyclerView.Adapter<FindingAdapter.ViewHolder> {
@@ -47,7 +48,11 @@ public class FindingAdapter extends RecyclerView.Adapter<FindingAdapter.ViewHold
         }else{
             holder.textViewLocation.setText(finding.getLocation());
         }
-
+        if (finding.getUserId().equals(SharedPrefManager.getInstance(mCtx).getUser().getUserId())){
+            holder.textViewMyorder.setVisibility(View.VISIBLE);
+        }else{
+            holder.textViewMyorder.setVisibility(View.GONE);
+        }
         holder.textViewAmount.setText(""+finding.getAmount());
     }
 
@@ -62,6 +67,7 @@ public class FindingAdapter extends RecyclerView.Adapter<FindingAdapter.ViewHold
         TextView textViewName;
         TextView textViewLocation;
         TextView textViewAmount;
+        TextView textViewMyorder;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +75,7 @@ public class FindingAdapter extends RecyclerView.Adapter<FindingAdapter.ViewHold
             textViewName=itemView.findViewById(R.id.textView_findind_name);
             textViewLocation=itemView.findViewById(R.id.textView_findind_location);
             textViewAmount=itemView.findViewById(R.id.textView_findind_amount);
+            textViewMyorder=itemView.findViewById(R.id.textView_myorder);
 
         }
     }

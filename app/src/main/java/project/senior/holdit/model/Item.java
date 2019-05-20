@@ -58,6 +58,58 @@ public class Item implements Serializable {
     @Expose
     private int userRateVote;
 
+    @SerializedName("status")
+    @Expose
+    private int status;
+
+    @SerializedName("event_title")
+    @Expose
+    private String eventName;
+
+    public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate
+            , String itemDesc, String itemImg1, String itemImg2, String itemImg3, int status, String eventName) {
+        this.itemId = itemId;
+        this.eventId = eventId;
+        this.userId = userId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemPreRate = itemPreRate;
+        this.itemTranRate = itemTranRate;
+        this.itemDesc = itemDesc;
+        this.itemImg1 = itemImg1;
+        this.itemImg2 = itemImg2;
+        this.itemImg3 = itemImg3;
+        this.status = status;
+        this.eventName = eventName;
+    }
+
+    public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate
+            , String itemDesc, String itemImg1, String itemImg2, String itemImg3, String eventName) {
+        this.itemId = itemId;
+        this.eventId = eventId;
+        this.userId = userId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemPreRate = itemPreRate;
+        this.itemTranRate = itemTranRate;
+        this.itemDesc = itemDesc;
+        this.itemImg1 = itemImg1;
+        this.itemImg2 = itemImg2;
+        this.itemImg3 = itemImg3;
+        this.eventName = eventName;
+    }
+
+    public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate, String itemDesc, String itemImg1) {
+        this.itemId = itemId;
+        this.eventId = eventId;
+        this.userId = userId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemPreRate = itemPreRate;
+        this.itemTranRate = itemTranRate;
+        this.itemDesc = itemDesc;
+        this.itemImg1 = itemImg1;
+    }
 
     public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate, String itemDesc, String itemImg1, String itemImg2, String itemImg3) {
         this.itemId = itemId;
@@ -88,6 +140,14 @@ public class Item implements Serializable {
         this.itemImg3 = itemImg3;
         this.userRateScore = userRateScore;
         this.userRateVote = userRateVote;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public int getUserRateScore() {

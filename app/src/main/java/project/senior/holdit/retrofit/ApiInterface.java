@@ -60,9 +60,8 @@ public interface ApiInterface {
     @POST("getitem.php")
     Call<Item> getitem(@Field("id") int id);
 
-    @FormUrlEncoded
-    @POST("readfinding.php")
-    Call<ArrayList<Finding>> readfinding(@Field("user_id") String user_id);
+    @GET("readfinding.php")
+    Call<ArrayList<Finding>> readfinding();
 
     @FormUrlEncoded
     @POST("createfinding.php")
@@ -117,6 +116,14 @@ public interface ApiInterface {
     Call<ResponseModel> cancelorder(@Field("id") int id);
 
     @FormUrlEncoded
+    @POST("readitembyuser.php")
+    Call<ArrayList<Item>> readitembyuser(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("delfinding.php")
+    Call<ResponseModel> delfinding(@Field("id") int id);
+
+    @FormUrlEncoded
     @POST("updateverify.php")
     Call<ResponseModel> updateverify(@Field("user_id") String userId);
 
@@ -139,6 +146,26 @@ public interface ApiInterface {
                                    @Field("item_img3") String itemImg3);
 
     @FormUrlEncoded
+    @POST("updateitem.php")
+    Call<ResponseModel> updateitem(@Field("item_id") int itemId,
+                                   @Field("item_name") String itemName,
+                                   @Field("item_price") int itemPrice,
+                                   @Field("item_pre_rate") int itemPreRate,
+                                   @Field("item_tran_rate") int itemTranRate,
+                                   @Field("item_desc") String itemDesc,
+                                   @Field("status") int status);
+
+    @FormUrlEncoded
+    @POST("createitemfind.php")
+    Call<Item> createitemfind(@Field("id") int id,@Field("user_id") String userId,
+                                   @Field("item_name") String itemName,
+                                   @Field("item_price") int itemPrice,
+                                   @Field("item_pre_rate") int itemPreRate,
+                                   @Field("item_tran_rate") int itemTranRate,
+                                   @Field("item_desc") String itemDesc,
+                                   @Field("item_img") String itemImg1);
+
+    @FormUrlEncoded
     @POST("forgetpassword/checkemail.php")
     Call<ResponseModel> checkemail(@Field("email") String userEmail);
 
@@ -150,7 +177,8 @@ public interface ApiInterface {
                                     @Field("addr_id") int addrId,
                                     @Field("amount") int amount,
                                     @Field("total") int total,
-                                    @Field("date") String date);
+                                    @Field("date") String date,
+                                    @Field("status") int status);
 
     @FormUrlEncoded
     @POST("readorder.php")

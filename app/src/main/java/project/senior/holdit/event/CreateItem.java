@@ -39,7 +39,7 @@ import retrofit2.Response;
 
 public class CreateItem extends AppCompatActivity implements View.OnClickListener {
     EditText editTextName,editTextDesc,editTextItemPrice,editTextItemPreRate,editTextItemTranRate;
-    TextView textViewCountName,textViewCountDesc,textViewPrice,textViewPreRate,textViewTranRate;
+    TextView textViewCountName,textViewCountDesc;
     ImageView buttonPic1,buttonPic2,buttonPic3;
     CardView cardView2,cardView3;
     Button button;
@@ -70,9 +70,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         editTextItemPrice = (EditText) findViewById(R.id.editText_create_item_price);
         textViewCountName = (TextView) findViewById(R.id.editText_create_count_name);
         textViewCountDesc = (TextView) findViewById(R.id.editText_create_count_desc);
-        textViewPrice = (TextView) findViewById(R.id.textView_create_item_price);
-        textViewPreRate = (TextView) findViewById(R.id.textView_create_item_pre_rate);
-        textViewTranRate = (TextView) findViewById(R.id.textView_create_item_pre_tran_rate);
         button = (Button)findViewById(R.id.button_create);
 
         buttonPic1.setOnClickListener(this);
@@ -215,13 +212,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                if (editable.toString().length() ==1){
-                    textViewPrice.setText(editable.toString());
-                }else {
-                    String stringFormat = getStringFormat(editable.toString());
-                    setTextFormat(textViewPrice, editTextItemPrice, stringFormat);
-                }
+                setEditText(editTextItemPrice,editable.toString(),this);
             }
         });
         editTextItemPreRate.addTextChangedListener(new TextWatcher() {
@@ -237,13 +228,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                if (editable.toString().length() ==1){
-                    textViewPreRate.setText(editable.toString());
-                }else {
-                    String stringFormat = getStringFormat(editable.toString());
-                    setTextFormat(textViewPreRate, editTextItemPreRate, stringFormat);
-                }
+                setEditText(editTextItemPreRate,editable.toString(),this);
             }
         });
         editTextItemTranRate.addTextChangedListener(new TextWatcher() {
@@ -259,12 +244,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().length() ==1){
-                    textViewTranRate.setText(editable.toString());
-                }else {
-                    String stringFormat = getStringFormat(editable.toString());
-                    setTextFormat(textViewTranRate, editTextItemTranRate, stringFormat);
-                }
+                setEditText(editTextItemTranRate,editable.toString(),this);
             }
         });
         button.setOnClickListener(this);
@@ -283,13 +263,18 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().setTitle("");
     }
 
-    String getStringFormat(String str) {
-        String retsult = "";
-        if (!str.isEmpty()) {
-            retsult = String.format("%,d", Integer.parseInt(str));
-        }
-        return retsult;
 
+    private void setEditText(EditText editText, String str,TextWatcher textWatcher){
+        editText.removeTextChangedListener(textWatcher);
+        if (!str.isEmpty()){
+            String format = String.format("%,d", Integer.parseInt(str.replace(",","")));
+            editText.setText(format);
+            editText.setSelection(editText.getText().toString().length());
+        }else{
+            editText.setSelection(0);
+        }
+
+        editText.addTextChangedListener(textWatcher);
     }
 
     void selectImage(int req) {
@@ -297,15 +282,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         startActivityForResult(Intent.createChooser(intent,"Select Image from Gallery"),req);
     }
 
-    void setTextFormat(TextView textView, EditText editText, String str) {
-        if (str.toString().equals("0")) {
-            editText.setText("");
-        } else if (!str.toString().isEmpty()) {
-            textView.setText(str);
-        } else {
-            textView.setText("");
-        }
-    }
 
     @Override
     public void onClick(View view) {
@@ -354,9 +330,9 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         String id = userId;
         int eventId = eventID;
         String itemName = editTextName.getText().toString().trim();
-        String price = textViewPrice.getText().toString().replace(",","");
-        String prerate = textViewPreRate.getText().toString().replace(",","");
-        String tranrate = textViewTranRate.getText().toString().replace(",","");
+        String price = editTextItemPrice.getText().toString().replace(",","");
+        String prerate = editTextItemPreRate.getText().toString().replace(",","");
+        String tranrate = editTextItemTranRate.getText().toString().replace(",","");
         String itemDesc = editTextDesc.getText().toString().trim();
         String [] str = {"","",""};
         for(int i =0  ; i < imgAr.size() ; i++){

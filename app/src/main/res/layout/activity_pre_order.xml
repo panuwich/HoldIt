@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".finding.PreOrder">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_finding"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_gre"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ANNOUCE"
+            android:textColor="@color/colorWhite"
+            android:textSize="20dp" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_finding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/imageView_annouce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_photo" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+            <TextView
+                android:id="@+id/textView_preorder_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite"
+                android:paddingLeft="16dp"
+                android:text="NAME" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingLeft="16dp"
+                android:background="@color/colorWhite"
+                android:text="รายละเอียดสินค้า" />
+            <TextView
+                android:id="@+id/textView_preorder_desc"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingLeft="16dp"
+                android:background="@color/colorWhite"
+                android:text="DESC" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="จำนวน" />
+
+                <TextView
+                    android:id="@+id/textView_preorder_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical|right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="x" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/colorWhite"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="สถานที่" />
+
+                <TextView
+                    android:id="@+id/textView_preorder_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical|right"
+                    android:paddingLeft="16dp"
+                    android:text="สถานที่"
+                    android:paddingRight="16dp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="ราคาต่อชิ้น" />
+
+                <EditText
+                    android:id="@+id/editText_price"
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical|right"
+                    android:background="@color/colorWhite"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:maxLength="7"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="16dp"
+                    android:hint="ราคา" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/colorWhite"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="ค่าหิ้วต่อชิ้น" />
+
+                <EditText
+                    android:id="@+id/editText_pre"
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical|right"
+                    android:background="@color/colorWhite"
+                    android:paddingLeft="16dp"
+                    android:maxLength="7"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="16dp"
+                    android:paddingRight="16dp"
+                    android:hint="ค่าหิ้ว" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="ค่าส่งต่อชิ้น" />
+
+                <EditText
+                    android:id="@+id/editText_tran"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/colorWhite"
+                    android:inputType="number"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="16dp"
+                    android:gravity="center_vertical|right"
+                    android:maxLength="7"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:hint="ค่าส่ง" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="9dp">
+
+            <Button
+                android:id="@+id/button_pre_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_rec_without_stoke"
+                android:text="CREATE ORDER"
+                android:textColor="@color/colorWhite" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</LinearLayout>

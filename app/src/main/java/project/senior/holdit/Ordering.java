@@ -3,7 +3,6 @@ package project.senior.holdit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,11 +14,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -122,7 +118,7 @@ public class Ordering extends AppCompatActivity {
     private void createOrder(final String seller, String buyer
             , final Item item, int addr, final int num, final int total, String date) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total, date);
+        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total, date,0);
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -163,24 +159,6 @@ public class Ordering extends AppCompatActivity {
         hashMap.put("time", formatter.format(date));
 
         reference.child("Chats").child(orderId).push().setValue(hashMap);
-
-        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(fuser.getUid())
-                .child(receiver);
-
-        chatRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-                    chatRef.child("id").setValue(receiver);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 

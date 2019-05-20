@@ -106,9 +106,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:layout_toLeftOf="@+id/imageButtonSend_message"
                 android:background="@color/colorWhite"
-                android:hint="พิมพ์ข้อความ....." />
+                android:hint="พิมพ์ข้อความ..." />
 
             <ImageButton
                 android:id="@+id/imageButtonSend_message"

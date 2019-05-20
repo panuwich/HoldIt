@@ -66,7 +66,6 @@ public class AlertDialogService {
 
     public void showDialog(ArrayList<Item> itemList, int position) {
         item = itemList.get(position);
-        System.out.println("ITEM : " + item.getUserId());
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
 
@@ -305,7 +304,6 @@ public class AlertDialogService {
 
     }
 
-
     public void dialogInput(final int edit, final TextView textView) {
 
         final User user = SharedPrefManager.getInstance(context).getUser();
@@ -373,6 +371,7 @@ public class AlertDialogService {
         });
     }
 
+    
     private void setFirebase(User user,final String text){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId());
         reference.addValueEventListener(new ValueEventListener() {
