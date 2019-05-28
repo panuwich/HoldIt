@@ -126,13 +126,16 @@ public class PrivateInfo extends AppCompatActivity implements View.OnClickListen
                 startActivityForResult(Intent.createChooser(intent, "Select Image from Gallery"), SELECT_IMAGE);
                 break;
             case R.id.layout_set_firstname:
-                new AlertDialogService(PrivateInfo.this, getLayoutInflater()).dialogInput(3, textViewFirstname);
+                new AlertDialogService(PrivateInfo.this, getLayoutInflater()).dialogInput(3
+                        , textViewFirstname, textViewFirstname.getText().toString());
                 break;
             case R.id.layout_set_lastname:
-                new AlertDialogService(PrivateInfo.this, getLayoutInflater()).dialogInput(4, textViewLastname);
+                new AlertDialogService(PrivateInfo.this, getLayoutInflater()).dialogInput(4
+                        , textViewLastname, textViewLastname.getText().toString());
                 break;
             case R.id.layout_set_tel:
-                new AlertDialogService(PrivateInfo.this, getLayoutInflater()).dialogInput(5, textViewTel);
+                new AlertDialogService(PrivateInfo.this, getLayoutInflater()).dialogInput(5
+                        , textViewTel, textViewTel.getText().toString());
                 break;
             case R.id.layout_set_newpass:
                 startActivity(new Intent(PrivateInfo.this,NewPassword.class));

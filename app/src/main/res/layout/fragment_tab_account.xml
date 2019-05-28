@@ -32,6 +32,7 @@
             <TextView
                 android:id="@+id/textView_account_name"
                 android:layout_width="match_parent"
+                android:textColor="@color/colorBlack"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="ชื่อ นามสกุล"
@@ -42,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:textColor="@color/colorBlack"
                 android:gravity="center"
                 android:text="อีเมล"
                 android:textSize="20dp" />
@@ -83,6 +85,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:layout_centerVertical="true"
                     android:layout_margin="8dp"
                     android:layout_toEndOf="@+id/logo1"
@@ -123,6 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:textColor="@color/colorBlack"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/logo2"
                     android:text="ที่อยู่จัดส่ง" />
@@ -163,6 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_toEndOf="@+id/logo3"
+                    android:textColor="@color/colorBlack"
                     android:text="รายงานการรับซื้อ"
                     android:layout_centerVertical="true" />
 
@@ -201,6 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_toEndOf="@+id/logo7"
+                    android:textColor="@color/colorBlack"
                     android:text="ตั้งค่าการรับซื้อ"
                     android:layout_centerVertical="true" />
 
@@ -240,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_toEndOf="@+id/logo4"
+                    android:textColor="@color/colorBlack"
                     android:text="ยืนยันตัวตน"
                     android:layout_centerVertical="true" />
 
@@ -279,6 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:textColor="@color/colorBlack"
                     android:layout_toEndOf="@+id/logo6"
                     android:text="ออกจากระบบ"
                     android:layout_centerVertical="true" />

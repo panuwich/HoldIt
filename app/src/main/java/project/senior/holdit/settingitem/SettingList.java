@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import retrofit2.Response;
 public class SettingList extends AppCompatActivity  {
     RecyclerView recyclerView;
     List<Item> itemList;
+    LinearLayout layout;
     @Override
     protected void onStart() {
         super.onStart();
@@ -37,6 +39,7 @@ public class SettingList extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_list);
         setToolbar();
+        layout = findViewById(R.id.layout_noitem);
         recyclerView = findViewById(R.id.recycler_setting);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SettingList.this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -62,8 +65,16 @@ public class SettingList extends AppCompatActivity  {
             @Override
             public void onResponse(Call<ArrayList<Item>> call, Response<ArrayList<Item>> response) {
                 itemList = response.body();
-                SettingAdapter settingAdapter = new SettingAdapter(SettingList.this,itemList);
-                recyclerView.setAdapter(settingAdapter);
+                if (itemList.size() > 0){
+                    SettingAdapter settingAdapter = new SettingAdapter(SettingList.this,itemList);
+                    recyclerView.setAdapter(settingAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    layout.setVisibility(View.GONE);
+                }else{
+                    layout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+
             }
 
             @Override

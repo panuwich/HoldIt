@@ -90,6 +90,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:text="ตั้งค่ารหัสผ่านใหม่" />
     </LinearLayout>
 
@@ -117,10 +118,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:text="ตั้งค่าชื่อ" />
         <TextView
             android:id="@+id/textView_info_firstname"
             android:layout_width="wrap_content"
+            android:textColor="@color/colorBlack"
             android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             android:text="xxxxxxxxx" />
@@ -146,10 +149,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:text="ตั้งค่านามสกุล" />
         <TextView
             android:id="@+id/textView_info_lastname"
             android:layout_width="wrap_content"
+            android:textColor="@color/colorBlack"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="xxxxxxxxx" />
@@ -175,12 +180,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:text="ตั้งค่าเบอร์โทร" />
         <TextView
             android:id="@+id/textView_info_tel"
             android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:text="xxxxxxxxx" />
     </LinearLayout>
 

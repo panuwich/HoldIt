@@ -67,7 +67,7 @@ public class PreOrder extends AppCompatActivity {
             textViewDesc.setText(finding.getDescript());
         }
         textViewAmount.setText(""+finding.getAmount());
-        if (finding.getDescript().isEmpty()){
+        if (finding.getLocation().isEmpty()){
             textViewLocation.setText("-");
         }else{
             textViewLocation.setText(finding.getLocation());

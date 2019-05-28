@@ -32,7 +32,7 @@
         <LinearLayout
             android:id="@+id/layout_upload_img"
             android:layout_width="match_parent"
-            android:layout_height="105dp"
+            android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:background="@color/colorWhite"
             android:gravity="center_vertical"
@@ -189,7 +189,40 @@
                     android:layout_marginRight="8dp"
                     android:text="/100" />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
+                    android:padding="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="ประเภทสินค้า"
+                    android:textSize="16dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textAlignment="gravity"
+                    android:gravity="right"
+                    android:background="@color/colorWhite"
+                    android:textSize="16dp" />
+
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -215,6 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/create_item_icon_name"
                     android:text="ราคาสินค้าต่อชิ้น"
@@ -225,6 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:background="@color/colorWhite"
@@ -264,6 +299,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/create_item_icon_name1"
                     android:text="ค่าหิ้วต่อชิ้น"
@@ -275,6 +311,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginRight="8dp"
                     android:background="@color/colorWhite"
                     android:gravity="right"
@@ -311,6 +348,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/create_item_icon_name2"
                     android:text="ค่าส่งต่อชิ้น"
@@ -323,6 +361,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
+                    android:textColor="@color/colorBlack"
                     android:background="@color/colorWhite"
                     android:gravity="right"
                     android:hint="ตั้งค่าส่ง"

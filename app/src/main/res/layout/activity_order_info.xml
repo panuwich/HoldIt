@@ -1,94 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".order.OrderInfo">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_order_detail"
-        android:layout_width="match_parent"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_height="50dp"
-        android:background="@drawable/background_gre">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="ORDER DETAIL"
-            android:textColor="@color/colorWhite"
-            android:textSize="20dp" />
-    </android.support.v7.widget.Toolbar>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="หมายเลขคำสั่งซื้อ : "
-            android:textColor="@color/colorBlack" />
-
-        <TextView
-            android:id="@+id/textView_order_detail_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:textColor="@color/colorBlack" />
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_order_detail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/background_gre"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ORDER DETAIL"
+                android:textColor="@color/colorWhite"
+                android:textSize="20dp" />
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="หมายเลขติดตามพัสดุ : "
-            android:textColor="@color/colorBlack" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/textView_order_detail_track"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/colorBlack" />
-        <ImageView
-            android:id="@+id/clipboard"
-            android:layout_width="18dp"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="end"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_content_copy"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="หมายเลขคำสั่งซื้อ : "
+                android:textColor="@color/colorBlack" />
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="12dp">
+            <TextView
+                android:id="@+id/textView_order_detail_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xxx"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="หมายเลขติดตามพัสดุ : "
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/textView_order_detail_track"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorBlack" />
 
             <ImageView
-                android:id="@+id/imageView_order_detail"
+                android:id="@+id/clipboard"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_content_copy" />
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:scaleType="centerCrop"
-                android:layout_height="230dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView_order_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/textView_order_detail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NAME"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ราคา"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/textView_order_detail_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="x"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ค่าหิ้ว"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/textView_order_detail_pre_rate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="x"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ค่าส่ง"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/textView_order_detail_tran_rate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="x"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="รวมทั้งหมด"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/textView_order_detail_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="x"
+                            android:textColor="@color/colorRed"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -96,96 +212,32 @@
                 android:orientation="vertical"
                 android:padding="12dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_location_grey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ที่อยู่จัดส่ง"
+                        android:textColor="@color/colorBlack" />
+
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/textView_order_detail_name"
+                    android:id="@+id/textView_addr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NAME"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="2dp"
                     android:textColor="@color/colorBlack" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ราคา"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/textView_order_detail_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="x"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ค่าหิ้ว"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/textView_order_detail_pre_rate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="x"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ค่าส่ง"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/textView_order_detail_tran_rate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="x"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="รวมทั้งหมด"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/textView_order_detail_total"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:textSize="18dp"
-                        android:text="x"
-                        android:textColor="@color/colorRed"
-                        android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

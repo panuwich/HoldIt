@@ -44,12 +44,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                app:cardCornerRadius="11dp">
+                app:cardCornerRadius="9dp">
 
                 <ImageView
                     android:id="@+id/button_create_picture1"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/ic_photo"
                     android:scaleType="centerCrop"/>
             </android.support.v7.widget.CardView>
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorBlue"
                 android:visibility="invisible"
-                app:cardCornerRadius="11dp">
+                app:cardCornerRadius="9dp">
 
                 <ImageView
                     android:id="@+id/button_create_picture2"
@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorBlue"
                 android:visibility="invisible"
-                app:cardCornerRadius="11dp">
+                app:cardCornerRadius="9dp">
 
                 <ImageView
                     android:id="@+id/button_create_picture3"
@@ -196,6 +196,49 @@
                 android:layout_height="1dp"
                 android:background="@color/colorGrey" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
+                    android:padding="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="ประเภทสินค้า"
+                    android:textSize="16dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textAlignment="gravity"
+                    android:paddingRight="12dp"
+                    android:gravity="right"
+                    android:background="@color/colorWhite"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:layout_toEndOf="@id/spinner_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_arrow_down"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -215,6 +258,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/create_item_icon_name"
                     android:text="ราคาสินค้าต่อชิ้น"
@@ -226,6 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginRight="8dp"
                     android:background="@color/colorWhite"
                     android:gravity="right"
@@ -264,6 +309,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/create_item_icon_name1"
                     android:text="ค่าหิ้วต่อชิ้น"
@@ -277,6 +323,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:background="@color/colorWhite"
+                    android:textColor="@color/colorBlack"
                     android:gravity="right"
                     android:hint="ตั้งค่าหิ้ว"
                     android:inputType="number"
@@ -313,6 +360,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/create_item_icon_name2"
+                    android:textColor="@color/colorBlack"
                     android:text="ค่าส่งต่อชิ้น"
                     android:textSize="16dp" />
 
@@ -322,6 +370,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginRight="8dp"
                     android:background="@color/colorWhite"
                     android:gravity="right"
@@ -357,6 +406,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
                     android:text="สถานะรับซื้อ"
                     android:textSize="16dp" />
 

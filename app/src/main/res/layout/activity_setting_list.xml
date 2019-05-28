@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".settingitem.SettingList">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_setting"
         android:layout_width="match_parent"
@@ -23,11 +24,25 @@
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/layout_noitem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/noitem" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_setting"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_height="match_parent">
+        android:visibility="gone">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

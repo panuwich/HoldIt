@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DescriptionEvent">
+    tools:context=".event.DescriptionEvent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -120,8 +120,8 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:adjustViewBounds="true"
                             android:src="@drawable/ic_add_purple" />
 
@@ -130,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingRight="4dp"
-                            android:text="เพิ่มสินค้า"
+                            android:text="รับซื้อ"
                             android:textColor="@color/colorPurple"
                             android:textStyle="bold" />
                     </LinearLayout>

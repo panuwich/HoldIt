@@ -304,7 +304,7 @@ public class AlertDialogService {
 
     }
 
-    public void dialogInput(final int edit, final TextView textView) {
+    public void dialogInput(final int edit, final TextView textView , String preString) {
 
         final User user = SharedPrefManager.getInstance(context).getUser();
         final AlertDialog.Builder builder =
@@ -315,6 +315,8 @@ public class AlertDialogService {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         final EditText editText = view.findViewById(R.id.editText_accept);
+        editText.setText(preString);
+        editText.setSelection(preString.length());
         Button button = view.findViewById(R.id.button_accept);
         final TextView textViewTitle = view.findViewById(R.id.textView_title_input);
         if (edit == 3){

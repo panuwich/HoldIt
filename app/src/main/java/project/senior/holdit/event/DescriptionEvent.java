@@ -137,6 +137,7 @@ public class DescriptionEvent extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DescriptionEvent.this,ItemGridview.class);
                 intent.putExtra("eventTitle",eventTitle);
+                intent.putExtra("eventId",eventID);
                 intent.putExtra("itemList",itemList);
                 startActivity(intent);
             }
@@ -165,10 +166,9 @@ public class DescriptionEvent extends AppCompatActivity {
         return d;
     }
     public void setItemList(int eventID) {
-
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         String uid  = SharedPrefManager.getInstance(DescriptionEvent.this).getUser().getUserId();
-        Call<ArrayList<Item>> call = apiService.readitem(eventID,uid);
+        Call<ArrayList<Item>> call = apiService.readitem(eventID,uid,1);
         call.enqueue(new Callback<ArrayList<Item>>() {
                          @Override
                          public void onResponse(Call<ArrayList<Item>> call, Response<ArrayList<Item>> response) {

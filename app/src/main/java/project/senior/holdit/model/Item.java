@@ -62,9 +62,32 @@ public class Item implements Serializable {
     @Expose
     private int status;
 
+    @SerializedName("type")
+    @Expose
+    private int type;
+
     @SerializedName("event_title")
     @Expose
     private String eventName;
+
+    public Item(int itemId, int eventId, String userId, String itemName, String itemPrice
+            , String itemPreRate, String itemTranRate, String itemDesc
+            , String itemImg1, String itemImg2, String itemImg3, int status, int type, String eventName) {
+        this.itemId = itemId;
+        this.eventId = eventId;
+        this.userId = userId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemPreRate = itemPreRate;
+        this.itemTranRate = itemTranRate;
+        this.itemDesc = itemDesc;
+        this.itemImg1 = itemImg1;
+        this.itemImg2 = itemImg2;
+        this.itemImg3 = itemImg3;
+        this.status = status;
+        this.type = type;
+        this.eventName = eventName;
+    }
 
     public Item(int itemId, int eventId, String userId, String itemName, String itemPrice, String itemPreRate, String itemTranRate
             , String itemDesc, String itemImg1, String itemImg2, String itemImg3, int status, String eventName) {
@@ -140,6 +163,10 @@ public class Item implements Serializable {
         this.itemImg3 = itemImg3;
         this.userRateScore = userRateScore;
         this.userRateVote = userRateVote;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public String getEventName() {

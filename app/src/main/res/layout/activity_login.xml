@@ -7,7 +7,7 @@
     android:background="@drawable/background_gre"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".login_signup.Login">
 
     <TextView
         android:id="@+id/imageView2"
@@ -88,32 +88,6 @@
         android:text="LOG IN"
         android:textColor="@color/colorWhite" />
 
-    <RelativeLayout
-        android:id="@+id/layout_face"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/select_facebook_button">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="LOG IN WITH FACEBOOK"
-            android:textColor="@color/colorWhite" />
-
-        <com.facebook.login.widget.LoginButton xmlns:facebook="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/button_login_face"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:visibility="invisible"
-            facebook:com_facebook_login_text="LOG IN WITH FACEBOOK" />
-
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView_forget_password"

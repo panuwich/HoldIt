@@ -29,52 +29,54 @@ public class OrderInfo extends AppCompatActivity {
     TextView textViewTran;
     TextView textViewTotal;
     TextView textViewTrack;
+    TextView textViewAddr;
     ImageView imageView;
     ImageView imageViewCilpboard;
     Order order;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_info);
         setToolbar();
-        order = (Order)getIntent().getSerializableExtra("order");
+        order = (Order) getIntent().getSerializableExtra("order");
         int itemId = order.getItemId();
         getItem(itemId);
         getOrder(order.getId());
-         textViewId = (TextView)findViewById(R.id.textView_order_detail_id);
-         textViewName = (TextView)findViewById(R.id.textView_order_detail_name);
-         textViewPrice = (TextView)findViewById(R.id.textView_order_detail_price);
-         textViewPre =(TextView) findViewById(R.id.textView_order_detail_pre_rate);
-         textViewTran = (TextView)findViewById(R.id.textView_order_detail_tran_rate);
-         textViewTotal = (TextView)findViewById(R.id.textView_order_detail_total);
-         textViewTrack = (TextView)findViewById(R.id.textView_order_detail_track);
-         imageView = (ImageView)findViewById(R.id.imageView_order_detail);
-         imageViewCilpboard = (ImageView)findViewById(R.id.clipboard);
+        textViewId = (TextView) findViewById(R.id.textView_order_detail_id);
+        textViewName = (TextView) findViewById(R.id.textView_order_detail_name);
+        textViewPrice = (TextView) findViewById(R.id.textView_order_detail_price);
+        textViewPre = (TextView) findViewById(R.id.textView_order_detail_pre_rate);
+        textViewTran = (TextView) findViewById(R.id.textView_order_detail_tran_rate);
+        textViewTotal = (TextView) findViewById(R.id.textView_order_detail_total);
+        textViewTrack = (TextView) findViewById(R.id.textView_order_detail_track);
+        textViewAddr = (TextView) findViewById(R.id.textView_addr);
+        imageView = (ImageView) findViewById(R.id.imageView_order_detail);
+        imageViewCilpboard = (ImageView) findViewById(R.id.clipboard);
 
 
-
-         imageViewCilpboard.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 setClipboard(OrderInfo.this,textViewTrack.getText().toString());
-             }
-         });
+        imageViewCilpboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setClipboard(OrderInfo.this, textViewTrack.getText().toString());
+            }
+        });
 
     }
 
-    private void getItem(int itemId){
+    private void getItem(int itemId) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         Call<Item> call = apiService.getitem(itemId);
         call.enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                 item = response.body();
-                textViewId.setText(""+order.getId());
+                textViewId.setText("" + order.getId());
                 textViewName.setText(item.getItemName());
-                textViewPrice.setText("฿ "+item.getItemPrice()+ " x " + order.getAmount());
-                textViewPre.setText("฿ "+item.getItemPreRate() + " x "+ order.getAmount());
-                textViewTran.setText("฿ "+item.getItemTranRate()+ " x " + order.getAmount());
-                textViewTotal.setText("฿ "+order.getTotal());
+                textViewPrice.setText("฿ " + item.getItemPrice() + " x " + order.getAmount());
+                textViewPre.setText("฿ " + item.getItemPreRate() + " x " + order.getAmount());
+                textViewTran.setText("฿ " + item.getItemTranRate() + " x " + order.getAmount());
+                textViewTotal.setText("฿ " + order.getTotal());
 
                 String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/item/" + item.getItemImg1();
                 Picasso.get().load(url).into(imageView);
@@ -88,20 +90,23 @@ public class OrderInfo extends AppCompatActivity {
 
     }
 
-    private void getOrder(int orderId){
+    private void getOrder(int orderId) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         Call<Order> call = apiService.getorder(orderId);
         call.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 textViewTrack.setText(response.body().getTrack());
+                textViewAddr.setText(response.body().getAddr());
             }
+
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
 
             }
         });
     }
+
     public void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_order_detail);
         setSupportActionBar(toolbar);
@@ -117,7 +122,7 @@ public class OrderInfo extends AppCompatActivity {
     }
 
     private void setClipboard(Context context, String text) {
-        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             clipboard.setText(text);
         } else {

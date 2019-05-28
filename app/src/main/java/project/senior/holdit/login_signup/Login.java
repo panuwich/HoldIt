@@ -18,9 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,9 +63,9 @@ public class Login extends AppCompatActivity {
         textViewLogin = (TextView)findViewById(R.id.textView_forget_password);
         textViewSignup = (TextView)findViewById(R.id.textView_login_signup);
         loginButtonNormal = (Button)findViewById(R.id.button_login_normal);
-        loginButtonFace = (LoginButton) findViewById(R.id.button_login_face);
-        loginButtonFace.setReadPermissions("editTextEmail");
+
         auth = FirebaseAuth.getInstance();
+
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,14 +76,6 @@ public class Login extends AppCompatActivity {
         //loginButtonFace.setFragment();
 
         //checkHashKey();
-        setFacebookButton();
-        layout_face = (RelativeLayout) findViewById(R.id.layout_face);
-        layout_face.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginButtonFace.performClick();
-            }
-        });
         loginButtonNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,49 +106,7 @@ public class Login extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    void setFacebookButton() {
-        // Callback registration
-        loginButtonFace.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-               /* Toast.makeText(Login.this, "Success" + loginResult.getAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
 
-                Bundle paramrters = new Bundle();
-                paramrters.putString("fields", "id,name,last_name,link,editTextEmail,picture");
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-                        Log.e("LOGIN",jsonObject.toString());
-                        try {
-                            String url = jsonObject.getJSONObject("picture").getJSONObject("data").getString("url");
-                            Log.e("LOGIN",jsonObject.getJSONObject("picture").getJSONObject("data").getString("url"));
-                            //Picasso.get().load(url).into(img);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                request.setParameters(paramrters);
-                request.executeAsync();
-*/
-                startActivity(new Intent(Login.this, MainActivity.class));
-                finish();
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-        });
-
-
-    }
     public void login(final String email, final String password) {
 
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);

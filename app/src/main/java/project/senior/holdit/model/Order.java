@@ -46,6 +46,24 @@ public class Order implements Serializable {
     @Expose
     private String track;
 
+    @SerializedName("addr")
+    @Expose
+    private String addr;
+
+    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, int status, String track, String addr) {
+        this.id = id;
+        this.sellerId = sellerId;
+        this.buyerId = buyerId;
+        this.itemId = itemId;
+        this.addrId = addrId;
+        this.amount = amount;
+        this.total = total;
+        this.date = date;
+        this.status = status;
+        this.track = track;
+        this.addr = addr;
+    }
+
     public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, int status) {
         this.id = id;
         this.sellerId = sellerId;
@@ -69,6 +87,10 @@ public class Order implements Serializable {
         this.date = date;
         this.status = status;
         this.track = track;
+    }
+
+    public String getAddr() {
+        return addr;
     }
 
     public String getTrack() {

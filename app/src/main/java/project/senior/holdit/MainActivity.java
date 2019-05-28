@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
     final int RequestPermissionCode = 1;
     Toolbar toolbar;
     BottomNavigationView bottomNavigationView;
-    final TabHome tabHome = new TabHome();
+    TabHome tabHome = new TabHome();
     final TabPreOrder tabPreOrder = new TabPreOrder();
     final TabAccount tabAccount = new TabAccount();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -49,10 +50,10 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
         bottomNavigationView = findViewById(R.id.navi_main);
         bottomNavigationView.setSelectedItemId(R.id.icon_home);
         disableShiftMode(bottomNavigationView);
-        if(getIntent().getBooleanExtra("order",false)){
+        if (getIntent().getBooleanExtra("order", false)) {
             bottomNavigationView.setSelectedItemId(R.id.icon_my_order);
             loadFragment(new TabMyOrder());
-        }else {
+        } else {
             loadFragment(tabHome);
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
                 switch (item.getItemId()) {
                     case R.id.icon_home:
                         // do this event
+                        tabHome.setVisFilter();
                         fragment = tabHome;
+
                         break;
                     case R.id.icon_finding:
                         // do this event
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.container_main, fragment )
+                    .replace(R.id.container_main, fragment)
                     .commit();
             return true;
         }

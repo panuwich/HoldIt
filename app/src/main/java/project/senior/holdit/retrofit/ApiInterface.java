@@ -130,7 +130,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("event/readitem.php")
     Call<ArrayList<Item>> readitem(@Field("event_id") int eventId,
-                                   @Field("user_id") String userId);
+                                   @Field("user_id") String userId,
+                                   @Field("sort") int sort);
 
     @FormUrlEncoded
     @POST("event/createitem.php")
@@ -143,7 +144,8 @@ public interface ApiInterface {
                                    @Field("item_desc") String itemDesc,
                                    @Field("item_img1") String itemImg1,
                                    @Field("item_img2") String itemImg2,
-                                   @Field("item_img3") String itemImg3);
+                                   @Field("item_img3") String itemImg3,
+                                   @Field("type") int type);
 
     @FormUrlEncoded
     @POST("updateitem.php")
@@ -153,7 +155,8 @@ public interface ApiInterface {
                                    @Field("item_pre_rate") int itemPreRate,
                                    @Field("item_tran_rate") int itemTranRate,
                                    @Field("item_desc") String itemDesc,
-                                   @Field("status") int status);
+                                   @Field("status") int status,
+                                   @Field("type") int type);
 
     @FormUrlEncoded
     @POST("createitemfind.php")

@@ -8,15 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import project.senior.holdit.R;
 import project.senior.holdit.dialog.AlertDialogService;
@@ -35,6 +39,10 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
     ImageView buttonPic1, buttonPic2, buttonPic3;
     CardView cardView2, cardView3;
     SwitchCompat switchCompat;
+    Spinner spinner;
+    int SELECT_TYPE = 0;
+    private ArrayList<String> typeList = new ArrayList<String>();
+    HashMap<String,Integer> hashMap = new HashMap<>();
     Button button;
     String userId;
     ArrayList<String> imgAr = new ArrayList<>();
@@ -43,11 +51,12 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_item);
-
+        createTypeData();
         setToolbar();
+        setHashMap();
         item = (Item) getIntent().getSerializableExtra("item");
         userId = SharedPrefManager.getInstance(SettingItem.this).getUser().getUserId();
-
+        spinner = findViewById(R.id.spinner_type);
         buttonPic1 = (ImageView) findViewById(R.id.button_create_picture1);
         switchCompat = (SwitchCompat) findViewById(R.id.switch_setting);
         buttonPic2 = (ImageView) findViewById(R.id.button_create_picture2);
@@ -62,7 +71,21 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
         textViewCountName = (TextView) findViewById(R.id.editText_create_count_name);
         textViewCountDesc = (TextView) findViewById(R.id.editText_create_count_desc);
         button = (Button) findViewById(R.id.button_create);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.detail_dropdown_type, typeList);
+        adapter.setDropDownViewResource(R.layout.detail_dropdown_type);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SELECT_TYPE = (int) hashMap.get(typeList.get(position));
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         editTextName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -152,6 +175,7 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
         editTextItemPrice.setText(""+item.getItemPrice());
         editTextItemPreRate.setText(""+item.getItemPreRate());
         editTextItemTranRate.setText(""+item.getItemTranRate());
+        spinner.setSelection(item.getType()-1);
         String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/item/";
         if(item.getStatus() == 1){
             switchCompat.setChecked(true);
@@ -210,6 +234,35 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+    private void createTypeData() {
+        typeList.add("เสื้อผ้า");
+        typeList.add("หนังสือ");
+        typeList.add("รองเท้า");
+        typeList.add("เครื่องสำอาง");
+        typeList.add("กระเป๋า");
+        typeList.add("เครื่องประดับ");
+        typeList.add("กีฬา");
+        typeList.add("อุปกรณ์ถ่ายภาพ");
+        typeList.add("สื่อบันเทิง");
+        typeList.add("อุปกรณ์เครื่องเขียน");
+        typeList.add("อุปกรณ์ IT");
+        typeList.add("อื่นๆ");
+    }
+    public void setHashMap() {
+        hashMap.put("เลือกประเภท", 0);
+        hashMap.put("เสื้อผ้า", 1);
+        hashMap.put("หนังสือ", 2);
+        hashMap.put("รองเท้า", 3);
+        hashMap.put("เครื่องสำอาง", 4);
+        hashMap.put("กระเป๋า", 5);
+        hashMap.put("เครื่องประดับ", 6);
+        hashMap.put("กีฬา", 7);
+        hashMap.put("อุปกรณ์ถ่ายภาพ", 8);
+        hashMap.put("สื่อบันเทิง", 9);
+        hashMap.put("อุปกรณ์เครื่องเขียน", 10);
+        hashMap.put("อุปกรณ์ IT", 11);
+        hashMap.put("อื่นๆ", 12);
+    }
 
     void saveItem(){
         String itemName = editTextName.getText().toString().trim();
@@ -233,7 +286,7 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
     public void updateItem(String itemName, int itemPrice, int itemPreRate, int itemTranRate, String itemDesc, int status){
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
         Call<ResponseModel> call = apiService.updateitem(item.getItemId(),  itemName, itemPrice, itemPreRate, itemTranRate
-                , itemDesc,status);
+                , itemDesc,status,SELECT_TYPE);
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {

@@ -27,6 +27,7 @@
                 android:id="@+id/textView_name_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
                 android:maxLines="1"
                 android:text="NAME"
                 android:textSize="16dp"
@@ -37,6 +38,7 @@
                 android:id="@+id/textView_event_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
                 android:text="event name " />
 
         </LinearLayout>

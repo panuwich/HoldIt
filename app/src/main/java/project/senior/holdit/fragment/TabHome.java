@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,15 +48,17 @@ public class TabHome extends Fragment {
     ArrayList<Event> eventListFilter = new ArrayList<>();
     ListView lv;
     Button buttonGO ;
+    LinearLayout layoutFilter;
     ArrayList<String> filterCon = new ArrayList<>();
     ArrayList<String> preFilterCon = new ArrayList<>();
     HashMap<String, String> hashMap = new HashMap<String, String>();
     HashMap<Integer, Integer> hashMapImg0 = new HashMap<Integer, Integer>();
     HashMap<Integer, Integer> hashMapImg1 = new HashMap<Integer, Integer>();
-    CircleImageView[] circleImageViews = new CircleImageView[12];
-    TextView[] textViews = new TextView[12];
+    CircleImageView[] circleImageViews = new CircleImageView[13];
+    TextView[] textViews = new TextView[13];
     ImageView imgViewResult;
     ProgressDialog dialog;
+    Button buttonFilter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,10 +69,10 @@ public class TabHome extends Fragment {
         buttonGO = (Button)view.findViewById(R.id.button_home_filter_go);
         filterCon = (ArrayList<String>) preFilterCon.clone();
 
-        for (int i = 0; i < 12; i++) {
-            int id1 = getResources().getIdentifier("imageView_filter_" + (i + 1), "id", getContext().getPackageName());
+        for (int i = 1; i <= 12; i++) {
+            int id1 = getResources().getIdentifier("imageView_filter_" + i, "id", getContext().getPackageName());
             circleImageViews[i] = (CircleImageView) view.findViewById(id1);
-            int id2 = getResources().getIdentifier("textView_filter_" + (i + 1), "id", getContext().getPackageName());
+            int id2 = getResources().getIdentifier("textView_filter_" + i, "id", getContext().getPackageName());
             textViews[i] = (TextView) view.findViewById(id2);
             final int finalI = i;
 
@@ -93,8 +96,8 @@ public class TabHome extends Fragment {
         //setFilter
         setFilter(filterCon);
         imgViewResult = (ImageView) view.findViewById(R.id.img_home_result);
-        final LinearLayout layoutFilter = (LinearLayout) view.findViewById(R.id.layout_home_filter);
-        final Button buttonFilter = (Button) getActivity().findViewById(R.id.button_main_filter);
+        layoutFilter = (LinearLayout) view.findViewById(R.id.layout_home_filter);
+        buttonFilter = (Button) getActivity().findViewById(R.id.button_main_filter);
         buttonFilter.setVisibility(View.VISIBLE);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         lv = (ListView) view.findViewById(R.id.listview_item);
@@ -117,8 +120,9 @@ public class TabHome extends Fragment {
                     buttonFilter.setBackgroundResource(R.drawable.ic_tune_white);
                     layoutFilter.setVisibility(View.GONE);
 
-                    filterCon = (ArrayList<String>) preFilterCon.clone();
-                    setFilter(filterCon);
+                    //filterCon = (ArrayList<String>) preFilterCon.clone();
+                    //setFilter(filterCon);
+                    buttonGO.performClick();
                 }
             }
         });
@@ -292,41 +296,47 @@ public class TabHome extends Fragment {
         );
         lv.setAdapter(mAdapter);
     }
-
+    public void setVisFilter(){
+        if(layoutFilter.getVisibility() == View.VISIBLE){
+            layoutFilter.setVisibility(View.GONE);
+            buttonFilter.setBackgroundResource(R.drawable.ic_tune_white);
+            lv.setEnabled(true);
+        }
+    }
     public void setFilter(ArrayList<String> a) {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 1; i <= 12; i++) {
             circleImageViews[i].setImageResource(hashMapImg0.get(i));
             textViews[i].setTextColor(getResources().getColor(R.color.colorBlack));
         }
-        for (int i = 0; i < a.size(); i++) {
+        for (int i = 1; i <= a.size(); i++) {
             circleImageViews[Integer.parseInt(a.get(i))].setImageResource(hashMapImg1.get(Integer.parseInt(a.get(i))));
             textViews[Integer.parseInt(a.get(i))].setTextColor(getResources().getColor(R.color.colorPurple));
         }
     }
 
     public void setHashMap() {
-        hashMap.put("เสื้อผ้า", "0");
-        hashMap.put("หนังสือ", "1");
-        hashMap.put("รองเท้า", "2");
-        hashMap.put("เครื่องสำอาง", "3");
-        hashMap.put("กระเป๋า", "4");
-        hashMap.put("เครื่องประดับ", "5");
-        hashMap.put("กีฬา", "6");
-        hashMap.put("อุปกรณ์ถ่ายภาพ", "7");
-        hashMap.put("สื่อบันเทิง", "8");
-        hashMap.put("อุปกรณ์เครื่องเขียน", "9");
-        hashMap.put("อุปกรณ์ IT", "10");
-        hashMap.put("อื่นๆ", "11");
+        hashMap.put("เสื้อผ้า", "1");
+        hashMap.put("หนังสือ", "2");
+        hashMap.put("รองเท้า", "3");
+        hashMap.put("เครื่องสำอาง", "4");
+        hashMap.put("กระเป๋า", "5");
+        hashMap.put("เครื่องประดับ", "6");
+        hashMap.put("กีฬา", "7");
+        hashMap.put("อุปกรณ์ถ่ายภาพ", "8");
+        hashMap.put("สื่อบันเทิง", "9");
+        hashMap.put("อุปกรณ์เครื่องเขียน", "10");
+        hashMap.put("อุปกรณ์ IT", "11");
+        hashMap.put("อื่นๆ", "12");
     }
 
     void setHashMapImg(){
         Resources res = getResources();
-        for (int i = 0 ; i < 12 ;i++){
+        for (int i = 1 ; i <= 12 ;i++){
             String mDrawableName = "filter" + i +"0";
             int resID = res.getIdentifier(mDrawableName , "drawable", getContext().getPackageName());
             hashMapImg0.put(i,resID);
         }
-        for (int i = 0 ; i < 12 ;i++){
+        for (int i = 1 ; i <= 12 ;i++){
             String mDrawableName = "filter" + i +"1";
             int resID = res.getIdentifier(mDrawableName , "drawable", getContext().getPackageName());
             hashMapImg1.put(i,resID);
