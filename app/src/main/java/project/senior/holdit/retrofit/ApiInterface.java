@@ -7,6 +7,7 @@ import project.senior.holdit.model.Event;
 import project.senior.holdit.model.Finding;
 import project.senior.holdit.model.Item;
 import project.senior.holdit.model.Order;
+import project.senior.holdit.model.PieChartReport;
 import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.model.User;
 import retrofit2.Call;
@@ -118,6 +119,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("readitembyuser.php")
     Call<ArrayList<Item>> readitembyuser(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("piechart.php")
+    Call<ArrayList<PieChartReport>> piechart(@Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("delfinding.php")

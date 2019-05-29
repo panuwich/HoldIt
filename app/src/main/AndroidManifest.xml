@@ -117,7 +117,8 @@
         <activity android:name=".finding.AddFindingActivity" />
         <activity android:name=".finding.PreOrder" />
         <activity android:name=".settingitem.SettingItem" />
-        <activity android:name=".settingitem.SettingList"></activity>
+        <activity android:name=".settingitem.SettingList" />
+        <activity android:name=".report.reportActivity"></activity>
     </application>
 
 </manifest>

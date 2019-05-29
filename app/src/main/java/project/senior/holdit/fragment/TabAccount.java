@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +19,7 @@ import project.senior.holdit.info.AddressSelect;
 import project.senior.holdit.info.PrivateInfo;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.User;
+import project.senior.holdit.report.reportActivity;
 import project.senior.holdit.settingitem.SettingList;
 import project.senior.holdit.verify.Verification;
 
@@ -104,7 +104,7 @@ public class TabAccount extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getContext(), PrivateInfo.class));
                 break;
             case R.id.layout_account_report:
-                Toast.makeText(getContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), reportActivity.class));
                 break;
             case R.id.layout_account_setting:
                 startActivity(new Intent(getContext(), SettingList.class));
