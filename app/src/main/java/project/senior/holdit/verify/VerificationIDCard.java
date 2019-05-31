@@ -1,6 +1,7 @@
 package project.senior.holdit.verify;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,12 +17,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -29,10 +32,19 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.senior.holdit.R;
+import project.senior.holdit.manager.SharedPrefManager;
+import project.senior.holdit.model.ResponseModel;
+import project.senior.holdit.model.User;
+import project.senior.holdit.retrofit.ApiInterface;
+import project.senior.holdit.retrofit.ConnectServer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerificationIDCard extends AppCompatActivity {
     int CAMERA_PIC_REQUEST = 200;
     private String currentPhotoPath = "";
+    ProgressDialog dialog;
     final int RequestPermissionCode = 1;
 
     @Override
@@ -100,7 +112,7 @@ public class VerificationIDCard extends AppCompatActivity {
         if (requestCode == CAMERA_PIC_REQUEST && resultCode == RESULT_OK) {
             File file = new File(currentPhotoPath);
             try {
-                Bitmap bitmap = MediaStore.Images.Media
+                final Bitmap bitmap = MediaStore.Images.Media
                         .getBitmap(getBaseContext().getContentResolver(), Uri.fromFile(file));
 
                 final AlertDialog.Builder builder =
@@ -116,8 +128,20 @@ public class VerificationIDCard extends AppCompatActivity {
                 ImageView imageViewCard = (ImageView) v.findViewById(R.id.imageView_dialog_veri_idcard);
                 //  Button buttonConfirm = (Button)v.findViewById(R.id.button_dialog_veri_idcard_confirm);
                 Button buttonCancel = (Button) v.findViewById(R.id.button_dialog_veri_idcard_cancel);
+                Button buttonAccept = (Button) v.findViewById(R.id.button_accept);
 
                 imageViewCard.setImageBitmap(bitmap);
+                buttonAccept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog = new ProgressDialog(VerificationIDCard.this,R.style.MyAlertDialogStyle);
+                        dialog.setMessage("Loading");
+                        dialog.show();
+                        String image = imageToString(bitmap);
+                        savePic(image);
+                        alertDialog.cancel();
+                    }
+                });
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -129,12 +153,35 @@ public class VerificationIDCard extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            //ImageView imageview = (ImageView) findViewById(R.id.ImageView01); //sets imageview as the bitmap
-                //imageview.setImageBitmap(image);
-
-
             }
 
+    }
+
+    private void savePic(String image){
+        User user = SharedPrefManager.getInstance(VerificationIDCard.this).getUser();
+        ApiInterface api = ConnectServer.getClient().create(ApiInterface.class);
+        Call<ResponseModel> call = api.verifiedidcard(user.getUserId(),image);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                Toast.makeText(VerificationIDCard.this, response.body().getResponse(), Toast.LENGTH_SHORT).show();
+                if (response.body().isStatus()){
+                    dialog.dismiss();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+            }
+        });
+    }
+    public String imageToString(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] imgByte = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imgByte, Base64.DEFAULT);
     }
 
     private void RequestRuntimePermission() {

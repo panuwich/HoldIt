@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import project.senior.holdit.R;
 import project.senior.holdit.manager.SharedPrefManager;
@@ -54,13 +55,23 @@ public class Verification extends AppCompatActivity {
         cardViewPassport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Verification.this,VerificationPassport.class));
+                if (user.getUserStatusVerified() == 1){
+                    Toast.makeText(Verification.this, "ท่านยืนยันตัวตนเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(new Intent(Verification.this,VerificationPassport.class));
+                }
+
             }
         });
         cardViewIDCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Verification.this,VerificationIDCard.class));
+                if (user.getUserStatusVerified() == 1){
+                    Toast.makeText(Verification.this, "ท่านยืนยันตัวตนเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(new Intent(Verification.this,VerificationIDCard.class));
+                }
+
             }
         });
     }

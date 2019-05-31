@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import project.senior.holdit.R;
 
@@ -21,6 +25,7 @@ public class SalesReport extends Fragment implements View.OnClickListener{
     EditText editTextStart,editTextStop;
     private DatePickerDialog.OnDateSetListener mDateSetListenerStart;
     private DatePickerDialog.OnDateSetListener mDateSetListenerStop;
+    TextView textViewNodata;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +36,12 @@ public class SalesReport extends Fragment implements View.OnClickListener{
         editTextStop = view.findViewById(R.id.date_stop);
         view.findViewById(R.id.layout_start).setOnClickListener(this);
         view.findViewById(R.id.layout_stop).setOnClickListener(this);
-
+        Date dstart = new Date();
+        dstart.setYear(dstart.getYear()-1);
+        Date dstop = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        editTextStart.setText(dateFormat.format(dstart));
+        editTextStop.setText(dateFormat.format(dstop));
         mDateSetListenerStart = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {

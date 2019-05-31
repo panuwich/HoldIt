@@ -17,7 +17,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -301,6 +300,7 @@ public class TabHome extends Fragment {
             layoutFilter.setVisibility(View.GONE);
             buttonFilter.setBackgroundResource(R.drawable.ic_tune_white);
             lv.setEnabled(true);
+            resultFromFilter();
         }
     }
     public void setFilter(ArrayList<String> a) {
@@ -309,8 +309,9 @@ public class TabHome extends Fragment {
             textViews[i].setTextColor(getResources().getColor(R.color.colorBlack));
         }
         for (int i = 1; i <= a.size(); i++) {
-            circleImageViews[Integer.parseInt(a.get(i))].setImageResource(hashMapImg1.get(Integer.parseInt(a.get(i))));
-            textViews[Integer.parseInt(a.get(i))].setTextColor(getResources().getColor(R.color.colorPurple));
+            System.out.println("INDEX : " + a.size());
+            circleImageViews[Integer.parseInt(a.get(i-1))].setImageResource(hashMapImg1.get(Integer.parseInt(a.get(i-1))));
+            textViews[Integer.parseInt(a.get(i-1))].setTextColor(getResources().getColor(R.color.colorPurple));
         }
     }
 

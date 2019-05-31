@@ -11,9 +11,32 @@ public class PieChartReport {
     @Expose
     int amount;
 
+    @SerializedName("date_start")
+    @Expose
+    String dateStart;
+
+    @SerializedName("date_stop")
+    @Expose
+    String dateStop;
+
     public PieChartReport(String nameType, int amount) {
         this.nameType = getType(Integer.parseInt(nameType));
         this.amount = amount;
+    }
+
+    public PieChartReport(String nameType, int amount, String dateStart, String dateStop) {
+        this.nameType = nameType;
+        this.amount = amount;
+        this.dateStart = dateStart;
+        this.dateStop = dateStop;
+    }
+
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public String getDateStop() {
+        return dateStop;
     }
 
     public String getNameType() {

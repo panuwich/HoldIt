@@ -122,11 +122,18 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("piechart.php")
-    Call<ArrayList<PieChartReport>> piechart(@Field("user_id") String user_id);
+    Call<ArrayList<PieChartReport>> piechart(@Field("user_id") String user_id,
+                                             @Field("date_start") String start,
+                                             @Field("date_stop") String stop);
 
     @FormUrlEncoded
     @POST("delfinding.php")
     Call<ResponseModel> delfinding(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("verify/verifiedidcard.php")
+    Call<ResponseModel> verifiedidcard(@Field("id") String id,
+                                       @Field("image") String image);
 
     @FormUrlEncoded
     @POST("updateverify.php")

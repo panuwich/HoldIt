@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -20,10 +21,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import project.senior.holdit.R;
@@ -41,6 +42,7 @@ public class TypeReport extends Fragment implements View.OnClickListener {
     private DatePickerDialog.OnDateSetListener mDateSetListenerStart;
     private DatePickerDialog.OnDateSetListener mDateSetListenerStop;
     PieChart chart;
+    TextView textViewNodata;
     ArrayList<PieChartReport> list = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,12 +54,19 @@ public class TypeReport extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.layout_start).setOnClickListener(this);
         view.findViewById(R.id.layout_stop).setOnClickListener(this);
         view.findViewById(R.id.button_search).setOnClickListener(this);
-        chart = (PieChart) view.findViewById(R.id.pie_chart);
+        textViewNodata = view.findViewById(R.id.textView_nodata);
+        chart = view.findViewById(R.id.pie_chart);
+        Date dstart = new Date();
+        dstart.setYear(dstart.getYear()-1);
+        Date dstop = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        editTextStart.setText(dateFormat.format(dstart));
+        editTextStop.setText(dateFormat.format(dstop));
         mDateSetListenerStart = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = year + "-" + month + "-" + day;
+                String date = year + "-" + oneDigit(month) + "-" + oneDigit(day);
                 editTextStart.setText(date);
             }
         };
@@ -65,36 +74,41 @@ public class TypeReport extends Fragment implements View.OnClickListener {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = year + "-" + month + "-" + day;
+                String date = year + "-" + oneDigit(month) + "-" + oneDigit(day);
                 editTextStop.setText(date);
             }
         };
-        setListReport();
+        view.findViewById(R.id.button_search).performClick();
         return view;
     }
 
-    private void datePicker(DatePickerDialog.OnDateSetListener listener){
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+    private void datePicker(DatePickerDialog.OnDateSetListener listener,EditText editText){
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(editText.getText().toString());
+            int year = date.getYear()+1900;
+            int month = date.getMonth();
+            int day = date.getDate();
+            System.out.println(year + " " + month + " " + day);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    getContext(),
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    listener,
+                    year,month,day);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        DatePickerDialog dialog = new DatePickerDialog(
-                getContext(),
-                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                listener,
-                year,month,day);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
     }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.layout_start:
-                datePicker(mDateSetListenerStart);
+                datePicker(mDateSetListenerStart,editTextStart);
                 break;
             case R.id.layout_stop:
-                datePicker(mDateSetListenerStop);
+                datePicker(mDateSetListenerStop,editTextStop);
                 break;
             case R.id.button_search:
                 valid();
@@ -111,23 +125,39 @@ public class TypeReport extends Fragment implements View.OnClickListener {
             if (date1.after(date2)){
                 Toast.makeText(getContext(), "วันสิ้นสุดต้องมาก่อนวันเริ่มต้น", Toast.LENGTH_SHORT).show();
             }else{
-
+                setListReport();
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
+    String oneDigit(int num){
+        if(num < 10){
+            return "0" + num;
+        }
+        return "" + num;
+    }
     private void setListReport(){
         ApiInterface api = ConnectServer.getClient().create(ApiInterface.class);
         User user = SharedPrefManager.getInstance(getContext()).getUser();
-        Call<ArrayList<PieChartReport>> call = api.piechart(user.getUserId());
+        Call<ArrayList<PieChartReport>> call = api.piechart(user.getUserId()
+                ,editTextStart.getText().toString(),editTextStop.getText().toString());
         call.enqueue(new Callback<ArrayList<PieChartReport>>() {
             @Override
             public void onResponse(Call<ArrayList<PieChartReport>> call, Response<ArrayList<PieChartReport>> response) {
                 list.clear();
-                for(PieChartReport p : response.body()){
-                    list.add(new PieChartReport(p.getNameType(),p.getAmount()));
+                if (response.body().size() == 0){
+                    textViewNodata.setVisibility(View.VISIBLE);
+                    chart.setVisibility(View.GONE);
+                }else{
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    for(PieChartReport p : response.body()){
+                        list.add(new PieChartReport(p.getNameType(),p.getAmount()));
+
+                    }
+                    textViewNodata.setVisibility(View.GONE);
+                    chart.setVisibility(View.VISIBLE);
                 }
                 setChart();
             }
@@ -142,11 +172,9 @@ public class TypeReport extends Fragment implements View.OnClickListener {
     private void setChart(){
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (PieChartReport p : list) {
-            entries.add(new PieEntry(p.getAmount(), p.getNameType()));
-            System.out.println(p.getAmount());
-            System.out.println(p.getNameType());
+            entries.add(new PieEntry(p.getAmount(), p.getNameType() + " (" + +p.getAmount() + ") "));
         }
-        PieDataSet dataset = new PieDataSet(entries, "PieChartReport");
+        PieDataSet dataset = new PieDataSet(entries, "");
         dataset.setSelectionShift(10);
         dataset.setValueTextSize(14);
         dataset.setColors(ColorTemplate.MATERIAL_COLORS);
