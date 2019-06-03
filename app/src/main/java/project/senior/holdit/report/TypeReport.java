@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -183,7 +184,9 @@ public class TypeReport extends Fragment implements View.OnClickListener {
         chart.setHoleRadius(30);
         chart.setTransparentCircleRadius(40);
         chart.animateY(1000);
-        chart.setDescription("");
+        Description desc = new Description();
+        desc.setText("");
+        chart.setDescription(desc);
         chart.setEntryLabelColor(getResources().getColor(R.color.colorBlack));
         dataset.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         dataset.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
@@ -191,6 +194,7 @@ public class TypeReport extends Fragment implements View.OnClickListener {
         dataset.setValueLinePart2Length(0.5f);
         chart.setUsePercentValues(true);
         dataset.setValueFormatter(new PercentFormatter());
+        chart.invalidate();
     }
 
     public interface OnFragmentInteractionListener {
