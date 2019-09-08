@@ -230,13 +230,13 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog = new ProgressDialog(Signup.this);
-                dialog.setMessage("Loading");
+                dialog.setMessage(getResources().getString(R.string.loading));
                 dialog.show();
                 //  if (checkCompleteInput()) {
                 String email = editTextEmail.getEditText().getText().toString().toLowerCase();
                 String password = editTextPassword.getEditText().getText().toString();
-                String firstname = editTextFirstname.getEditText().getText().toString();
-                String lastname = editTextLastname.getEditText().getText().toString();
+                String firstname = editTextFirstname.getEditText().getText().toString().toUpperCase();
+                String lastname = editTextLastname.getEditText().getText().toString().toUpperCase();
                 String tel = editTextTel.getEditText().getText().toString();
                 String citizen = editTextId.getEditText().getText().toString();
                 saveToFirebase(email, password, firstname, lastname, image_profile, citizen, tel);
@@ -460,7 +460,7 @@ public class Signup extends AppCompatActivity {
                 imgProfile.setImageBitmap(bitmap);
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(Signup.this, "Canceled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Signup.this, getResources().getString(R.string.cancel), Toast.LENGTH_SHORT).show();
         }
     }
 }

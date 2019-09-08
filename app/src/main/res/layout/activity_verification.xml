@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="การยืนยันตัวตน"
+            android:text="@string/tab_verify"
             android:textColor="@color/colorWhite"
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
@@ -41,7 +41,7 @@
                 android:id="@+id/textView_verification_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ยังไม่ยืนยันตัวตน"
+                android:text="กำลังตรวจสอบสถานะ"
                 android:textColor="@color/colorRed" />
         </LinearLayout>
 

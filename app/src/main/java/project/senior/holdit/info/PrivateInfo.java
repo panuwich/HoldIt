@@ -67,13 +67,14 @@ public class PrivateInfo extends AppCompatActivity implements View.OnClickListen
 
         User user = SharedPrefManager.getInstance(PrivateInfo.this).getUser();
 
+        if(!user.getUserImage().isEmpty()){
         String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/" + user.getUserImage();
         Picasso.get().load(url).into(circleImageView);
+        }
         textViewEmail.setText(user.getUserEmail());
         textViewFirstname.setText(user.getUserFirstname());
         textViewLastname.setText(user.getUserLastname());
         textViewTel.setText(user.getUserTel());
-
     }
 
     @Override
@@ -159,7 +160,7 @@ public class PrivateInfo extends AppCompatActivity implements View.OnClickListen
                 setDB();
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(PrivateInfo.this, "Canceled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PrivateInfo.this, getResources().getString(R.string.cancel), Toast.LENGTH_SHORT).show();
         }
     }
 

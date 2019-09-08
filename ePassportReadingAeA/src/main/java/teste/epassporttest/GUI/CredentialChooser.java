@@ -49,11 +49,11 @@ public class CredentialChooser extends AppCompatActivity {
 
         if (NFCadapter == null)
         {
-            // tratar erro
+            // ตราดar erro
         }
         else if (!NFCadapter.isEnabled())
         {
-            // tratar erro
+            // ตราดar erro
         }
         else
         {

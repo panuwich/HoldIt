@@ -307,7 +307,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         if (imgAr.size() == 0) {
             Toast.makeText(this, "กรุณาอัพโหลดรูปภาพ", Toast.LENGTH_SHORT).show();
         } else if (itemName.isEmpty() || price.isEmpty() || prerate.isEmpty() || tranrate.isEmpty()) {
-            Toast.makeText(this, "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.toast_input_not_completely), Toast.LENGTH_SHORT).show();
         } else if (SELECT_TYPE == 0) {
             Toast.makeText(this, "กรุณาเลือกประเภทสินค้า", Toast.LENGTH_SHORT).show();
         } else {
@@ -384,7 +384,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                 }
             }
         } else {
-            Toast.makeText(CreateItem.this, "Canceled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateItem.this, getResources().getString(R.string.cancel), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -392,7 +392,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(CreateItem.this);
         builder.setTitle("ต้องการลบรูปภาพ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 if (imgAr.size() != 0) {
                     if (imgAr.size() == 3) {
@@ -414,7 +414,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                 }
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.dismiss();
@@ -428,7 +428,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
             AlertDialog.Builder builder =
                     new AlertDialog.Builder(CreateItem.this);
             builder.setTitle("ต้องการลบรูปภาพ?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
 
                     if (imgAr.size() == 3) {
@@ -442,7 +442,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                     imgAr.remove(1);
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //dialog.dismiss();
@@ -457,13 +457,13 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
             AlertDialog.Builder builder =
                     new AlertDialog.Builder(CreateItem.this);
             builder.setTitle("ต้องการลบรูปภาพ?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     buttonPic3.setImageResource(R.drawable.ic_photo);
                     imgAr.remove(2);
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //dialog.dismiss();

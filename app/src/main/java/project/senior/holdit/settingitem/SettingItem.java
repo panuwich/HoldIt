@@ -271,7 +271,7 @@ public class SettingItem extends AppCompatActivity implements View.OnClickListen
         String tranrate = editTextItemTranRate.getText().toString().replace(",","");
         String itemDesc = editTextDesc.getText().toString().trim();
         if (itemName.isEmpty() || price.isEmpty() || prerate.isEmpty() || tranrate.isEmpty() ){
-            Toast.makeText(this, "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.toast_input_not_completely), Toast.LENGTH_SHORT).show();
         }else {
             int itemPrice = Integer.parseInt(price);
             int itemPreRate = Integer.parseInt(prerate);

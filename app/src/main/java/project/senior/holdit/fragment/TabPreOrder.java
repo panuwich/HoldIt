@@ -74,11 +74,12 @@ public class TabPreOrder extends Fragment {
                     public void onItemClick(View view, int position) {
                         // do whatever
                         Finding finding = listsearch.get(position);
-                        if (user.getUserStatusVerified() == 0) {
-                            Toast.makeText(getContext(), "กรุณายืนยันตัวตนก่อนใช้งานระบบนี้", Toast.LENGTH_SHORT).show();
-                        } else if (finding.getUserId().equals(SharedPrefManager.getInstance(getContext()).getUser().getUserId())) {
+                        if (finding.getUserId().equals(SharedPrefManager.getInstance(getContext()).getUser().getUserId())) {
                             showDialogdeleteFinding(finding);
-                        } else {
+                        }
+                        else if (user.getUserStatusVerified() == 0) {
+                            Toast.makeText(getContext(), "กรุณายืนยันตัวตนก่อนใช้งานระบบนี้", Toast.LENGTH_SHORT).show();
+                        } else  {
                             Intent intent = new Intent(getContext(), PreOrder.class);
                             intent.putExtra("finding", (Serializable) finding);
                             startActivity(intent);
@@ -154,7 +155,7 @@ public class TabPreOrder extends Fragment {
                 new AlertDialog.Builder(getContext());
         builder.setTitle("ยกเลิกรายการ");
         builder.setMessage("คุณต้องการยกเลิกประกาศหา " + finding.getName() + " ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 del(finding);
             }

@@ -35,10 +35,10 @@ public class Verification extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.body().getUserStatusVerified() == 1){
-                    textViewStatus.setText("ยืนยันตัวตนแล้ว");
+                    textViewStatus.setText(getResources().getString(R.string.status_verified));
                     textViewStatus.setTextColor(ContextCompat.getColor(Verification.this, R.color.colorGreen));
                 }else{
-                    textViewStatus.setText("ยังไม่ยืนยันตัวตน");
+                    textViewStatus.setText(getResources().getString(R.string.status_non_verified));
                     textViewStatus.setTextColor(ContextCompat.getColor(Verification.this, R.color.colorRedOp));
                 }
                 user.setUserStatusVerified(response.body().getUserStatusVerified());
@@ -56,7 +56,7 @@ public class Verification extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (user.getUserStatusVerified() == 1){
-                    Toast.makeText(Verification.this, "ท่านยืนยันตัวตนเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Verification.this, getResources().getString(R.string.toast_verified), Toast.LENGTH_SHORT).show();
                 }else{
                     startActivity(new Intent(Verification.this,VerificationPassport.class));
                 }
@@ -67,7 +67,7 @@ public class Verification extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (user.getUserStatusVerified() == 1){
-                    Toast.makeText(Verification.this, "ท่านยืนยันตัวตนเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Verification.this, getResources().getString(R.string.toast_verified), Toast.LENGTH_SHORT).show();
                 }else{
                     startActivity(new Intent(Verification.this,VerificationIDCard.class));
                 }

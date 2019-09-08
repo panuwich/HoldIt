@@ -5,16 +5,16 @@
         android:id="@+id/icon_info"
         android:icon="@drawable/ic_info"
         app:showAsAction="always"
-        android:title="Order Info" />
+        android:title="@string/menu_order_info" />
     <item
         android:id="@+id/icon_accept"
         android:icon="@drawable/ic_accept"
         app:showAsAction="always"
-        android:title="Accept Order" />
+        android:title="@string/menu_accept_order" />
 
     <item
         android:id="@+id/icon_delivery"
         android:icon="@drawable/delivery"
         app:showAsAction="always"
-        android:title="Enter Track" />
+        android:title="@string/menu_enter_track" />
 </menu>

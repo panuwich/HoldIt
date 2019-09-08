@@ -95,19 +95,19 @@ public class OrderAdapter extends BaseAdapter {
         });
         textViewOrderId.setText(""+resultList.get(i).getId());
         if(resultList.get(i).getStatus() == 0){
-            textViewOrderStatus.setText("รอผู้ซื้อตอบรับ");
+            textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_accept));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorOrange));
         }else if (resultList.get(i).getStatus() == 1){
-            textViewOrderStatus.setText("รอชำระเงิน");
+            textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_payment));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorYellow));
         }else if (resultList.get(i).getStatus() == 2){
-            textViewOrderStatus.setText("รอรับสินค้า");
+            textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_recieve));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
         }else if (resultList.get(i).getStatus() == 3){
-            textViewOrderStatus.setText("สำเร็จ");
+            textViewOrderStatus.setText(mContext.getString(R.string.status_success));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
         }else{
-            textViewOrderStatus.setText("ยกเลิก");
+            textViewOrderStatus.setText(mContext.getString(R.string.status_cancel));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorRed));
             textViewCount.setVisibility(View.GONE);
         }

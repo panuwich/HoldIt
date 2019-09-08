@@ -24,7 +24,7 @@ import javax.mail.internet.MimeMessage;
 public class GMailSender extends javax.mail.Authenticator {
     private String mailhost = "smtp.gmail.com";
     private String user = "panuwich123@gmail.com";
-    private String password = "11290435";
+    private String password = "TEWtew11290435";
     private Session session;
 
     static {
@@ -47,13 +47,14 @@ public class GMailSender extends javax.mail.Authenticator {
         session = Session.getDefaultInstance(props,  new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("panuwich123@gmail.com", "11290435");
+                return new PasswordAuthentication(user, password);
             }
         });
     }
 
 
-    public synchronized void sendMail(String recipient , String message ,String subject) throws Exception {
+    public synchronized boolean
+    sendMail(String recipient , String message ,String subject) throws Exception {
         try{
             Message messageObj = new MimeMessage(session);
             messageObj.setFrom(new InternetAddress(user));
@@ -62,10 +63,11 @@ public class GMailSender extends javax.mail.Authenticator {
             messageObj.setSubject(subject);
             messageObj.setText(message);
             Transport.send(messageObj);
-            System.out.println("Done");
+            return true;
 
         }catch(Exception e){
             Log.d("mylog", "Error in sending: " + e.toString());
+            return false;
         }
     }
 

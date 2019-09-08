@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
         disableShiftMode(bottomNavigationView);
         if (getIntent().getBooleanExtra("order", false)) {
             bottomNavigationView.setSelectedItemId(R.id.icon_my_order);
+            loadFragment(tabHome);
             loadFragment(new TabMyOrder());
         } else {
             loadFragment(tabHome);

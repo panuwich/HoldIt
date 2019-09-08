@@ -5,22 +5,27 @@
         android:id="@+id/icon_info"
         android:icon="@drawable/ic_info"
         app:showAsAction="always"
-        android:title="Order Info" />
+        android:title="@string/menu_order_info" />
     <item
         android:id="@+id/icon_money"
         android:icon="@drawable/ic_money"
         app:showAsAction="always"
-        android:title="Payment" />
+        android:title="@string/menu_payment" />
     <item
         android:id="@+id/icon_received"
         android:icon="@drawable/ic_get_product"
         app:showAsAction="always"
-        android:title="Received Item" />
+        android:title="@string/menu_recieved_order" />
     <item
         android:id="@+id/icon_cancel"
         android:icon="@drawable/ic_cancel"
         app:showAsAction="always"
-        android:title="Cancel Order" />
+        android:title="@string/menu_cancel_order" />
+    <item
+        android:id="@+id/icon_report_issue"
+        android:icon="@drawable/ic_report_issue"
+        app:showAsAction="always"
+        android:title="@string/menu_report_issue" />
 
 
 </menu>

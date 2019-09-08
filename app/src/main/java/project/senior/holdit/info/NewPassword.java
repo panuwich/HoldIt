@@ -98,7 +98,7 @@ public class NewPassword extends AppCompatActivity {
                     }
 
                 }else{
-                    Toast.makeText(NewPassword.this, "กรุณากรอกข้อมูลให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewPassword.this, getResources().getString(R.string.toast_invalid_input), Toast.LENGTH_SHORT).show();
                 }
             }
         });

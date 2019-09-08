@@ -3,13 +3,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="close">Close</string>
     <string name="open">Open</string>
     <string name="facebook_app_id">405777550159760</string>
     <string name="fb_login_protocol_scheme">fb405777550159760</string>
-    <string name="sign_up"><u>SIGN UP</u></string>
-    <string name="sign_up_condition"><u>อ่านเงื่อนไข</u></string>
     <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- TODO: VERIFY -->
     <string name="verification_passport">ขั้นตอนการยืนยันตัวตนด้วยบัตรประชาชน\n
 1.เปิดโหมด NFC ในโทรศัพท์\n
 2.กดปุ่มถ่ายรูป\n
@@ -23,5 +22,81 @@
 2.ถ่ายรูปตนเองคู่กับบัตรประชาชน โดยในภาพถ่ายต้องประกอบไปด้วยหน้าของเจ้าของบัตรประชน และบัตรประชาชนต้องเห็นเลขประจำตัวประชาชน ชื่อ-นามสกุล และ รูปในบัตรประชาชนอย่างชัดเจน\n
 3.เมื่อถ่ายเสร็จ กดปุ่มยืนยันเพื่อส่งข้อมูลไปยังระบบ\n
 4.รอการยืนยันจากทีมงาน</string>
+
+    <!-- TODO: MENU ON NAVIGATION BAR -->
+    <string name="homepage">หน้าแรก</string>
+    <string name="finding">ประกาศหา</string>
+    <string name="my_order">คำสั่งซื้อ</string>
+    <string name="account">บัญชี</string>
+
+    <!--TODO: MENU ON ORDER PAGE-->
+    <string name="menu_order_info">รายละเอียดคำสั่งซื้อ</string>
+    <string name="menu_payment">ชำระเงิน</string>
+    <string name="menu_recieved_order">ได้รับสินค้าเรียบร้อย</string>
+    <string name="menu_cancel_order">ยกเลิกคำสั่งซื้อ</string>
+    <string name="menu_report_issue">รายงานปัญหา</string>
+    <string name="menu_accept_order">ยอมรับคำสั่งซื้อ</string>
+    <string name="menu_enter_track">กรอกหมายเลขพัสดุ</string>
+
+    <!-- TODO: INFORMATION -->
+    <string name="email">อีเมล</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="confirm_password">ยืนยันรหัสผ่าน</string>
+    <string name="profile">โปรไฟล์</string>
+    <string name="firstname">ชื่อ</string>
+    <string name="lastname">นามสกุล</string>
+    <string name="citizen_id">เลขบัตรประชาชน</string>
+    <string name="tel_no">เบอร์โทร</string>
+    <string name="my_address">ที่อยู่จัดส่ง</string>
+
+    <!-- TODO: ACTION -->
+    <string name="dont_have_an_account">ยังไม่มีบัญชี?</string>
+    <string name="sign_up_under_line"><u>สมัครสมาชิก</u></string>
+    <string name="sign_up">สมัครสมาชิก</string>
+    <string name="sign_up_condition"><u>อ่านเงื่อนไข</u></string>
+    <string name="log_in">เข้าสู่ระบบ</string>
+    <string name="log_out">ออกจากระบบ</string>
+    <string name="forget_password">ลืมรหัสผ่าน</string>
+    <string name="send_email">ส่งข้อความไปยังอีเมล</string>
+    <string name="accepted_condition">ยอมรับเงื่อนไข</string>
+    <string name="search">ค้นหา</string>
+    <string name="add_shipping_address">เพิ่มที่อยู่จัดส่ง</string>
+
+    <!-- TODO: DIALOG -->
+    <string name="loading">กำลังโหลด</string>
+    <string name="close">ปิด</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="yes">ตกลง</string>
+
+    <!-- TODO: STATUS -->
+    <string name="status_wait_for_accept">รอผู้ซื้อตอบรับ</string>
+    <string name="status_wait_for_payment">รอชำระเงิน</string>
+    <string name="status_wait_for_recieve">รอรับสินค้า</string>
+    <string name="status_success">สำเร็จ</string>
+    <string name="status_cancel">ยกเลิก</string>
+
+    <string name="status_verified">ยืนยันตัวตนแล้ว</string>
+    <string name="status_non_verified">ยังไม่ยืนยันตัวตน</string>
+
+    <!-- TODO: RATING -->
+    <string name="rating_too_bad">แย่มาก</string>
+    <string name="rating_bad">ค่อนข้างแย่</string>
+    <string name="rating_fair">พอใช้</string>
+    <string name="rating_good">ดี</string>
+    <string name="rating_excellent">ดีมาก</string>
+
+    <!-- TODO: HEADER -->
+    <string name="tab_ordering">รายการคำสั่งซื้อ</string>
+    <string name="tab_order_detail">รายละเอียดคำสั่งซื้อ</string>
+    <string name="tab_account">บัญชีผู้ใช้</string>
+    <string name="tab_report">รายงานการรับซื้อ</string>
+    <string name="tab_setting">ตั้งค่ารายการรับซื้อ</string>
+    <string name="tab_verify">การยืนยันตัวตน</string>
+
+    <!-- TODO: TOAST & ERROR -->
+    <string name="toast_invalid_input">กรุณากรอกข้อมูลให้ถูกต้อง</string>
+    <string name="toast_input_not_completely">กรุณากรอกข้อมูลให้ครบถ้วน</string>
+    <string name="toast_verified">ท่านยืนยันตัวตนเรียบร้อยแล้ว</string>
+
 
 </resources>

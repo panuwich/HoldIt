@@ -127,7 +127,7 @@ public class TabHome extends Fragment {
         });
         if (eventList.size() == 0 ) {
             dialog = new ProgressDialog(getContext(),R.style.MyAlertDialogStyle);
-            dialog.setMessage("Loading");
+            dialog.setMessage(getResources().getString(R.string.loading));
             dialog.show();
             setEventList();
         } else{

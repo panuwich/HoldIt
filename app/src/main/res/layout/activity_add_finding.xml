@@ -325,7 +325,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/select_rec_without_stoke"
-                android:text="ANNOUCE"
+                android:text="ประกาศหา"
                 android:textColor="@color/colorWhite" />
         </android.support.v7.widget.CardView>
 

@@ -130,7 +130,7 @@ public class PreOrder extends AppCompatActivity {
                     int tran = Integer.parseInt(editTextTran.getText().toString().replace(",",""));
                    createItem(price,pre,tran);
                 }else{
-                    Toast.makeText(PreOrder.this, "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PreOrder.this, getResources().getString(R.string.toast_input_not_completely), Toast.LENGTH_SHORT).show();
                 }
             }
         });

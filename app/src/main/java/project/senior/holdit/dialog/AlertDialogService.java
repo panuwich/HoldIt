@@ -205,8 +205,8 @@ public class AlertDialogService {
     public void showDialogLogOut(final FragmentActivity activity) {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
-        builder.setTitle("Log out?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(context.getString(R.string.log_out) + "?");
+        builder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 SharedPrefManager.getInstance(context).clear();
                 context.startActivity(new Intent(context, Login.class));
@@ -214,7 +214,7 @@ public class AlertDialogService {
 
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.dismiss();
@@ -227,13 +227,13 @@ public class AlertDialogService {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(context);
         builder.setTitle(title);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 ((Activity) context).finish();
 
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.dismiss();
@@ -250,7 +250,7 @@ public class AlertDialogService {
         builder.setView(view);
         builder.show();
 
-        final TextView textViewRating = view.findViewById(R.id.textRating);
+        final TextView textViewRating = view.findViewById(R.id.texตราดing);
         final ImageView img[] = new ImageView[5];
         Button button = view.findViewById(R.id.btn_accept_rating);
         for (int i = 0; i < 5; i++) {
@@ -262,19 +262,19 @@ public class AlertDialogService {
                 public void onClick(View view) {
                     if (finalI == 0) {
                         rate = setStar(1, img);
-                        textViewRating.setText("Too Bad");
+                        textViewRating.setText(context.getString(R.string.rating_too_bad));
                     } else if (finalI == 1) {
                         rate = setStar(2, img);
-                        textViewRating.setText("Bad");
+                        textViewRating.setText(context.getString(R.string.rating_bad));
                     } else if (finalI == 2) {
                         rate = setStar(3, img);
-                        textViewRating.setText("Fair");
+                        textViewRating.setText(context.getString(R.string.rating_fair));
                     } else if (finalI == 3) {
                         rate = setStar(4, img);
-                        textViewRating.setText("Good");
+                        textViewRating.setText(context.getString(R.string.rating_good));
                     } else {
                         rate = setStar(5, img);
-                        textViewRating.setText("Excellent");
+                        textViewRating.setText(context.getString(R.string.rating_excellent));
                     }
                 }
             });
@@ -334,13 +334,13 @@ public class AlertDialogService {
                 if(edit == 3){
                     if (!editText.getText().toString().isEmpty()){
                         valid = true;
-                        user.setUserFirstname(editText.getText().toString());
-                        setFirebase(user,editText.getText().toString());
+                        user.setUserFirstname(editText.getText().toString().toUpperCase());
+                        setFirebase(user,editText.getText().toString().toUpperCase());
                     }
                 }else if(edit == 4){
                     if (!editText.getText().toString().isEmpty()){
                         valid = true;
-                        user.setUserLastname(editText.getText().toString());
+                        user.setUserLastname(editText.getText().toString().toUpperCase());
                     }
                 }else if(edit == 5){
                     valid = isTelValid(editText.getText().toString());
@@ -350,8 +350,8 @@ public class AlertDialogService {
                 }
                 SharedPrefManager.getInstance(context).saveUser(user);
                 if (valid){
-                    textView.setText(editText.getText().toString());
-                    Call<ResponseModel> call = apiService.updateuser(edit, user.getUserId(), editText.getText().toString() , "");
+                    textView.setText(editText.getText().toString().toUpperCase());
+                    Call<ResponseModel> call = apiService.updateuser(edit, user.getUserId(), editText.getText().toString().toUpperCase() , "");
                     call.enqueue(new Callback<ResponseModel>() {
                         @Override
                         public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -367,7 +367,7 @@ public class AlertDialogService {
                         }
                     });
                 }else{
-                    Toast.makeText(context, "กรุณากรอกข้อมูลให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.toast_invalid_input), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -380,7 +380,7 @@ public class AlertDialogService {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("userFirstname", text);
+                map.put("userFirstname", text.toUpperCase());
                 dataSnapshot.getRef().updateChildren(map);
             }
 

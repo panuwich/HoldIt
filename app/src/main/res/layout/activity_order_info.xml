@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="ORDER DETAIL"
+                android:text="@string/tab_order_detail"
                 android:textColor="@color/colorWhite"
                 android:textSize="20dp" />
         </android.support.v7.widget.Toolbar>

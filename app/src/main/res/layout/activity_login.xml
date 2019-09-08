@@ -19,15 +19,6 @@
         android:textSize="26dp"
         android:textColor="@color/colorWhite"
         android:text="HOLD IT"/>
-   <!-- <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        app:srcCompat="@drawable/test" /> !-->
-
 
     <LinearLayout
         android:layout_width="270dp"
@@ -49,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Email"
+            android:hint="@string/email"
             android:backgroundTint="@color/colorBlue"
             android:textCursorDrawable="@drawable/color_cursor" />
     </LinearLayout>
@@ -74,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="@color/colorBlue"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:textCursorDrawable="@drawable/color_cursor" />
     </LinearLayout>
@@ -85,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/select_rec_stroke"
-        android:text="LOG IN"
+        android:text="@string/log_in"
         android:textColor="@color/colorWhite" />
 
 
@@ -94,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="forget password"
+        android:text="@string/forget_password"
         android:textColor="@color/colorWhite" />
 
     <LinearLayout
@@ -105,14 +96,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dp"
-            android:text="DON'T HAVE AN ACCOUNT?"
+            android:text="@string/dont_have_an_account"
             android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/textView_login_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
+            android:text="@string/sign_up_under_line"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 

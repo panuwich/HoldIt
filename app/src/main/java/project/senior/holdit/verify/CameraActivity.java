@@ -100,7 +100,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     }
 
-    private void startTakePic() {
+    private void startตากePic() {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -271,7 +271,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         refreshCamera(); //call method for refress camera
 
          if(holder == cameraView.getHolder())  {
-             startTakePic();
+             startตากePic();
          }
 
     }

@@ -85,7 +85,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "กรุณาใส่ email และ password", Toast.LENGTH_SHORT).show();
                 }else {
                     dialog = new ProgressDialog(Login.this,R.style.MyAlertDialogStyle);
-                    dialog.setMessage("Loading");
+                    dialog.setMessage(getResources().getString(R.string.loading));
                     dialog.show();
                     login(email, password);
                 }

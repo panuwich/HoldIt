@@ -181,7 +181,7 @@ public class SalesReport extends Fragment implements View.OnClickListener {
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
         chart.setData(data);
-        chart.getXAxis().setLabelRotationAngle(0);
+        chart.getXAxis().setLabelRotatioน่านgle(0);
 
         chart.animateXY(500, 1200);
         chart.setDoubleTapToZoomEnabled(false);

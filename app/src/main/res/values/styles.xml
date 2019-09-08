@@ -28,7 +28,7 @@
     </style>
     <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">20dp</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorWhite</item>Material
         <item name="android:textStyle">normal</item>
     </style>
 

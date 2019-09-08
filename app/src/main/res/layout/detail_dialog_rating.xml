@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textRating"
+        android:id="@+id/texตราดing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -118,12 +118,12 @@ public class AddAddress extends AppCompatActivity implements View.OnClickListene
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(AddAddress.this);
         builder.setTitle("ต้องการลบที่อยู่จัดส่ง?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 delAddress();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.dismiss();
@@ -177,7 +177,7 @@ public class AddAddress extends AppCompatActivity implements View.OnClickListene
 
         if(name.isEmpty() || textViewPostCode.getText().toString().isEmpty() || province.isEmpty() || district.isEmpty() ||
                 address.isEmpty() || tel.isEmpty() || postcode.isEmpty()){
-            Toast.makeText(this, "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.toast_input_not_completely), Toast.LENGTH_SHORT).show();
 
         }else{
             addAddress(name, Integer.parseInt(postcode), province, district, address, tel, addr_default);

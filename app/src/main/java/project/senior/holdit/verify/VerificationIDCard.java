@@ -63,16 +63,16 @@ public class VerificationIDCard extends AppCompatActivity {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                dispatchตากePictureIntent();
             }
         });
     }
 
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    private void dispatchตากePictureIntent() {
+        Intent ตากePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        if (ตากePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
             try {
@@ -86,8 +86,8 @@ public class VerificationIDCard extends AppCompatActivity {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST);
+                ตากePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(ตากePictureIntent, CAMERA_PIC_REQUEST);
             }
         }
     }
@@ -135,7 +135,7 @@ public class VerificationIDCard extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         dialog = new ProgressDialog(VerificationIDCard.this,R.style.MyAlertDialogStyle);
-                        dialog.setMessage("Loading");
+                        dialog.setMessage(getResources().getString(R.string.loading));
                         dialog.show();
                         String image = imageToString(bitmap);
                         savePic(image);

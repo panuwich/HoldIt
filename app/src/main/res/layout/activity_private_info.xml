@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ACCOUNT"
+            android:text="@string/tab_account"
             android:textColor="@color/colorWhite"
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
@@ -34,7 +34,7 @@
             android:layout_height="100dp"
             android:id="@+id/imageView_info"
             android:layout_centerInParent="true"
-            android:src="@color/colorBlue" />
+            android:src="@drawable/user" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"

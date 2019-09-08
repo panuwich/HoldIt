@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ORDERING"
+            android:text="@string/tab_ordering"
             android:textColor="@color/colorWhite"
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>

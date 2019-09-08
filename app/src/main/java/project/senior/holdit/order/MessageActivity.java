@@ -345,19 +345,19 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setStatus(int status) {
         if (status == 0) {
-            textViewStatus.setText("รอผู้ซื้อตอบรับ"); //orange
+            textViewStatus.setText(getResources().getString(R.string.status_wait_for_accept)); //orange
             textViewStatus.setTextColor(getResources().getColor(R.color.colorOrange));
         } else if (status == 1) {
-            textViewStatus.setText("รอชำระเงิน"); // yellow
+            textViewStatus.setText(getResources().getString(R.string.status_wait_for_payment)); // yellow
             textViewStatus.setTextColor(getResources().getColor(R.color.colorYellow));
         } else if (status == 2) {
-            textViewStatus.setText("รอรับสินค้า"); // blue
+            textViewStatus.setText(getResources().getString(R.string.status_wait_for_recieve)); // blue
             textViewStatus.setTextColor(getResources().getColor(R.color.colorPrimary));
         } else if (status == 3) {
-            textViewStatus.setText("สำเร็จ");
+            textViewStatus.setText(getResources().getString(R.string.status_success));
             textViewStatus.setTextColor(getResources().getColor(R.color.colorGreen));
         } else {
-            textViewStatus.setText("ยกเลิก");
+            textViewStatus.setText(getResources().getString(R.string.status_cancel));
             textViewStatus.setTextColor(getResources().getColor(R.color.colorRed));
         }
     }
@@ -427,13 +427,13 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 new AlertDialog.Builder(MessageActivity.this);
         builder.setTitle("ยืนยันว่าได้รับสินค้าเรียบร้อยเเล้ว");
         builder.setMessage("ทำการโอนเงิน ฿" + order.getTotal() + " ไปยังผู้รับซื้อ");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialogRating();
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.dismiss();
@@ -516,7 +516,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 if (editText.getText().toString().isEmpty() || editText.getText().toString().length() < 10) {
-                    Toast.makeText(context, "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getResources().getString(R.string.toast_input_not_completely), Toast.LENGTH_SHORT).show();
                 } else {
                     final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
                     Call<ResponseModel> call = apiService.updatetrack(orderId, editText.getText().toString());

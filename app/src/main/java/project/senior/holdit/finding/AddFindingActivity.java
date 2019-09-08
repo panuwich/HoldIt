@@ -75,7 +75,7 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
         final TextView textViewCountLocation = findViewById(R.id.editText_annouce_count_location);
         textViewAmount = findViewById(R.id.textView_annouce_num);
 
-        Button buttonAnnouce = findViewById(R.id.button_annouce);
+        Button buttoน่านnouce = findViewById(R.id.button_annouce);
         buttonIn = findViewById(R.id.button_annouce_increase);
         buttonDe = findViewById(R.id.button_annouce_decrease);
 
@@ -133,7 +133,7 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
         RelativeLayout relativeLayout = findViewById(R.id.layout_image);
         relativeLayout.setOnClickListener(this);
         layoutAddr.setOnClickListener(this);
-        buttonAnnouce.setOnClickListener(this);
+        buttoน่านnouce.setOnClickListener(this);
         buttonIn.setOnClickListener(this);
         buttonDe.setOnClickListener(this);
     }
@@ -231,7 +231,7 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
                 textViewAddrPostcode.setText(addr.getPostcode());
             }
         } else {
-            Toast.makeText(AddFindingActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddFindingActivity.this, getResources().getString(R.string.cancel), Toast.LENGTH_SHORT).show();
         }
     }
 
