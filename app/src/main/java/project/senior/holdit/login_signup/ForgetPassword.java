@@ -56,7 +56,7 @@ public class ForgetPassword extends AppCompatActivity {
                     String enEmail = encryptEmail(email);
                     String url = " Follow the link below to set a new password: \n" +
                             "http://pilot.cp.su.ac.th/usr/u07580319/holdit/forgetpassword/formpassword.php?email="+enEmail+
-                            "\n If you don't wish to reset your password, disregard this email and no action will be ตากen.\n" +
+                            "\n If you don't wish to reset your password, disregard this email and no action will be taken.\n" +
                             "\n" +
                             "HOLDIT Team";
                     sender.sendMail(email,url,"Reset HOLDIT Password");

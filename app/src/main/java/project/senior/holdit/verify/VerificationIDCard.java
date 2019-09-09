@@ -63,16 +63,16 @@ public class VerificationIDCard extends AppCompatActivity {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchตากePictureIntent();
+                dispatchtakePictureIntent();
             }
         });
     }
 
 
-    private void dispatchตากePictureIntent() {
-        Intent ตากePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    private void dispatchtakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (ตากePictureIntent.resolveActivity(getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
             try {
@@ -86,8 +86,8 @@ public class VerificationIDCard extends AppCompatActivity {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
-                ตากePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(ตากePictureIntent, CAMERA_PIC_REQUEST);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST);
             }
         }
     }

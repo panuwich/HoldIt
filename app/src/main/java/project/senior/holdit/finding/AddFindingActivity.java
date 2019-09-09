@@ -75,7 +75,7 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
         final TextView textViewCountLocation = findViewById(R.id.editText_annouce_count_location);
         textViewAmount = findViewById(R.id.textView_annouce_num);
 
-        Button buttoน่านnouce = findViewById(R.id.button_annouce);
+        Button buttonAnounce = findViewById(R.id.button_annouce);
         buttonIn = findViewById(R.id.button_annouce_increase);
         buttonDe = findViewById(R.id.button_annouce_decrease);
 
@@ -133,7 +133,7 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
         RelativeLayout relativeLayout = findViewById(R.id.layout_image);
         relativeLayout.setOnClickListener(this);
         layoutAddr.setOnClickListener(this);
-        buttoน่านnouce.setOnClickListener(this);
+        buttonAnounce.setOnClickListener(this);
         buttonIn.setOnClickListener(this);
         buttonDe.setOnClickListener(this);
     }
