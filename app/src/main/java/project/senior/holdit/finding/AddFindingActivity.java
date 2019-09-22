@@ -32,6 +32,7 @@ import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.model.User;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
+import project.senior.holdit.util.ImageUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -196,13 +197,6 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
         startActivityForResult(Intent.createChooser(intent, "Select Image from Gallery"), req);
     }
 
-    public String bitmapToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imgByte = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgByte, Base64.DEFAULT);
-    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
@@ -219,7 +213,7 @@ public class AddFindingActivity extends AppCompatActivity implements View.OnClic
                     String picturePath = cursor.getString(columnIndex);
                     cursor.close();
                     imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    SELECT_IMAGE = bitmapToString(BitmapFactory.decodeFile(picturePath));
+                    SELECT_IMAGE = ImageUtil.bitmapToString(BitmapFactory.decodeFile(picturePath));
                 }
             }else if (requestCode == REQ_ADDR){
                 Address addr = (Address) data.getSerializableExtra("addr");

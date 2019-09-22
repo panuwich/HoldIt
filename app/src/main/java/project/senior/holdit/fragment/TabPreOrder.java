@@ -44,7 +44,9 @@ public class TabPreOrder extends Fragment {
     User user;
     LinearLayout layout;
     RecyclerView recyclerView;
+    RecyclerView recyclerViewMine;
     ArrayList<Finding> list = new ArrayList<>();
+    ArrayList<Finding> listMine = new ArrayList<>();
     ArrayList<Finding> listsearch = new ArrayList<>();
 
     @Override
@@ -65,9 +67,12 @@ public class TabPreOrder extends Fragment {
         editText = view.findViewById(R.id.edit_search);
         layout = view.findViewById(R.id.layout_noitem);
         recyclerView = view.findViewById(R.id.recycler_finding);
+        recyclerViewMine = view.findViewById(R.id.recycler_finding_mine);
         FloatingActionButton actionButton = view.findViewById(R.id.floating_finding);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManagerMine = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerViewMine.setLayoutManager(linearLayoutManagerMine);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -76,10 +81,9 @@ public class TabPreOrder extends Fragment {
                         Finding finding = listsearch.get(position);
                         if (finding.getUserId().equals(SharedPrefManager.getInstance(getContext()).getUser().getUserId())) {
                             showDialogdeleteFinding(finding);
-                        }
-                        else if (user.getUserStatusVerified() == 0) {
+                        } else if (user.getUserStatusVerified() == 0) {
                             Toast.makeText(getContext(), "กรุณายืนยันตัวตนก่อนใช้งานระบบนี้", Toast.LENGTH_SHORT).show();
-                        } else  {
+                        } else {
                             Intent intent = new Intent(getContext(), PreOrder.class);
                             intent.putExtra("finding", (Serializable) finding);
                             startActivity(intent);
@@ -88,11 +92,20 @@ public class TabPreOrder extends Fragment {
 
                     @Override
                     public void onLongItemClick(View view, int position) {
+                    }
+                })
+        );
+        recyclerViewMine.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), recyclerViewMine, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         // do whatever
-                        Finding finding = list.get(position);
-                        if (finding.getUserId().equals(SharedPrefManager.getInstance(getContext()).getUser().getUserId())) {
+                        Finding finding = listMine.get(position);
                             showDialogdeleteFinding(finding);
-                        }
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
                     }
                 })
         );
@@ -194,7 +207,16 @@ public class TabPreOrder extends Fragment {
         call.enqueue(new Callback<ArrayList<Finding>>() {
             @Override
             public void onResponse(Call<ArrayList<Finding>> call, Response<ArrayList<Finding>> response) {
-                list = response.body();
+                list.clear();
+                listMine.clear();
+                for (Finding finding : response.body()) {
+                    if (finding.getUserId().equals(SharedPrefManager.getInstance(getContext()).getUser().getUserId())) {
+                        listMine.add(finding);
+                    } else {
+                        list.add(finding);
+                    }
+                }
+                recyclerViewMine.setAdapter(new FindingAdapter(getContext(), listMine));
                 setItemSearch(editText.getText().toString());
             }
 

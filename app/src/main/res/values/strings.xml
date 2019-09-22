@@ -61,6 +61,7 @@
     <string name="accepted_condition">ยอมรับเงื่อนไข</string>
     <string name="search">ค้นหา</string>
     <string name="add_shipping_address">เพิ่มที่อยู่จัดส่ง</string>
+    <string name="create_order">ดำเนินการสั่งซื้อ</string>
 
     <!-- TODO: DIALOG -->
     <string name="loading">กำลังโหลด</string>

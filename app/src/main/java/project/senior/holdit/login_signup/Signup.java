@@ -41,6 +41,7 @@ import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
 import project.senior.holdit.sendemail.GMailSender;
+import project.senior.holdit.util.ImageUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -404,13 +405,6 @@ public class Signup extends AppCompatActivity {
                 });
     }
 
-    public String imageToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imgByte = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgByte, Base64.DEFAULT);
-    }
-
     private void CropImage(Uri uri) {
 
         try {
@@ -456,7 +450,7 @@ public class Signup extends AppCompatActivity {
             } else if (requestCode == CROP_IMAGE) {
                 Bundle bundle = data.getExtras();
                 Bitmap bitmap = bundle.getParcelable("data");
-                image_profile = imageToString(bitmap);
+                image_profile = ImageUtil.bitmapToString(bitmap);
                 imgProfile.setImageBitmap(bitmap);
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {

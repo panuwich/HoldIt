@@ -84,7 +84,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
             android:textColor="@color/colorRed"
-            android:text="Mine"/>
+            android:text="ของฉัน"/>
 
     </LinearLayout>
 

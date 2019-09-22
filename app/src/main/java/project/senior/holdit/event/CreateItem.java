@@ -37,6 +37,7 @@ import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.ResponseModel;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
+import project.senior.holdit.util.ImageUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -251,7 +252,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
         startActivityForResult(Intent.createChooser(intent, "Select Image from Gallery"), req);
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -268,27 +268,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
             case R.id.button_create:
                 saveItem();
                 break;
-        }
-    }
-
-
-    public String bitmapToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imgByte = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgByte, Base64.DEFAULT);
-    }
-
-    public Bitmap StringToBitMap(String image) {
-        try {
-            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
-
-            InputStream inputStream = new ByteArrayInputStream(encodeByte);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
         }
     }
 
@@ -322,7 +301,6 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
     public void createItem(String id, int eventId, String itemName, int itemPrice, int itemPreRate, int itemTranRate, String itemDesc
             , String img1, String img2, String img3 , int type) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-
 
         Call<ResponseModel> call = apiService.createitem(id, eventId, itemName, itemPrice, itemPreRate, itemTranRate
                 , itemDesc, img1, img2, img3, type);
@@ -367,20 +345,20 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                     String picturePath = getPath(data);
                     buttonPic1.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                     cardView2.setVisibility(View.VISIBLE);
-                    imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
+                    imgAr.add(ImageUtil.bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
             } else if (requestCode == SELECT_IMAGE2) {
                 if (data != null) {
                     String picturePath = getPath(data);
                     buttonPic2.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                     cardView3.setVisibility(View.VISIBLE);
-                    imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
+                    imgAr.add(ImageUtil.bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
             } else if (requestCode == SELECT_IMAGE3) {
                 if (data != null) {
                     String picturePath = getPath(data);
                     buttonPic3.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    imgAr.add(bitmapToString(BitmapFactory.decodeFile(picturePath)));
+                    imgAr.add(ImageUtil.bitmapToString(BitmapFactory.decodeFile(picturePath)));
                 }
             }
         } else {
@@ -396,13 +374,13 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
             public void onClick(DialogInterface dialog, int id) {
                 if (imgAr.size() != 0) {
                     if (imgAr.size() == 3) {
-                        Bitmap bitmap = StringToBitMap(imgAr.get(1));
+                        Bitmap bitmap = ImageUtil.stringToBitMap(imgAr.get(1));
                         buttonPic1.setImageBitmap(bitmap);
-                        bitmap = StringToBitMap(imgAr.get(2));
+                        bitmap = ImageUtil.stringToBitMap(imgAr.get(2));
                         buttonPic2.setImageBitmap(bitmap);
                         buttonPic3.setImageResource(R.drawable.ic_photo);
                     } else if (imgAr.size() == 2) {
-                        Bitmap bitmap = StringToBitMap(imgAr.get(1));
+                        Bitmap bitmap = ImageUtil.stringToBitMap(imgAr.get(1));
                         buttonPic1.setImageBitmap(bitmap);
                         buttonPic2.setImageResource(R.drawable.ic_photo);
                         cardView3.setVisibility(View.INVISIBLE);
@@ -432,7 +410,7 @@ public class CreateItem extends AppCompatActivity implements View.OnClickListene
                 public void onClick(DialogInterface dialog, int id) {
 
                     if (imgAr.size() == 3) {
-                        Bitmap bitmap = StringToBitMap(imgAr.get(2));
+                        Bitmap bitmap = ImageUtil.stringToBitMap(imgAr.get(2));
                         buttonPic2.setImageBitmap(bitmap);
                         buttonPic3.setImageResource(R.drawable.ic_photo);
                     } else if (imgAr.size() == 2) {

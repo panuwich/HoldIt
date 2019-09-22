@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ANNOUCE"
+            android:text="@string/finding"
             android:textColor="@color/colorWhite"
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
@@ -261,7 +261,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/select_rec_without_stoke"
-                android:text="CREATE ORDER"
+                android:text="@string/create_order"
                 android:textColor="@color/colorWhite" />
         </android.support.v7.widget.CardView>
 

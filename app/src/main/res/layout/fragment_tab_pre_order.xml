@@ -6,43 +6,52 @@
     tools:context=".fragment.TabPreOrder">
 
     <LinearLayout
-        android:id="@+id/layout_noitem"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/noitem" />
-
-    </LinearLayout>
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="8dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
             <EditText
                 android:id="@+id/edit_search"
                 android:layout_width="match_parent"
-                android:padding="6dp"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:hint="@string/search"
+                android:padding="6dp"
                 android:textCursorDrawable="@drawable/color_cursor" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_search_grey"/>
+                android:padding="6dp"
+                android:src="@drawable/ic_search_grey" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="รายการประกาศหาของฉัน" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_finding_mine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="รายการประกาศหา" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_finding"
             android:layout_width="match_parent"
@@ -50,6 +59,20 @@
             android:scrollbars="none">
 
         </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/layout_noitem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/noitem" />
+
+        </LinearLayout>
     </LinearLayout>
 
 
@@ -57,8 +80,8 @@
         android:id="@+id/floating_finding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:backgroundTint="@color/colorPurple"
         android:src="@drawable/annouce2" />

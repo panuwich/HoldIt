@@ -416,6 +416,9 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.icon_delivery:
                 dialogTrack(order.getId(),MessageActivity.this,getLayoutInflater());
                 break;
+            case R.id.icon_report_issue:
+                startActivity(new Intent(MessageActivity.this, ReportIssue.class));
+                break;
         }
         return true;
     }
@@ -511,7 +514,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         final EditText editText = view.findViewById(R.id.editText_accept);
         Button button = view.findViewById(R.id.button_accept);
         TextView textView = view.findViewById(R.id.textView_title_input);
-        textView.setText("กรุณาใส่รหัสไปรษณีย์");
+        textView.setText(getResources().getString(R.string.menu_enter_track));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
