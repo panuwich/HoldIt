@@ -2,8 +2,13 @@ package project.senior.holdit;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -11,6 +16,8 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +30,7 @@ import project.senior.holdit.fragment.TabAccount;
 import project.senior.holdit.fragment.TabHome;
 import project.senior.holdit.fragment.TabMyOrder;
 import project.senior.holdit.fragment.TabPreOrder;
+import project.senior.holdit.service.NotificationService;
 
 public class MainActivity extends AppCompatActivity implements TabHome.OnFragmentInteractionListener
         , TabPreOrder.OnFragmentInteractionListener, TabMyOrder.OnFragmentInteractionListener
@@ -45,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
         if (permissionCheck1 == PackageManager.PERMISSION_DENIED || permissionCheck2 == PackageManager.PERMISSION_DENIED
                 || permissionCheck3 == PackageManager.PERMISSION_DENIED)
             RequestRuntimePermission();
-
 
         bottomNavigationView = findViewById(R.id.navi_main);
         bottomNavigationView.setSelectedItemId(R.id.icon_home);
@@ -96,6 +103,12 @@ public class MainActivity extends AppCompatActivity implements TabHome.OnFragmen
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        startService(new Intent(this, NotificationService.class));
     }
 
     @Override
