@@ -45,6 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import project.senior.holdit.R;
 import project.senior.holdit.adapter.MessageAdapter;
 import project.senior.holdit.dialog.AlertDialogService;
+import project.senior.holdit.enumuration.OrderStatusEnum;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Chat;
 import project.senior.holdit.model.Data;
@@ -81,7 +82,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     NotiApi apiService;
     Order order;
     String track = null;
-    int status;
+    OrderStatusEnum status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,8 +97,8 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         apiService = ConnectServerNoti.getClient("https://fcm.googleapis.com/").create(NotiApi.class);
         Intent getIntent = getIntent();
         final String userId = getIntent.getStringExtra("userId");
-        status = getIntent.getIntExtra("status", -1);
         order = (Order)getIntent.getSerializableExtra("order");
+        status = order.getStatus();
         final int orderId = order.getId();
 
         imageButton = (ImageButton)findViewById(R.id.imageBtn_message_menu);
@@ -343,17 +344,17 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void setStatus(int status) {
-        if (status == 0) {
+    private void setStatus(OrderStatusEnum status) {
+        if (status.equals(OrderStatusEnum.WAIT_FOR_ACCEPT)) {
             textViewStatus.setText(getResources().getString(R.string.status_wait_for_accept)); //orange
             textViewStatus.setTextColor(getResources().getColor(R.color.colorOrange));
-        } else if (status == 1) {
+        } else if (status.equals(OrderStatusEnum.WAIT_FOR_PAYMENT)) {
             textViewStatus.setText(getResources().getString(R.string.status_wait_for_payment)); // yellow
             textViewStatus.setTextColor(getResources().getColor(R.color.colorYellow));
-        } else if (status == 2) {
-            textViewStatus.setText(getResources().getString(R.string.status_wait_for_recieve)); // blue
+        } else if (status.equals(OrderStatusEnum.WAIT_FOR_RECEIVE)) {
+            textViewStatus.setText(getResources().getString(R.string.status_wait_for_receive)); // blue
             textViewStatus.setTextColor(getResources().getColor(R.color.colorPrimary));
-        } else if (status == 3) {
+        } else if (status.equals(OrderStatusEnum.SUCCESS)) {
             textViewStatus.setText(getResources().getString(R.string.status_success));
             textViewStatus.setTextColor(getResources().getColor(R.color.colorGreen));
         } else {
@@ -417,7 +418,9 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 dialogTrack(order.getId(),MessageActivity.this,getLayoutInflater());
                 break;
             case R.id.icon_report_issue:
-                startActivity(new Intent(MessageActivity.this, ReportIssue.class));
+                Intent intent = new Intent(MessageActivity.this, ReportIssue.class);
+                intent.putExtra("orderId", order.getId());
+                startActivity(intent);
                 break;
         }
         return true;
@@ -457,14 +460,14 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
     private void setMenu(){
         Menu menuNav=navigationView.getMenu();
-        if(status == 0){
+        if(status.equals(OrderStatusEnum.WAIT_FOR_ACCEPT)){
             if(isBuyer()){
                 menuNav.findItem(R.id.icon_money).setEnabled(false);
                 menuNav.findItem(R.id.icon_received).setEnabled(false);
             }else{
                 menuNav.findItem(R.id.icon_delivery).setEnabled(false);
             }
-        }else if(status == 1){
+        }else if(status.equals(OrderStatusEnum.WAIT_FOR_PAYMENT)){
             if(isSeller()){
                 menuNav.findItem(R.id.icon_accept).setEnabled(false);
                 menuNav.findItem(R.id.icon_delivery).setEnabled(false);
@@ -472,7 +475,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 menuNav.findItem(R.id.icon_received).setEnabled(false);
             }
 
-        }else if(status == 2){
+        }else if(status.equals(OrderStatusEnum.WAIT_FOR_RECEIVE)){
             if(isBuyer()) {
                 menuNav.findItem(R.id.icon_money).setEnabled(false);
                 menuNav.findItem(R.id.icon_cancel).setEnabled(false);
@@ -489,7 +492,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 Toast.makeText(MessageActivity.this, response.body().getResponse(), Toast.LENGTH_SHORT).show();
-                status = 1;
+                status = OrderStatusEnum.WAIT_FOR_PAYMENT;
                 setStatus(status);
                 setMenu();
                 setDrawer();

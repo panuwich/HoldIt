@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import project.senior.holdit.enumuration.OrderStatusEnum;
+
 public class Order implements Serializable {
     @SerializedName("id")
     @Expose
@@ -40,7 +42,7 @@ public class Order implements Serializable {
 
     @SerializedName("status")
     @Expose
-    private int status;
+    private OrderStatusEnum status;
 
     @SerializedName("track")
     @Expose
@@ -50,7 +52,7 @@ public class Order implements Serializable {
     @Expose
     private String addr;
 
-    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, int status, String track, String addr) {
+    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, OrderStatusEnum status, String track, String addr) {
         this.id = id;
         this.sellerId = sellerId;
         this.buyerId = buyerId;
@@ -64,7 +66,7 @@ public class Order implements Serializable {
         this.addr = addr;
     }
 
-    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, int status) {
+    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, OrderStatusEnum status) {
         this.id = id;
         this.sellerId = sellerId;
         this.buyerId = buyerId;
@@ -76,7 +78,7 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, int status, String track) {
+    public Order(int id, String sellerId, String buyerId, int itemId, int addrId, int amount, int total, String date, OrderStatusEnum status, String track) {
         this.id = id;
         this.sellerId = sellerId;
         this.buyerId = buyerId;
@@ -133,7 +135,7 @@ public class Order implements Serializable {
         return date;
     }
 
-    public int getStatus() {
+    public OrderStatusEnum getStatus() {
         return status;
     }
 }

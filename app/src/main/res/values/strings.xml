@@ -72,7 +72,7 @@
     <!-- TODO: STATUS -->
     <string name="status_wait_for_accept">รอผู้ซื้อตอบรับ</string>
     <string name="status_wait_for_payment">รอชำระเงิน</string>
-    <string name="status_wait_for_recieve">รอรับสินค้า</string>
+    <string name="status_wait_for_receive">รอรับสินค้า</string>
     <string name="status_success">สำเร็จ</string>
     <string name="status_cancel">ยกเลิก</string>
 

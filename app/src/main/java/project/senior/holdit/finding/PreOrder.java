@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import project.senior.holdit.MainActivity;
 import project.senior.holdit.R;
+import project.senior.holdit.enumuration.OrderStatusEnum;
 import project.senior.holdit.model.Finding;
 import project.senior.holdit.model.Item;
 import project.senior.holdit.model.ResponseModel;
@@ -177,7 +178,7 @@ public class PreOrder extends AppCompatActivity {
     private void createOrder(final String seller,final String buyer
             , final Item item, int addr, final int num, final int total, String date) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total, date,1);
+        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total, date, OrderStatusEnum.WAIT_FOR_PAYMENT);
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {

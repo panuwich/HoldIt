@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.senior.holdit.R;
+import project.senior.holdit.enumuration.OrderStatusEnum;
 import project.senior.holdit.model.Chat;
 import project.senior.holdit.model.Order;
 import project.senior.holdit.model.User;
@@ -94,16 +95,16 @@ public class OrderAdapter extends BaseAdapter {
             }
         });
         textViewOrderId.setText(""+resultList.get(i).getId());
-        if(resultList.get(i).getStatus() == 0){
+        if(resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_ACCEPT)){
             textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_accept));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorOrange));
-        }else if (resultList.get(i).getStatus() == 1){
+        }else if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_PAYMENT)){
             textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_payment));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorYellow));
-        }else if (resultList.get(i).getStatus() == 2){
-            textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_recieve));
+        }else if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_RECEIVE)){
+            textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_receive));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-        }else if (resultList.get(i).getStatus() == 3){
+        }else if (resultList.get(i).getStatus().equals(OrderStatusEnum.SUCCESS)){
             textViewOrderStatus.setText(mContext.getString(R.string.status_success));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
         }else{
@@ -116,7 +117,7 @@ public class OrderAdapter extends BaseAdapter {
         return itemView;
     }
 
-    private void lastMsg(final String userid, final TextView lastMsg, String orderId, final TextView textViewCount, final int stauts){
+    private void lastMsg(final String userid, final TextView lastMsg, String orderId, final TextView textViewCount, final OrderStatusEnum status){
         lastMessage = "";
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(orderId);
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -137,7 +138,7 @@ public class OrderAdapter extends BaseAdapter {
                     }
                 }
                 lastMsg.setText(lastMessage);
-                if (countUnseen == 0 || stauts == -1 ){
+                if (countUnseen == 0 || status.equals(OrderStatusEnum.CANCEL) || status.equals(OrderStatusEnum.SUCCESS)){
                     textViewCount.setVisibility(View.GONE);
                 }else {
                     textViewCount.setText(""+countUnseen);

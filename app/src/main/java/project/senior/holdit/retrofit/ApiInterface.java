@@ -2,6 +2,7 @@ package project.senior.holdit.retrofit;
 
 import java.util.ArrayList;
 
+import project.senior.holdit.enumuration.OrderStatusEnum;
 import project.senior.holdit.model.Address;
 import project.senior.holdit.model.BarChartReport;
 import project.senior.holdit.model.Event;
@@ -145,7 +146,7 @@ public interface ApiInterface {
                                     @Field("amount") int amount,
                                     @Field("total") int total,
                                     @Field("date") String date,
-                                    @Field("status") int status);
+                                    @Field("status") OrderStatusEnum status);
 
     @FormUrlEncoded
     @POST("order/readorder.php")
@@ -198,6 +199,19 @@ public interface ApiInterface {
     Call<ArrayList<BarChartReport>> barchart(@Field("user_id") String user_id,
                                              @Field("date_start") String start,
                                              @Field("date_stop") String stop);
+
+    @FormUrlEncoded
+    @POST("report/issueImage.php")
+    Call<ResponseModel> issue_image(@Field("order_id") int order_id,
+                                             @Field("image_path") String image_path);
+
+
+    @FormUrlEncoded
+    @POST("report/issue.php")
+    Call<ResponseModel> issue(@Field("user_id") String user_id,
+                              @Field("order_id") int order_id,
+                              @Field("reason") String reason,
+                              @Field("description") String description);
 
 
     @FormUrlEncoded

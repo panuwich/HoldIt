@@ -19,11 +19,13 @@ import java.util.ArrayList;
 
 import project.senior.holdit.R;
 import project.senior.holdit.adapter.OrderAdapter;
+import project.senior.holdit.enumuration.OrderStatusEnum;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Order;
 import project.senior.holdit.model.Token;
 import project.senior.holdit.retrofit.ApiInterface;
 import project.senior.holdit.retrofit.ConnectServer;
+import project.senior.holdit.util.Validator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +50,7 @@ public class SubTabBuyer extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Order order = (Order) listView.getItemAtPosition(i);
-                if (order.getStatus() != -1 && order.getStatus()!= 3) {
+                if (!Validator.isOrderSuccessOrCancelOrApprovedIssue(order)) {
                     Intent intent = new Intent(getContext(), MessageActivity.class);
                     intent.putExtra("order", ((Serializable) order));
                     intent.putExtra("userId", (order.getSellerId()));

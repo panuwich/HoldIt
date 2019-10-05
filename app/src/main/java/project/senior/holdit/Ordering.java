@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import project.senior.holdit.enumuration.OrderStatusEnum;
 import project.senior.holdit.info.AddressSelect;
 import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Address;
@@ -118,7 +119,7 @@ public class Ordering extends AppCompatActivity {
     private void createOrder(final String seller, String buyer
             , final Item item, int addr, final int num, final int total, String date) {
         final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
-        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total, date,0);
+        Call<ResponseModel> call = apiService.createorder(seller, buyer, item.getItemId(), addr, num, total, date, OrderStatusEnum.WAIT_FOR_ACCEPT);
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
