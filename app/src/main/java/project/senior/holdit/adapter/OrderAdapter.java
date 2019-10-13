@@ -34,7 +34,7 @@ public class OrderAdapter extends BaseAdapter {
     private boolean buyer;
     String lastMessage;
 
-    public OrderAdapter(Context context, int mLayoutResId, ArrayList<Order> resultList,boolean buyer) {
+    public OrderAdapter(Context context, int mLayoutResId, ArrayList<Order> resultList, boolean buyer) {
         this.mContext = context;
         this.mLayoutResId = mLayoutResId;
         this.resultList = resultList;
@@ -48,7 +48,7 @@ public class OrderAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-       return resultList.get(i);
+        return resultList.get(i);
     }
 
     @Override
@@ -65,59 +65,69 @@ public class OrderAdapter extends BaseAdapter {
         TextView textViewOrderMsg = (TextView) itemView.findViewById(R.id.textView_chat_list_msg);
         TextView textViewOrderStatus = (TextView) itemView.findViewById(R.id.textView_chat_list_status);
         final CircleImageView circleImageView = (CircleImageView) itemView.findViewById(R.id.img_chat_list);
-        TextView textViewCount = (TextView)itemView.findViewById(R.id.textView_chat_list_count);
+        TextView textViewCount = (TextView) itemView.findViewById(R.id.textView_chat_list_count);
 
         DatabaseReference reference;
-        if(buyer){
+        if (buyer) {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(resultList.get(i).getSellerId());
-            lastMsg(resultList.get(i).getSellerId(),textViewOrderMsg
-                    ,""+resultList.get(i).getId(),textViewCount,resultList.get(i).getStatus());
-        }else{
+            lastMsg(resultList.get(i).getSellerId(), textViewOrderMsg
+                    , "" + resultList.get(i).getId(), textViewCount, resultList.get(i).getStatus());
+        } else {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(resultList.get(i).getBuyerId());
-            lastMsg(resultList.get(i).getBuyerId(),textViewOrderMsg
-                    ,""+resultList.get(i).getId(),textViewCount,resultList.get(i).getStatus());
+            lastMsg(resultList.get(i).getBuyerId(), textViewOrderMsg
+                    , "" + resultList.get(i).getId(), textViewCount, resultList.get(i).getStatus());
         }
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 textViewOrderName.setText(user.getUserFirstname());
-                if(user.getUserImage().isEmpty()){
+                if (user.getUserImage().isEmpty()) {
                     circleImageView.setImageResource(R.drawable.user);
-                }else{
-                    String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/"+user.getUserImage();
+                } else {
+                    String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/" + user.getUserImage();
                     Picasso.get().load(url).into(circleImageView);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-        textViewOrderId.setText(""+resultList.get(i).getId());
-        if(resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_ACCEPT)){
+        textViewOrderId.setText("" + resultList.get(i).getId());
+        if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_ACCEPT)) {
             textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_accept));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorOrange));
-        }else if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_PAYMENT)){
+        } else if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_PAYMENT)) {
             textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_payment));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorYellow));
-        }else if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_RECEIVE)){
+        } else if (resultList.get(i).getStatus().equals(OrderStatusEnum.WAIT_FOR_RECEIVE)) {
             textViewOrderStatus.setText(mContext.getString(R.string.status_wait_for_receive));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-        }else if (resultList.get(i).getStatus().equals(OrderStatusEnum.SUCCESS)){
+        } else if (resultList.get(i).getStatus().equals(OrderStatusEnum.SUCCESS)) {
             textViewOrderStatus.setText(mContext.getString(R.string.status_success));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
-        }else{
+        } else if (resultList.get(i).getStatus().equals(OrderStatusEnum.CANCEL)) {
             textViewOrderStatus.setText(mContext.getString(R.string.status_cancel));
             textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorRed));
             textViewCount.setVisibility(View.GONE);
+        } else if (resultList.get(i).getStatus().equals(OrderStatusEnum.REPORT_ISSUE)){
+            textViewOrderStatus.setText(mContext.getString(R.string.status_report_issue));
+            textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorOrange));
+        } else if (resultList.get(i).getStatus().equals(OrderStatusEnum.REJECT_ISSUE)) {
+            textViewOrderStatus.setText(mContext.getString(R.string.status_reject_issue));
+            textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+        } else {
+            textViewOrderStatus.setText(mContext.getString(R.string.status_approved_issue));
+            textViewOrderStatus.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
         }
 
 
         return itemView;
     }
 
-    private void lastMsg(final String userid, final TextView lastMsg, String orderId, final TextView textViewCount, final OrderStatusEnum status){
+    private void lastMsg(final String userid, final TextView lastMsg, String orderId, final TextView textViewCount, final OrderStatusEnum status) {
         lastMessage = "";
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(orderId);
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -125,23 +135,23 @@ public class OrderAdapter extends BaseAdapter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int countUnseen = 0;
-                for(DataSnapshot data : dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Chat chat = data.getValue(Chat.class);
-                    if(chat.getReceiver().equals(fuser.getUid()) &&  chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(fuser.getUid())){
+                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(fuser.getUid())) {
                         lastMessage = chat.getMessage();
-                        if(!chat.isIsseen() && chat.getReceiver().equals(fuser.getUid())){
+                        if (!chat.isIsseen() && chat.getReceiver().equals(fuser.getUid())) {
                             countUnseen++;
-                        }else{
+                        } else {
                             countUnseen = 0;
                         }
                     }
                 }
                 lastMsg.setText(lastMessage);
-                if (countUnseen == 0 || status.equals(OrderStatusEnum.CANCEL) || status.equals(OrderStatusEnum.SUCCESS)){
+                if (countUnseen == 0 || status.equals(OrderStatusEnum.CANCEL) || status.equals(OrderStatusEnum.SUCCESS)) {
                     textViewCount.setVisibility(View.GONE);
-                }else {
-                    textViewCount.setText(""+countUnseen);
+                } else {
+                    textViewCount.setText("" + countUnseen);
                     textViewCount.setVisibility(View.VISIBLE);
                 }
 

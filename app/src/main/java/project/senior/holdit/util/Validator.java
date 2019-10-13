@@ -7,6 +7,6 @@ public class Validator {
 
     public static boolean isOrderSuccessOrCancelOrApprovedIssue(Order order){
         return order.getStatus().equals(OrderStatusEnum.SUCCESS) || order.getStatus().equals(OrderStatusEnum.CANCEL)
-                || order.getStatus().equals(OrderStatusEnum.APPROVED_ISSUE);
+                || order.getStatus().equals(OrderStatusEnum.APPROVED_ISSUE) || order.getStatus().equals(OrderStatusEnum.REJECT_ISSUE);
     }
 }

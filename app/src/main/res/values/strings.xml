@@ -75,6 +75,9 @@
     <string name="status_wait_for_receive">รอรับสินค้า</string>
     <string name="status_success">สำเร็จ</string>
     <string name="status_cancel">ยกเลิก</string>
+    <string name="status_report_issue">รายงานปัญหา</string>
+    <string name="status_approved_issue">อนุมัติรายงานปัญหา</string>
+    <string name="status_reject_issue">ปฏิเสธรายงานปัญหา</string>
 
     <string name="status_verified">ยืนยันตัวตนแล้ว</string>
     <string name="status_non_verified">ยังไม่ยืนยันตัวตน</string>

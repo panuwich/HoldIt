@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,8 +82,9 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     boolean  notify = false;
     NotiApi apiService;
     Order order;
+    int orderId;
     String track = null;
-    OrderStatusEnum status;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,10 +98,8 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         drawerToggle.syncState();
         apiService = ConnectServerNoti.getClient("https://fcm.googleapis.com/").create(NotiApi.class);
         Intent getIntent = getIntent();
+        orderId = getIntent.getIntExtra("orderId",-1);
         final String userId = getIntent.getStringExtra("userId");
-        order = (Order)getIntent.getSerializableExtra("order");
-        status = order.getStatus();
-        final int orderId = order.getId();
 
         imageButton = (ImageButton)findViewById(R.id.imageBtn_message_menu);
         textViewOrderId = (TextView) findViewById(R.id.textView_message_orderid);
@@ -109,6 +109,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         final CircleImageView circleImageView = (CircleImageView) findViewById(R.id.circleImageViewUser_message);
         final TextView textViewUserId = (TextView) findViewById(R.id.textView_message_name);
         textViewOrderId.setText("" + orderId);
+        getOrder(orderId);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_message);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -141,12 +142,6 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         });
-        if(isSeller()){
-            navigationView.inflateMenu(R.menu.menu_command_seller);
-        }else{
-            navigationView.inflateMenu(R.menu.menu_command_buyer);
-        }
-        setMenu();
         seenMsg(userId);
     }
 
@@ -173,8 +168,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onStart() {
         super.onStart();
-        setMenu();
-        setStatus(status);
+        getOrder(orderId);
     }
 
     public void sendMessage() {
@@ -357,9 +351,18 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         } else if (status.equals(OrderStatusEnum.SUCCESS)) {
             textViewStatus.setText(getResources().getString(R.string.status_success));
             textViewStatus.setTextColor(getResources().getColor(R.color.colorGreen));
-        } else {
+        } else if (status.equals(OrderStatusEnum.CANCEL)){
             textViewStatus.setText(getResources().getString(R.string.status_cancel));
             textViewStatus.setTextColor(getResources().getColor(R.color.colorRed));
+        } else if (status.equals(OrderStatusEnum.REPORT_ISSUE)){
+            textViewStatus.setText(getResources().getString(R.string.status_report_issue));
+            textViewStatus.setTextColor(getResources().getColor(R.color.colorOrange));
+        }  else if (status.equals(OrderStatusEnum.REPORT_ISSUE)){
+            textViewStatus.setText(getResources().getString(R.string.status_reject_issue));
+            textViewStatus.setTextColor(getResources().getColor(R.color.colorRed));
+        } else {
+            textViewStatus.setText(getResources().getString(R.string.status_approved_issue));
+            textViewStatus.setTextColor(getResources().getColor(R.color.colorGreen));
         }
     }
 
@@ -390,7 +393,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     void startToInfo(){
         Intent intent = new Intent(MessageActivity.this,OrderInfo.class);
         Order order = (Order)getIntent().getSerializableExtra("order");
-        intent.putExtra("order",(Serializable) order);
+        intent.putExtra("order", order);
         startActivity(intent);
         setDrawer();
     }
@@ -460,14 +463,14 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
     private void setMenu(){
         Menu menuNav=navigationView.getMenu();
-        if(status.equals(OrderStatusEnum.WAIT_FOR_ACCEPT)){
+        if(order.getStatus().equals(OrderStatusEnum.WAIT_FOR_ACCEPT)){
             if(isBuyer()){
                 menuNav.findItem(R.id.icon_money).setEnabled(false);
                 menuNav.findItem(R.id.icon_received).setEnabled(false);
             }else{
                 menuNav.findItem(R.id.icon_delivery).setEnabled(false);
             }
-        }else if(status.equals(OrderStatusEnum.WAIT_FOR_PAYMENT)){
+        }else if(order.getStatus().equals(OrderStatusEnum.WAIT_FOR_PAYMENT)){
             if(isSeller()){
                 menuNav.findItem(R.id.icon_accept).setEnabled(false);
                 menuNav.findItem(R.id.icon_delivery).setEnabled(false);
@@ -475,7 +478,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 menuNav.findItem(R.id.icon_received).setEnabled(false);
             }
 
-        }else if(status.equals(OrderStatusEnum.WAIT_FOR_RECEIVE)){
+        }else if(order.getStatus().equals(OrderStatusEnum.WAIT_FOR_RECEIVE)){
             if(isBuyer()) {
                 menuNav.findItem(R.id.icon_money).setEnabled(false);
                 menuNav.findItem(R.id.icon_cancel).setEnabled(false);
@@ -492,14 +495,37 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 Toast.makeText(MessageActivity.this, response.body().getResponse(), Toast.LENGTH_SHORT).show();
-                status = OrderStatusEnum.WAIT_FOR_PAYMENT;
-                setStatus(status);
+                setStatus(OrderStatusEnum.WAIT_FOR_PAYMENT);
                 setMenu();
                 setDrawer();
             }
 
             @Override
             public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getOrder(int orderId) {
+        final ApiInterface apiService = ConnectServer.getClient().create(ApiInterface.class);
+        Call<Order> call = apiService.getorder(orderId);
+        call.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                order = response.body();
+                setStatus(order.getStatus());
+                navigationView.getMenu().clear();
+                if(isSeller()){
+                    navigationView.inflateMenu(R.menu.menu_command_seller);
+                }else{
+                    navigationView.inflateMenu(R.menu.menu_command_buyer);
+                }
+                setMenu();
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
 
             }
         });
