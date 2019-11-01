@@ -84,11 +84,12 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     Order order;
     int orderId;
     String track = null;
-
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        uid = SharedPrefManager.getInstance(MessageActivity.this).getUser().getUserId();
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
         navigationView = (NavigationView)findViewById(R.id.navi_message);
 
@@ -134,7 +135,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                     String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/" + user.getUserImage();
                     Picasso.get().load(url).into(circleImageView);
                 }
-                readMessages(fuser.getUid(), userId, user.getUserImage());
+                readMessages(uid, userId, user.getUserImage());
             }
 
             @Override
@@ -146,10 +147,10 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private boolean isSeller(){
-        return order.getSellerId().equals(fuser.getUid());
+        return order.getSellerId().equals(uid);
     }
     private boolean isBuyer(){
-        return order.getBuyerId().equals(fuser.getUid());
+        return order.getBuyerId().equals(uid);
     }
     public void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_message);
@@ -173,7 +174,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
     public void sendMessage() {
         notify = true;
-        String sender = fuser.getUid();
+        String sender = uid;
         final String receiver = getIntent().getStringExtra("userId");
         String message = editTextSend.getText().toString();
         if(!message.isEmpty()) {
@@ -210,7 +211,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         editTextSend.setText("");
 
         final String msg = message;
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -235,7 +236,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Token token = new Token((String)snapshot.getValue());
-                    Data data = new Data(fuser.getUid(),R.mipmap.ic_launcher,name +": "+message,"New Message"
+                    Data data = new Data(uid,R.mipmap.ic_launcher,name +": "+message,"New Message"
                             , getIntent().getStringExtra("userId"));
 
                     Sender sender = new Sender(data,token.getToken());
@@ -273,7 +274,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid)) {
+                    if (chat.getReceiver().equals(uid) && chat.getSender().equals(userid)) {
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("isseen", true);
                         snapshot.getRef().updateChildren(map);

@@ -144,7 +144,7 @@ public class Ordering extends AppCompatActivity {
 
     public void sendMessage(String seller, Item item, int total, int num, String orderId) {
 
-        String sender = fuser.getUid();
+        String sender = SharedPrefManager.getInstance(Ordering.this).getUser().getUserId();
         final String receiver = seller;
         String message = "สั่งซื้อ " + item.getItemName() + "\nจำนวน " + num + " ชิ้น\n" + "ราคารวม " + total + " บาท";
 

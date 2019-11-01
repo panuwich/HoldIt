@@ -343,7 +343,7 @@ public class Signup extends AppCompatActivity {
                                      public void run() {
                                          try {
                                              GMailSender sender = new GMailSender();
-                                             String enEmail = new ForgetPassword().encryptEmail(email);
+                                             String enEmail = encryptEmail(email);
                                              String url = " Follow the link below to verified email: \n" +
                                                      "http://pilot.cp.su.ac.th/usr/u07580319/holdit/verify/verifiedlogin.php?email=" + enEmail +
                                                      "\n" +
@@ -357,6 +357,7 @@ public class Signup extends AppCompatActivity {
                                      }
                                  });
                                  sender.start();
+
                                  Intent intent = new Intent(Signup.this, Login.class);
                                  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                  startActivity(intent);
@@ -403,6 +404,28 @@ public class Signup extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public String encryptEmail(String email){
+        String encrypt = "";
+        for (int i = 0 ; i < email.length() ; i++){
+            if(email.charAt(i)== '.'){
+                encrypt += 'D';
+            }else if(email.charAt(i) == '@'){
+                encrypt += 'A';
+            }else if(email.charAt(i)== '_'){
+                encrypt += 'U';
+            }else if(email.charAt(i) < 97 || email.charAt(i) >122){
+                encrypt += email.charAt(i);
+            }else{
+                if(email.charAt(i)+i+1 >122){
+                    encrypt += (char)(97+(email.charAt(i)+i)%122);
+                }else{
+                    encrypt += (char)(email.charAt(i)+i+1);
+                }
+            }
+        }
+        return  encrypt;
     }
 
     private void CropImage(Uri uri) {

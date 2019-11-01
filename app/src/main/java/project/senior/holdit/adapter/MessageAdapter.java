@@ -16,6 +16,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.senior.holdit.R;
+import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Chat;
 
  public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
@@ -28,10 +29,12 @@ import project.senior.holdit.model.Chat;
     private String imageUrl;
 
     FirebaseUser firebaseUser;
+    String uid;
     public MessageAdapter(Context mCtx, List<Chat> chatList, String imageUrl) {
         this.mCtx = mCtx;
         this.chatList = chatList;
         this.imageUrl = imageUrl;
+        uid = SharedPrefManager.getInstance(mCtx).getUser().getUserId();
     }
 
     @NonNull
@@ -90,7 +93,7 @@ import project.senior.holdit.model.Chat;
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (chatList.get(position).getSender().equals(firebaseUser.getUid())){
+        if (chatList.get(position).getSender().equals(uid)){
             return MSG_TYPE_RIGHT;
         }else{
             return MSG_TYPE_LEFT;

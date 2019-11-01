@@ -27,6 +27,7 @@ import java.util.HashMap;
 import project.senior.holdit.MainActivity;
 import project.senior.holdit.R;
 import project.senior.holdit.enumuration.OrderStatusEnum;
+import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Finding;
 import project.senior.holdit.model.Item;
 import project.senior.holdit.model.ResponseModel;
@@ -162,7 +163,7 @@ public class PreOrder extends AppCompatActivity {
                     Date d = new Date();
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String date = dateFormat.format(d);
-                    createOrder(fuser.getUid(),finding.getUserId(),res,finding.getAddrId()
+                    createOrder(SharedPrefManager.getInstance(PreOrder.this).getUser().getUserId(), finding.getUserId(),res,finding.getAddrId()
                     ,finding.getAmount(),total,date);
                 }
 

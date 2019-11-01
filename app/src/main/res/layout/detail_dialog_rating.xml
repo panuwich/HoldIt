@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="12dp"
-        android:text="Too Bad"
+        android:text="แย่มาก"
         android:textSize="18dp" />
 
     <LinearLayout

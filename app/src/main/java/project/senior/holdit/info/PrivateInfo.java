@@ -15,12 +15,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -67,9 +71,11 @@ public class PrivateInfo extends AppCompatActivity implements View.OnClickListen
 
         User user = SharedPrefManager.getInstance(PrivateInfo.this).getUser();
 
-        if(!user.getUserImage().isEmpty()){
-        String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/" + user.getUserImage();
-        Picasso.get().load(url).into(circleImageView);
+        if(!StringUtils.isEmpty(user.getUserImage())){
+            String url = "http://pilot.cp.su.ac.th/usr/u07580319/holdit/pics/profile/" + user.getUserImage();
+            Picasso.get().load(url).into(circleImageView);
+        }else{
+            circleImageView.setImageResource(R.drawable.user);
         }
         textViewEmail.setText(user.getUserEmail());
         textViewFirstname.setText(user.getUserFirstname());
@@ -172,16 +178,22 @@ public class PrivateInfo extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onResponse(Call<ResponseModel> call, final Response<ResponseModel> response) {
                 if (response.body().isStatus()) {
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId());
+                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId());
                     reference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 HashMap<String, Object> map = new HashMap<>();
+                                map.put("userId", user.getUserId());
+                                map.put("userFirstname", user.getUserFirstname());
                                 map.put("userImage", response.body().getResponse());
-                                snapshot.getRef().updateChildren(map);
-                                user.setUserImage(response.body().getResponse());
-                                SharedPrefManager.getInstance(PrivateInfo.this).saveUser(user);
+                                reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        user.setUserImage(response.body().getResponse());
+                                        SharedPrefManager.getInstance(PrivateInfo.this).saveUser(user);
+                                    }
+                                });
                             }
                         }
 

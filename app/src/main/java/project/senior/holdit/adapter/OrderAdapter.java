@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import project.senior.holdit.R;
 import project.senior.holdit.enumuration.OrderStatusEnum;
+import project.senior.holdit.manager.SharedPrefManager;
 import project.senior.holdit.model.Chat;
 import project.senior.holdit.model.Order;
 import project.senior.holdit.model.User;
@@ -33,12 +34,13 @@ public class OrderAdapter extends BaseAdapter {
     private ArrayList<Order> resultList;
     private boolean buyer;
     String lastMessage;
-
+    String uid;
     public OrderAdapter(Context context, int mLayoutResId, ArrayList<Order> resultList, boolean buyer) {
         this.mContext = context;
         this.mLayoutResId = mLayoutResId;
         this.resultList = resultList;
         this.buyer = buyer;
+        this.uid = SharedPrefManager.getInstance(mContext).getUser().getUserId();
     }
 
     @Override
@@ -137,10 +139,10 @@ public class OrderAdapter extends BaseAdapter {
                 int countUnseen = 0;
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Chat chat = data.getValue(Chat.class);
-                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(fuser.getUid())) {
+                    if (chat.getReceiver().equals(uid) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(uid)) {
                         lastMessage = chat.getMessage();
-                        if (!chat.isIsseen() && chat.getReceiver().equals(fuser.getUid())) {
+                        if (!chat.isIsseen() && chat.getReceiver().equals(uid)) {
                             countUnseen++;
                         } else {
                             countUnseen = 0;
